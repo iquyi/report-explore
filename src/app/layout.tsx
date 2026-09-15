@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { AntdRegistry } from "@ant-design/nextjs-registry";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -20,7 +21,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
-      <body>{children}</body>
+      <body>
+        {/* 在 App Router 根布局中收集 Ant Design 样式，避免首屏出现样式闪烁。 */}
+        <AntdRegistry>{children}</AntdRegistry>
+      </body>
     </html>
   );
 }
