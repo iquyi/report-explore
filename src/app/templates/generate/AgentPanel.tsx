@@ -9,7 +9,6 @@ import styles from "./page.module.scss";
 const modes = [
   { label: "生成", value: "generate", disabled: false },
   { label: "调整", value: "adjust", disabled: false },
-  { label: "验证", value: "validate", disabled: false },
 ] as const;
 
 /** 输入、模式与附件均保留在此组件内，隐藏卡片不会释放已选文件。 */
@@ -30,7 +29,7 @@ export default function AgentPanel() {
         {mode === "generate" && (
           <div className={styles.uploadGrid}>
             <UploadCard title="参考文件" accept=".md,.html" formatLabel="MD / HTML" file={reference} onChange={setReference} />
-            <UploadCard title="蓝图" accept=".json" formatLabel="JSON · 可选" file={blueprint} onChange={setBlueprint} />
+            {/* <UploadCard title="蓝图" accept=".json" formatLabel="JSON · 可选" file={blueprint} onChange={setBlueprint} /> */}
           </div>
         )}
         <div className={styles.composer}>

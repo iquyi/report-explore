@@ -4,13 +4,17 @@ import { revalidatePath } from "next/cache";
 import { getDatabase } from "@/lib/database";
 import type {
   ActionResult,
+  CreateTemplateInput,
+  TemplateDetail,
+  TemplateFieldUpdate,
   TemplateListItem,
   TemplateMutationInput,
   TemplateStatus,
   TemplateType,
+  TemplateVariable,
 } from "./types";
 
-const TEMPLATE_MANAGE_PATH = "/template-manage";
+const TEMPLATE_MANAGE_PATH = "/templates/manage";
 const UUID_PATTERN =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const BLUEPRINT_PATTERN = /\.(json|html)(\?.*)?$/i;
@@ -19,10 +23,31 @@ const TEMPLATE_TYPES = new Set<TemplateType>(["report", "design"]);
 type TemplateListRow = {
   id: string;
   name: string;
-  description: string;
+  description: string | null;
   type: TemplateType;
   status: number;
+  is_draft: number;
   created_at: string | Date;
+};
+
+type TemplateDetailRow = {
+  id: string;
+  name: string;
+  description: string | null;
+  variables: unknown;
+  explain_structure: string | null;
+  consistency_rules: string | null;
+  constraint_rules: string | null;
+  exception_boundary_rules: string | null;
+  verification_rules: string | null;
+  type: TemplateType;
+  status: number;
+  blueprint: string | null;
+  cover: string | null;
+  group_id: string | null;
+  is_draft: number;
+  created_at: string | Date;
+  updated_at: string | Date;
 };
 
 type IdRow = { id: string };
@@ -57,6 +82,48 @@ const isRecord = (value: unknown): value is Record<string, unknown> =>
 
 const isRequiredString = (value: unknown): value is string =>
   typeof value === "string" && value.trim().length > 0;
+
+/** JSONB 变量在服务端做完整结构校验，不能只依赖数据库的数组约束。 */
+const normalizeTemplateVariables = (
+  value: unknown,
+): ActionResult<TemplateVariable[]> => {
+  if (!Array.isArray(value)) return failure("variables 必须是数组。");
+
+  const variables: TemplateVariable[] = [];
+  const keys = new Set<string>();
+
+  for (const item of value) {
+    if (!isRecord(item) || !isRequiredString(item.key)) {
+      return failure("每个变量都必须包含非空 key。");
+    }
+    if (!isRequiredString(item.value)) {
+      return failure("每个变量都必须包含非空 value。");
+    }
+
+    const key = item.key.trim();
+    if (key.length > 20) return failure("变量名最多 20 字符。");
+    if (item.value.length > 500) return failure("变量定义最多 500 字符。");
+    if (keys.has(key)) return failure("变量名不能重复。");
+
+    keys.add(key);
+    variables.push({ key, value: item.value });
+  }
+
+  return { success: true, data: variables };
+};
+
+/** 草稿创建入口只接收名称，服务端仍独立执行必填和长度校验。 */
+const validateCreateTemplateInput = (
+  value: unknown,
+): ActionResult<CreateTemplateInput> => {
+  if (!isRecord(value)) return failure("模板数据格式不正确。");
+  if (!isRequiredString(value.name)) return failure("name 不能为空。");
+
+  const name = value.name.trim();
+  if (name.length > 50) return failure("name 不能超过 50 个字符。");
+
+  return { success: true, data: { name } };
+};
 
 /** 可选规则使用 NULL 表示未配置；空字符串也统一归一化为 NULL。 */
 const normalizeOptionalRule = (
@@ -94,9 +161,8 @@ const validateTemplateInput = (
     return failure("description 不能超过 500 个字符。");
   }
 
-  if (!isRequiredString(value.variables)) {
-    return failure("variables 不能为空。");
-  }
+  const variables = normalizeTemplateVariables(value.variables);
+  if (!variables.success) return variables;
 
   if (!isRequiredString(value.explainStructure)) {
     return failure("explainStructure 不能为空。");
@@ -164,7 +230,7 @@ const validateTemplateInput = (
     data: {
       name: value.name,
       description: value.description,
-      variables: value.variables,
+      variables: variables.data,
       explainStructure: value.explainStructure,
       consistencyRules: consistencyRules.data,
       constraintRules: constraintRules.data,
@@ -197,7 +263,7 @@ export async function queryTemplates(): Promise<
   try {
     const sql = getDatabase();
     const rows = (await sql`
-      SELECT id, name, description, type, status, created_at
+      SELECT id, name, description, type, status, is_draft, created_at
       FROM templates
       ORDER BY created_at DESC, id DESC
     `) as TemplateListRow[];
@@ -210,6 +276,7 @@ export async function queryTemplates(): Promise<
         description: row.description,
         type: row.type,
         status: Number(row.status) as TemplateStatus,
+        isDraft: Number(row.is_draft) as TemplateListItem["isDraft"],
         createdAt: new Date(row.created_at).toISOString(),
       })),
     };
@@ -219,18 +286,18 @@ export async function queryTemplates(): Promise<
   }
 }
 
-/** 创建 Action 已完整实现，当前页面暂不提供调用入口。 */
-export async function createTemplate(
-  input: TemplateMutationInput,
-): Promise<ActionResult<{ id: string }>> {
-  const validation = validateTemplateInput(input);
-  if (!validation.success) return validation;
+/** 按模板 ID 返回编辑页所需的完整数据；无效或不存在的 ID 统一返回 null。 */
+export async function queryTemplate(
+  id: string,
+): Promise<ActionResult<TemplateDetail | null>> {
+  const idValidation = validateId(id);
+  if (!idValidation.success) return { success: true, data: null };
 
   try {
     const sql = getDatabase();
-    const value = validation.data;
     const rows = (await sql`
-      INSERT INTO templates (
+      SELECT
+        id,
         name,
         description,
         variables,
@@ -243,23 +310,161 @@ export async function createTemplate(
         status,
         blueprint,
         cover,
-        group_id
-      )
-      VALUES (
-        ${value.name},
-        ${value.description},
-        ${value.variables},
-        ${value.explainStructure},
-        ${value.consistencyRules},
-        ${value.constraintRules},
-        ${value.exceptionBoundaryRules},
-        ${value.verificationRules},
-        ${value.type},
-        ${value.status},
-        ${value.blueprint},
-        ${value.cover},
-        ${value.groupId}
-      )
+        group_id,
+        is_draft,
+        created_at,
+        updated_at
+      FROM templates
+      WHERE id = ${idValidation.data}
+      LIMIT 1
+    `) as TemplateDetailRow[];
+
+    const row = rows[0];
+    if (!row) return { success: true, data: null };
+
+    const variables = normalizeTemplateVariables(row.variables);
+    if (!variables.success) throw new Error(variables.error);
+
+    return {
+      success: true,
+      data: {
+        id: row.id,
+        name: row.name,
+        description: row.description,
+        variables: variables.data,
+        explainStructure: row.explain_structure,
+        consistencyRules: row.consistency_rules,
+        constraintRules: row.constraint_rules,
+        exceptionBoundaryRules: row.exception_boundary_rules,
+        verificationRules: row.verification_rules,
+        type: row.type,
+        status: Number(row.status) as TemplateStatus,
+        blueprint: row.blueprint,
+        cover: row.cover,
+        groupId: row.group_id,
+        isDraft: Number(row.is_draft) as TemplateDetail["isDraft"],
+        createdAt: new Date(row.created_at).toISOString(),
+        updatedAt: new Date(row.updated_at).toISOString(),
+      },
+    };
+  } catch (error) {
+    console.error("Failed to query template.", error);
+    return failure("模板详情加载失败，请稍后重试。");
+  }
+}
+
+/** 可选文本使用 NULL 表示空值，名称则保持必填并在保存前去除首尾空格。 */
+const normalizeTemplateFieldUpdate = (
+  value: unknown,
+): ActionResult<
+  | { field: "variables"; value: TemplateVariable[] }
+  | { field: Exclude<TemplateFieldUpdate["field"], "variables">; value: string | null }
+> => {
+  if (!isRecord(value) || typeof value.field !== "string") {
+    return failure("模板字段数据格式不正确。");
+  }
+
+  if (value.field === "variables") {
+    const variables = normalizeTemplateVariables(value.value);
+    return variables.success
+      ? { success: true, data: { field: "variables", value: variables.data } }
+      : variables;
+  }
+
+  if (typeof value.value !== "string") return failure("模板字段必须是字符串。");
+
+  const limits = {
+    name: 50,
+    description: 500,
+    explainStructure: 10000,
+    consistencyRules: 1000,
+    constraintRules: 1000,
+    exceptionBoundaryRules: 1000,
+    verificationRules: 1000,
+  } as const;
+
+  if (!(value.field in limits)) return failure("不支持修改该模板字段。");
+
+  const field = value.field as keyof typeof limits;
+  const text = field === "name" ? value.value.trim() : value.value;
+  if (field === "name" && !text) return failure("name 不能为空。");
+  if (text.length > limits[field]) {
+    return failure(`${field} 不能超过 ${limits[field]} 个字符。`);
+  }
+
+  return {
+    success: true,
+    data: { field, value: field === "name" || text !== "" ? text : null },
+  };
+};
+
+/** 单字段自动保存只执行白名单内的静态 SQL，避免动态列名进入查询。 */
+export async function updateTemplateField(
+  id: string,
+  update: TemplateFieldUpdate,
+): Promise<ActionResult<{ id: string }>> {
+  const idValidation = validateId(id);
+  if (!idValidation.success) return idValidation;
+
+  const updateValidation = normalizeTemplateFieldUpdate(update);
+  if (!updateValidation.success) return updateValidation;
+
+  try {
+    const sql = getDatabase();
+    const value = updateValidation.data;
+    let rows: IdRow[];
+
+    switch (value.field) {
+      case "name":
+        rows = (await sql`UPDATE templates SET name = ${value.value} WHERE id = ${idValidation.data} RETURNING id`) as unknown as IdRow[];
+        break;
+      case "description":
+        rows = (await sql`UPDATE templates SET description = ${value.value} WHERE id = ${idValidation.data} RETURNING id`) as unknown as IdRow[];
+        break;
+      case "variables":
+        rows = (await sql`UPDATE templates SET variables = ${JSON.stringify(value.value)}::jsonb WHERE id = ${idValidation.data} RETURNING id`) as unknown as IdRow[];
+        break;
+      case "explainStructure":
+        rows = (await sql`UPDATE templates SET explain_structure = ${value.value} WHERE id = ${idValidation.data} RETURNING id`) as unknown as IdRow[];
+        break;
+      case "consistencyRules":
+        rows = (await sql`UPDATE templates SET consistency_rules = ${value.value} WHERE id = ${idValidation.data} RETURNING id`) as unknown as IdRow[];
+        break;
+      case "constraintRules":
+        rows = (await sql`UPDATE templates SET constraint_rules = ${value.value} WHERE id = ${idValidation.data} RETURNING id`) as unknown as IdRow[];
+        break;
+      case "exceptionBoundaryRules":
+        rows = (await sql`UPDATE templates SET exception_boundary_rules = ${value.value} WHERE id = ${idValidation.data} RETURNING id`) as unknown as IdRow[];
+        break;
+      case "verificationRules":
+        rows = (await sql`UPDATE templates SET verification_rules = ${value.value} WHERE id = ${idValidation.data} RETURNING id`) as unknown as IdRow[];
+        break;
+    }
+
+    if (rows.length === 0) return failure("模板不存在或已被删除。");
+
+    revalidatePath(TEMPLATE_MANAGE_PATH);
+    revalidatePath(`/templates/generate/${idValidation.data}`);
+    return { success: true, data: { id: String(rows[0].id) } };
+  } catch (error) {
+    console.error("Failed to update template field.", error);
+    return failure("模板字段保存失败，请稍后重试。");
+  }
+}
+
+/** 先创建最小草稿记录，完整内容由后续编辑流程逐步补充。 */
+export async function createTemplate(
+  input: CreateTemplateInput,
+): Promise<ActionResult<{ id: string }>> {
+  const validation = validateCreateTemplateInput(input);
+  if (!validation.success) return validation;
+
+  try {
+    const sql = getDatabase();
+    const value = validation.data;
+    const rows = (await sql`
+      INSERT INTO templates (name, type)
+      VALUES (${value.name}, 'report')
       RETURNING id
     `) as unknown as IdRow[];
 
@@ -290,7 +495,7 @@ export async function updateTemplate(
       SET
         name = ${value.name},
         description = ${value.description},
-        variables = ${value.variables},
+        variables = ${JSON.stringify(value.variables)}::jsonb,
         explain_structure = ${value.explainStructure},
         consistency_rules = ${value.consistencyRules},
         constraint_rules = ${value.constraintRules},

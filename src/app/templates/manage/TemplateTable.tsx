@@ -1,11 +1,15 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   Alert,
   App as AntdApp,
   Button,
   ConfigProvider,
+  Form,
+  Input,
+  Modal,
   Popconfirm,
   Space,
   Switch,
@@ -15,8 +19,12 @@ import {
 } from "antd";
 import type { TableProps } from "antd";
 import zhCN from "antd/locale/zh_CN";
-import { deleteTemplate, setTemplateStatus } from "../actions";
-import type { TemplateListItem, TemplateStatus } from "../types";
+import { createTemplate, deleteTemplate, setTemplateStatus } from "../actions";
+import type {
+  CreateTemplateInput,
+  TemplateListItem,
+  TemplateStatus,
+} from "../types";
 import styles from "./page.module.scss";
 
 type TemplateTableProps = {
@@ -60,12 +68,37 @@ const TemplateTableContent = ({
   loadError,
 }: TemplateTableProps) => {
   const { message } = AntdApp.useApp();
+  const router = useRouter();
+  const [createForm] = Form.useForm<CreateTemplateInput>();
   const [templates, setTemplates] = useState(initialTemplates);
   const [pendingOperation, setPendingOperation] =
     useState<PendingOperation | null>(null);
   const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null);
+  const [createOpen, setCreateOpen] = useState(false);
+  const [creating, setCreating] = useState(false);
 
-  const hasPendingOperation = pendingOperation !== null;
+  const hasPendingOperation = pendingOperation !== null || creating;
+
+  /** 创建成功后直接进入该草稿的动态编辑页，失败则保留用户输入以便重试。 */
+  const handleCreate = async (input: CreateTemplateInput) => {
+    if (creating || pendingOperation) return;
+
+    setCreating(true);
+    try {
+      const result = await createTemplate(input);
+      if (!result.success) {
+        void message.error(result.error);
+        return;
+      }
+
+      router.push(`/templates/generate/${result.data.id}`);
+    } catch (error) {
+      console.error("Failed to create template draft.", error);
+      void message.error("模板创建失败，请稍后重试。");
+    } finally {
+      setCreating(false);
+    }
+  };
 
   /** 成功后同步本地行数据；服务端 Action 同时刷新路由缓存。 */
   const handleStatusChange = async (
@@ -125,37 +158,44 @@ const TemplateTableContent = ({
 
   const columns: TableProps<TemplateListItem>["columns"] = [
     {
-      title: "name",
+      title: "模板名称",
       dataIndex: "name",
       key: "name",
       width: 180,
       ellipsis: true,
     },
     {
-      title: "description",
+      title: "用途描述",
       dataIndex: "description",
       key: "description",
       width: 360,
       ellipsis: { showTitle: false },
-      render: (description: string) => (
-        <Tooltip title={description}>
-          <span className={styles.descriptionCell}>{description}</span>
-        </Tooltip>
-      ),
+      render: (description: string | null) => {
+        const text = description?.trim() || "-";
+
+        return (
+          <Tooltip title={description || undefined}>
+            <span className={styles.descriptionCell}>{text}</span>
+          </Tooltip>
+        );
+      },
     },
     {
-      title: "type",
+      title: "类型",
       dataIndex: "type",
       key: "type",
       width: 110,
       render: (type: TemplateListItem["type"]) => <Tag>{type}</Tag>,
     },
     {
-      title: "status",
+      title: "状态",
       dataIndex: "status",
       key: "status",
       width: 120,
       render: (_status, template) => {
+        // 草稿尚未进入启停流程，状态列仅展示草稿标识。
+        if (template.isDraft === 1) return "草稿";
+
         const loading =
           pendingOperation?.id === template.id &&
           pendingOperation.kind === "status";
@@ -175,7 +215,7 @@ const TemplateTableContent = ({
       },
     },
     {
-      title: "created_at",
+      title: "创建时间",
       dataIndex: "createdAt",
       key: "createdAt",
       width: 180,
@@ -193,13 +233,13 @@ const TemplateTableContent = ({
 
         return (
           <Space size="small">
-            <Tooltip title="暂未开放">
-              <span>
-                <Button type="link">
-                  修改
-                </Button>
-              </span>
-            </Tooltip>
+            <Button
+              type="link"
+              href={`/templates/generate/${template.id}`}
+              disabled={hasPendingOperation}
+            >
+              修改
+            </Button>
 
             <Popconfirm
               open={pendingDeleteId === template.id}
@@ -245,7 +285,14 @@ const TemplateTableContent = ({
             <h1 id="template-manage-title">模板管理</h1>
           </div>
 
-          <Button type="primary" href="/generate">
+          <Button
+            type="primary"
+            disabled={hasPendingOperation}
+            onClick={() => {
+              createForm.resetFields();
+              setCreateOpen(true);
+            }}
+          >
             创建
           </Button>
         </header>
@@ -269,6 +316,48 @@ const TemplateTableContent = ({
           scroll={{ x: 1100 }}
           locale={{ emptyText: loadError ? "暂时无法加载模板" : "暂无模板数据" }}
         />
+
+        {/* 弹框只收集创建草稿必需的名称，其他内容进入编辑页后再填写。 */}
+        <Modal
+          open={createOpen}
+          title="创建模板"
+          okText="提交"
+          cancelText="取消"
+          confirmLoading={creating}
+          cancelButtonProps={{ disabled: creating }}
+          closable={!creating}
+          mask={{ closable: !creating }}
+          keyboard={!creating}
+          onOk={() => createForm.submit()}
+          onCancel={() => {
+            if (!creating) setCreateOpen(false);
+          }}
+          afterClose={() => createForm.resetFields()}
+        >
+          <Form<CreateTemplateInput>
+            form={createForm}
+            layout="vertical"
+            requiredMark={false}
+            onFinish={(input) => void handleCreate(input)}
+          >
+            <Form.Item
+              name="name"
+              label="模板名称"
+              rules={[
+                { required: true, whitespace: true, message: "请输入模板名称" },
+                { max: 50, message: "模板名称不能超过 50 个字符" },
+              ]}
+            >
+              <Input
+                autoFocus
+                maxLength={50}
+                showCount
+                placeholder="请输入模板名称"
+                disabled={creating}
+              />
+            </Form.Item>
+          </Form>
+        </Modal>
       </section>
     </main>
   );

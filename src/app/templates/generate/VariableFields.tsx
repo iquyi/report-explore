@@ -15,13 +15,43 @@ import {
   Tooltip,
 } from "@heroui/react";
 import { Icon } from "@iconify/react";
+import { updateTemplateField } from "../actions";
+import type { TemplateVariable } from "../types";
+import useAutoSaveField from "./useAutoSaveField";
 import styles from "./page.module.scss";
 
 type Variable = { id: string; name: string; definition: string };
 
+type VariableFieldsProps = {
+  templateId: string;
+  initialValue: TemplateVariable[];
+};
+
+/** 数据库存储结构不包含 UI 临时 ID，进入编辑器时再生成稳定的页面内标识。 */
+const toEditorVariables = (variables: TemplateVariable[]): Variable[] =>
+  variables.map((variable, index) => ({
+    id: `initial-variable-${index}`,
+    name: variable.key,
+    definition: variable.value,
+  }));
+
+const toTemplateVariables = (variables: Variable[]): TemplateVariable[] =>
+  variables.map((variable) => ({
+    key: variable.name,
+    value: variable.definition,
+  }));
+
+const serializeVariables = (variables: TemplateVariable[]) =>
+  JSON.stringify(variables);
+
 /** 变量列表只保存已提交内容，弹窗草稿独立维护，取消不会修改列表。 */
-export default function VariableFields() {
-  const [variables, setVariables] = useState<Variable[]>([]);
+export default function VariableFields({
+  templateId,
+  initialValue,
+}: VariableFieldsProps) {
+  const [variables, setVariables] = useState<Variable[]>(() =>
+    toEditorVariables(initialValue),
+  );
   const [open, setOpen] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [name, setName] = useState("");
@@ -29,6 +59,12 @@ export default function VariableFields() {
   const [submitted, setSubmitted] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
   const addRef = useRef<HTMLButtonElement>(null);
+  const { saveIfChanged } = useAutoSaveField({
+    initialValue,
+    serialize: serializeVariables,
+    save: (value) =>
+      updateTemplateField(templateId, { field: "variables", value }),
+  });
 
   // 编辑时排除当前记录；名称去除首尾空格后按大小写精确匹配。
   const nameError = !name.trim()
@@ -69,16 +105,18 @@ export default function VariableFields() {
       name: name.trim(),
       definition,
     };
-    setVariables((items) =>
-      editingId
-        ? items.map((item) => (item.id === editingId ? variable : item))
-        : [...items, variable],
-    );
+    const nextVariables = editingId
+      ? variables.map((item) => (item.id === editingId ? variable : item))
+      : [...variables, variable];
+    setVariables(nextVariables);
+    saveIfChanged(toTemplateVariables(nextVariables));
     close();
   }
 
   function remove() {
-    setVariables((items) => items.filter((item) => item.id !== editingId));
+    const nextVariables = variables.filter((item) => item.id !== editingId);
+    setVariables(nextVariables);
+    saveIfChanged(toTemplateVariables(nextVariables));
     close();
     // 被删除的标签无法恢复焦点，改为聚焦始终存在的添加按钮。
     requestAnimationFrame(() => addRef.current?.focus());
@@ -87,23 +125,24 @@ export default function VariableFields() {
   return (
     <section className={styles.variableField} aria-labelledby="variables-label">
       <div className={styles.ruleHeading}>
-        <span className={styles.fieldNumber} aria-hidden="true">
-          01
-        </span>
         <h2 id="variables-label" className={styles.ruleLabel}>
           模板变量
         </h2>
-        <span className={styles.fieldKey}>variables</span>
       </div>
       <p className={styles.fieldDescription}>
         定义报告生成时需要的输入信息、变量含义及变量之间的关系。
       </p>
       <div className={styles.variableList} aria-label="变量列表">
-        {variables.length === 0 && (
-          <span className={styles.emptyVariables}>
-            暂无变量，点击下方按钮添加
-          </span>
-        )}
+        <Button
+          ref={addRef}
+          type="button"
+          variant="secondary"
+          onPress={() => startEditing()}
+          className={styles.addVariable}
+        >
+          <Icon icon="tabler:plus" width={16} aria-hidden="true" />
+          添加变量
+        </Button>
         {variables.map((variable) => (
           // 每个 TagGroup 仍以 Tag 作为直接集合项，同时允许 Tooltip 位于标签外层。
           <Tooltip key={variable.id} delay={0}>
@@ -128,17 +167,6 @@ export default function VariableFields() {
             </Tooltip.Content>
           </Tooltip>
         ))}
-      </div>
-      <div>
-        <Button
-          ref={addRef}
-          type="button"
-          variant="secondary"
-          onPress={() => startEditing()}
-        >
-          <Icon icon="tabler:plus" width={16} aria-hidden="true" />
-          添加变量
-        </Button>
       </div>
 
       {/* 新增和编辑共用一个受控弹窗，避免两套表单校验行为不一致。 */}
