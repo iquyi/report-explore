@@ -490,6 +490,59 @@ export async function createTemplate(
   }
 }
 
+/**
+ * 基于现有模板创建一个新的报告草稿。
+ * 复制字段由明确的 INSERT 列表限制，其余字段继续使用数据库默认值。
+ */
+export async function forkTemplate(
+  sourceId: string,
+  input: CreateTemplateInput,
+): Promise<ActionResult<{ id: string }>> {
+  const idValidation = validateId(sourceId);
+  if (!idValidation.success) return idValidation;
+
+  const inputValidation = validateCreateTemplateInput(input);
+  if (!inputValidation.success) return inputValidation;
+
+  try {
+    const sql = getDatabase();
+    const rows = (await sql`
+      INSERT INTO templates (
+        name,
+        description,
+        variables,
+        explain_structure,
+        consistency_rules,
+        constraint_rules,
+        exception_boundary_rules,
+        verification_rules,
+        type
+      )
+      SELECT
+        ${inputValidation.data.name},
+        description,
+        variables,
+        explain_structure,
+        consistency_rules,
+        constraint_rules,
+        exception_boundary_rules,
+        verification_rules,
+        'report'
+      FROM templates
+      WHERE id = ${idValidation.data}
+      RETURNING id
+    `) as unknown as IdRow[];
+
+    if (rows.length === 0) return failure("源模板不存在或已被删除。");
+
+    revalidatePath(TEMPLATE_MANAGE_PATH);
+    return { success: true, data: { id: String(rows[0].id) } };
+  } catch (error) {
+    console.error("Failed to fork template.", error);
+    return failure("模板 Fork 失败，请稍后重试。");
+  }
+}
+
 /** 修改 Action 覆盖全部可编辑字段，updated_at 由数据库触发器维护。 */
 export async function updateTemplate(
   id: string,

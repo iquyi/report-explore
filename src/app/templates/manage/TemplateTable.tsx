@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   Alert,
@@ -19,7 +19,12 @@ import {
 } from "antd";
 import type { TableProps } from "antd";
 import zhCN from "antd/locale/zh_CN";
-import { createTemplate, deleteTemplate, setTemplateStatus } from "../actions";
+import {
+  createTemplate,
+  deleteTemplate,
+  forkTemplate,
+  setTemplateStatus,
+} from "../actions";
 import type {
   CreateTemplateInput,
   TemplateListItem,
@@ -70,14 +75,19 @@ const TemplateTableContent = ({
   const { message } = AntdApp.useApp();
   const router = useRouter();
   const [createForm] = Form.useForm<CreateTemplateInput>();
+  const [forkForm] = Form.useForm<CreateTemplateInput>();
+  const forkSubmissionLocked = useRef(false);
   const [templates, setTemplates] = useState(initialTemplates);
   const [pendingOperation, setPendingOperation] =
     useState<PendingOperation | null>(null);
   const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null);
   const [createOpen, setCreateOpen] = useState(false);
   const [creating, setCreating] = useState(false);
+  const [forkTarget, setForkTarget] = useState<TemplateListItem | null>(null);
+  const [forking, setForking] = useState(false);
 
-  const hasPendingOperation = pendingOperation !== null || creating;
+  const hasPendingOperation =
+    pendingOperation !== null || creating || forking;
 
   /** 创建成功后直接进入该草稿的动态编辑页，失败则保留用户输入以便重试。 */
   const handleCreate = async (input: CreateTemplateInput) => {
@@ -97,6 +107,34 @@ const TemplateTableContent = ({
       void message.error("模板创建失败，请稍后重试。");
     } finally {
       setCreating(false);
+    }
+  };
+
+  /**
+   * Fork 成功后进入新模板编辑页；失败时保留当前弹窗和名称，方便用户直接重试。
+   */
+  const handleFork = async (input: CreateTemplateInput) => {
+    if (hasPendingOperation || !forkTarget || forkSubmissionLocked.current) {
+      return;
+    }
+
+    // ref 会同步生效，避免快速重复点击在状态重渲染前创建多条记录。
+    forkSubmissionLocked.current = true;
+    setForking(true);
+    try {
+      const result = await forkTemplate(forkTarget.id, input);
+      if (!result.success) {
+        void message.error(result.error);
+        return;
+      }
+
+      router.push(`/templates/generate/${result.data.id}`);
+    } catch (error) {
+      console.error("Failed to fork template.", error);
+      void message.error("模板 Fork 失败，请稍后重试。");
+    } finally {
+      forkSubmissionLocked.current = false;
+      setForking(false);
     }
   };
 
@@ -224,7 +262,7 @@ const TemplateTableContent = ({
     {
       title: "操作",
       key: "actions",
-      width: 150,
+      width: 210,
       fixed: "right",
       render: (_value, template) => {
         const deleting =
@@ -239,6 +277,20 @@ const TemplateTableContent = ({
               disabled={hasPendingOperation}
             >
               修改
+            </Button>
+
+            <Button
+              type="link"
+              disabled={hasPendingOperation}
+              onClick={() => {
+                // 每次打开都使用当前行名称初始化，避免复用上一次 Fork 的输入。
+                forkForm.setFieldsValue({
+                  name: `${template.name} - 副本`,
+                });
+                setForkTarget(template);
+              }}
+            >
+              Fork
             </Button>
 
             <Popconfirm
@@ -354,6 +406,48 @@ const TemplateTableContent = ({
                 showCount
                 placeholder="请输入模板名称"
                 disabled={creating}
+              />
+            </Form.Item>
+          </Form>
+        </Modal>
+
+        {/* Fork 只允许修改新模板名称，内容字段由服务端从目标模板原子复制。 */}
+        <Modal
+          open={forkTarget !== null}
+          title="Fork 模板"
+          okText="提交"
+          cancelText="取消"
+          confirmLoading={forking}
+          cancelButtonProps={{ disabled: forking }}
+          closable={!forking}
+          mask={{ closable: !forking }}
+          keyboard={!forking}
+          onOk={() => forkForm.submit()}
+          onCancel={() => {
+            if (!forking) setForkTarget(null);
+          }}
+          afterClose={() => forkForm.resetFields()}
+        >
+          <Form<CreateTemplateInput>
+            form={forkForm}
+            layout="vertical"
+            requiredMark={false}
+            onFinish={(input) => void handleFork(input)}
+          >
+            <Form.Item
+              name="name"
+              label="模板名称"
+              rules={[
+                { required: true, whitespace: true, message: "请输入模板名称" },
+                { max: 50, message: "模板名称不能超过 50 个字符" },
+              ]}
+            >
+              <Input
+                autoFocus
+                maxLength={50}
+                showCount
+                placeholder="请输入模板名称"
+                disabled={forking}
               />
             </Form.Item>
           </Form>
