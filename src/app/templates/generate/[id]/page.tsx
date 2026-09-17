@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { Toast } from "@heroui/react";
 import { queryTemplate } from "../../actions";
 import AgentPanel from "../AgentPanel";
+import { AgentActionProvider } from "../AgentActionContext";
 import {
   AutoSaveStatus,
   AutoSaveStatusProvider,
@@ -27,43 +28,45 @@ export default async function GeneratePage({ params }: GeneratePageProps) {
 
   return (
     <AutoSaveStatusProvider>
-      <main className={styles.page}>
-        <section className={styles.editor} aria-labelledby="generate-title">
-          <header className={styles.editorHeader}>
-            <Link href="/templates/manage" className={styles.backLink}>
-              返回模板管理
-            </Link>
-            <div className={styles.titleRow}>
-              <h1 id="generate-title">编辑模板</h1>
-              <AutoSaveStatus />
+      <AgentActionProvider>
+        <main className={styles.page}>
+          <section className={styles.editor} aria-labelledby="generate-title">
+            <header className={styles.editorHeader}>
+              <Link href="/templates/manage" className={styles.backLink}>
+                返回模板管理
+              </Link>
+              <div className={styles.titleRow}>
+                <h1 id="generate-title">编辑模板</h1>
+                <AutoSaveStatus />
+              </div>
+              {/* Agent 更新 revision 后重建编辑器字段，确保展示数据库刚写入的版本。 */}
+              <BasicInformation
+                key={`${template.id}-${template.revision}`}
+                templateId={template.id}
+                initialName={template.name}
+                initialDescription={template.description ?? ""}
+              />
+            </header>
+            <div className={styles.editorBody}>
+              <RuleFields
+                key={`${template.id}-${template.revision}`}
+                templateId={template.id}
+                initialVariables={template.variables}
+                initialValues={{
+                  explain_structure: template.explainStructure ?? "",
+                  consistency_rules: template.consistencyRules ?? "",
+                  constraint_rules: template.constraintRules ?? "",
+                  exception_boundary_rules:
+                    template.exceptionBoundaryRules ?? "",
+                  verification_rules: template.verificationRules ?? "",
+                }}
+              />
             </div>
-            {/* key 确保客户端切换到另一模板 ID 时不会残留上一份本地状态。 */}
-            <BasicInformation
-              key={template.id}
-              templateId={template.id}
-              initialName={template.name}
-              initialDescription={template.description ?? ""}
-            />
-          </header>
-          <div className={styles.editorBody}>
-            <RuleFields
-              key={template.id}
-              templateId={template.id}
-              initialVariables={template.variables}
-              initialValues={{
-                explain_structure: template.explainStructure ?? "",
-                consistency_rules: template.consistencyRules ?? "",
-                constraint_rules: template.constraintRules ?? "",
-                exception_boundary_rules:
-                  template.exceptionBoundaryRules ?? "",
-                verification_rules: template.verificationRules ?? "",
-              }}
-            />
-          </div>
-        </section>
-        <AgentPanel />
-        <Toast.Provider placement="top end" />
-      </main>
+          </section>
+          <AgentPanel templateId={template.id} />
+          <Toast.Provider placement="top end" />
+        </main>
+      </AgentActionProvider>
     </AutoSaveStatusProvider>
   );
 }

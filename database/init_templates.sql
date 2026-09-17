@@ -45,19 +45,56 @@ CREATE TABLE IF NOT EXISTS templates (
   CONSTRAINT templates_blueprint_path_check
     CHECK (blueprint ~* '\.(json|html)(\?.*)?$'),
 
-  -- char_length 按字符计数，中文等多字节文本也按一个字符计算。
+  -- 五个长内容字段统一限制为 10000 字符；char_length 对中文等多字节文本也按一个字符计算。
   CONSTRAINT templates_explain_structure_length_check
     CHECK (char_length(explain_structure) <= 10000),
-
-  -- 四类可选规则分别限制在 1000 个字符以内；NULL 表示未配置该类规则。
   CONSTRAINT templates_consistency_rules_length_check
-    CHECK (consistency_rules IS NULL OR char_length(consistency_rules) <= 1000),
+    CHECK (consistency_rules IS NULL OR char_length(consistency_rules) <= 10000),
   CONSTRAINT templates_constraint_rules_length_check
-    CHECK (constraint_rules IS NULL OR char_length(constraint_rules) <= 1000),
+    CHECK (constraint_rules IS NULL OR char_length(constraint_rules) <= 10000),
   CONSTRAINT templates_exception_boundary_rules_length_check
-    CHECK (exception_boundary_rules IS NULL OR char_length(exception_boundary_rules) <= 1000),
+    CHECK (exception_boundary_rules IS NULL OR char_length(exception_boundary_rules) <= 10000),
   CONSTRAINT templates_verification_rules_length_check
-    CHECK (verification_rules IS NULL OR char_length(verification_rules) <= 1000)
+    CHECK (verification_rules IS NULL OR char_length(verification_rules) <= 10000)
+);
+
+-- statement-breakpoint
+
+-- 兼容已存在的数据库：统一重建五个约束，使脚本可重复执行并修正历史限制。
+ALTER TABLE templates
+DROP CONSTRAINT IF EXISTS templates_explain_structure_length_check,
+DROP CONSTRAINT IF EXISTS templates_consistency_rules_length_check,
+DROP CONSTRAINT IF EXISTS templates_constraint_rules_length_check,
+DROP CONSTRAINT IF EXISTS templates_exception_boundary_rules_length_check,
+DROP CONSTRAINT IF EXISTS templates_verification_rules_length_check;
+
+-- statement-breakpoint
+
+ALTER TABLE templates
+ADD CONSTRAINT templates_explain_structure_length_check
+CHECK (
+  explain_structure IS NULL
+  OR char_length(explain_structure) <= 10000
+),
+ADD CONSTRAINT templates_consistency_rules_length_check
+CHECK (
+  consistency_rules IS NULL
+  OR char_length(consistency_rules) <= 10000
+),
+ADD CONSTRAINT templates_constraint_rules_length_check
+CHECK (
+  constraint_rules IS NULL
+  OR char_length(constraint_rules) <= 10000
+),
+ADD CONSTRAINT templates_exception_boundary_rules_length_check
+CHECK (
+  exception_boundary_rules IS NULL
+  OR char_length(exception_boundary_rules) <= 10000
+),
+ADD CONSTRAINT templates_verification_rules_length_check
+CHECK (
+  verification_rules IS NULL
+  OR char_length(verification_rules) <= 10000
 );
 
 -- statement-breakpoint

@@ -5,6 +5,7 @@ import {
   type ReactNode,
   useCallback,
   useContext,
+  useRef,
   useState,
 } from "react";
 import styles from "./page.module.scss";
@@ -13,6 +14,7 @@ type AutoSaveStatusContextValue = {
   pendingCount: number;
   startSaving: () => void;
   finishSaving: () => void;
+  waitUntilIdle: () => Promise<void>;
 };
 
 const AutoSaveStatusContext = createContext<AutoSaveStatusContextValue | null>(
@@ -25,16 +27,30 @@ const AutoSaveStatusContext = createContext<AutoSaveStatusContextValue | null>(
  */
 export function AutoSaveStatusProvider({ children }: { children: ReactNode }) {
   const [pendingCount, setPendingCount] = useState(0);
+  const pendingCountRef = useRef(0);
+  const idleResolversRef = useRef<Array<() => void>>([]);
   const startSaving = useCallback(() => {
-    setPendingCount((count) => count + 1);
+    pendingCountRef.current += 1;
+    setPendingCount(pendingCountRef.current);
   }, []);
   const finishSaving = useCallback(() => {
-    setPendingCount((count) => Math.max(0, count - 1));
+    pendingCountRef.current = Math.max(0, pendingCountRef.current - 1);
+    setPendingCount(pendingCountRef.current);
+    if (pendingCountRef.current === 0) {
+      const resolvers = idleResolversRef.current.splice(0);
+      resolvers.forEach((resolve) => resolve());
+    }
+  }, []);
+  const waitUntilIdle = useCallback(() => {
+    if (pendingCountRef.current === 0) return Promise.resolve();
+    return new Promise<void>((resolve) => {
+      idleResolversRef.current.push(resolve);
+    });
   }, []);
 
   return (
     <AutoSaveStatusContext.Provider
-      value={{ pendingCount, startSaving, finishSaving }}
+      value={{ pendingCount, startSaving, finishSaving, waitUntilIdle }}
     >
       {children}
     </AutoSaveStatusContext.Provider>

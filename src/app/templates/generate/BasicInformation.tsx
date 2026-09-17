@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Button, Input, Label, TextField } from "@heroui/react";
 import { updateTemplateField } from "../actions";
+import { useAgentActions } from "./AgentActionContext";
 import useAutoSaveField from "./useAutoSaveField";
 import styles from "./page.module.scss";
 
@@ -22,6 +23,7 @@ export default function BasicInformation({
 }: BasicInformationProps) {
   const [name, setName] = useState(initialName);
   const [description, setDescription] = useState(initialDescription);
+  const { requestValidation, isAgentBusy } = useAgentActions();
   const { saveIfChanged: saveNameIfChanged } = useAutoSaveField({
     initialValue: initialName,
     serialize: serializeText,
@@ -79,9 +81,15 @@ export default function BasicInformation({
           />
         </TextField>
       </div>
-      {/* 普通按钮不属于表单，也不绑定事件，点击不会验证或提交。 */}
       <div className={styles.actions}>
-        <Button type="button" variant="secondary">验证</Button>
+        <Button
+          type="button"
+          variant="secondary"
+          isDisabled={isAgentBusy}
+          onPress={requestValidation}
+        >
+          验证
+        </Button>
         <Button type="button" variant="primary">发布</Button>
       </div>
     </div>

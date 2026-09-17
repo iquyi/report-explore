@@ -1,8 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
   reactCompiler: true,
+  // 完整模板生成在 Node.js Route Handler 中读取根目录提示词，显式加入部署追踪产物。
+  outputFileTracingIncludes: {
+    "/*": ["./generate-report-v2.md"],
+  },
   async redirects() {
     return [
       {

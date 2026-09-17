@@ -43,6 +43,7 @@ export type CreateTemplateInput = {
 /** 动态编辑页使用完整详情；数据库中的可选字段保持 null 语义。 */
 export type TemplateDetail = {
   id: string;
+  revision: number;
   name: string;
   description: string | null;
   variables: TemplateVariable[];

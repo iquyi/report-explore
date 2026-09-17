@@ -10,13 +10,14 @@ import {
   Popover,
   Tag,
   TagGroup,
-  TextArea,
   TextField,
   Tooltip,
 } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import { updateTemplateField } from "../actions";
 import type { TemplateVariable } from "../types";
+import MarkdownContent from "./MarkdownContent";
+import MarkdownEditor from "./MarkdownEditor";
 import useAutoSaveField from "./useAutoSaveField";
 import styles from "./page.module.scss";
 
@@ -130,7 +131,7 @@ export default function VariableFields({
         </h2>
       </div>
       <p className={styles.fieldDescription}>
-        定义报告生成时需要的输入信息、变量含义及变量之间的关系。
+        定义报告生成时需要的输入信息、变量含义及变量之间的关系；变量定义支持 Markdown。
       </p>
       <div className={styles.variableList} aria-label="变量列表">
         <Button
@@ -163,7 +164,7 @@ export default function VariableFields({
               </TagGroup>
             </Tooltip.Trigger>
             <Tooltip.Content className={styles.variableTooltip}>
-              {variable.definition}
+              <MarkdownContent value={variable.definition} />
             </Tooltip.Content>
           </Tooltip>
         ))}
@@ -214,10 +215,11 @@ export default function VariableFields({
                       {definition.length} / 500
                     </span>
                   </div>
-                  <TextArea
+                  <MarkdownEditor
+                    value={definition}
                     maxLength={500}
                     rows={6}
-                    placeholder="输入变量的详细定义"
+                    placeholder="输入变量的 Markdown 定义"
                   />
                   <FieldError>{definitionError}</FieldError>
                 </TextField>

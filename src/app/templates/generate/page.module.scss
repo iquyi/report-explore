@@ -176,6 +176,202 @@
   line-height: 1.8;
 }
 
+/* Markdown 编辑器保留源码输入，并以同一容器提供安全预览。 */
+.markdownEditor {
+  overflow: hidden;
+  width: 100%;
+  border: 1px solid #e5e8ed;
+  border-radius: 9px;
+  background: #fff;
+}
+
+.markdownTabs {
+  display: flex;
+  gap: 2px;
+  padding: 5px;
+  border-bottom: 1px solid #edf0f3;
+  background: #fafbfc;
+}
+
+.markdownTab,
+.markdownTabActive {
+  padding: 4px 10px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: #7a828e;
+  cursor: pointer;
+  font: inherit;
+  font-size: 11px;
+}
+
+.markdownTab:hover {
+  color: #343a45;
+  background: #f0f2f5;
+}
+
+.markdownTabActive {
+  background: #fff;
+  color: #303743;
+  box-shadow: 0 1px 3px rgb(20 27 38 / 10%);
+  font-weight: 600;
+}
+
+.markdownTab:focus-visible,
+.markdownTabActive:focus-visible {
+  outline: 2px solid #7e9de7;
+  outline-offset: 1px;
+}
+
+.markdownPanel {
+  min-width: 0;
+}
+
+.markdownEditor .ruleTextarea {
+  border: 0;
+  border-radius: 0;
+  outline: 0;
+}
+
+.markdownEditor .ruleTextarea:focus-visible {
+  box-shadow: inset 0 0 0 1px #a2adbe;
+}
+
+.markdownPreview {
+  min-height: 112px;
+  padding: 12px 14px;
+}
+
+/* 预览排版在规则字段和变量提示中共享，表格在窄容器内独立滚动。 */
+.markdownContent {
+  min-width: 0;
+  overflow-x: auto;
+  color: #343a45;
+  font-size: 13px;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+
+.markdownContent > :first-child {
+  margin-top: 0;
+}
+
+.markdownContent > :last-child {
+  margin-bottom: 0;
+}
+
+.markdownContent h1,
+.markdownContent h2,
+.markdownContent h3,
+.markdownContent h4,
+.markdownContent h5,
+.markdownContent h6 {
+  margin: 1.2em 0 .55em;
+  color: #252a33;
+  line-height: 1.4;
+}
+
+.markdownContent h1 {
+  font-size: 20px;
+}
+
+.markdownContent h2 {
+  font-size: 17px;
+}
+
+.markdownContent h3,
+.markdownContent h4,
+.markdownContent h5,
+.markdownContent h6 {
+  font-size: 14px;
+}
+
+.markdownContent p,
+.markdownContent ul,
+.markdownContent ol,
+.markdownContent blockquote,
+.markdownContent pre,
+.markdownContent table {
+  margin: .7em 0;
+}
+
+.markdownContent ul,
+.markdownContent ol {
+  padding-left: 1.6em;
+}
+
+.markdownContent li + li {
+  margin-top: .25em;
+}
+
+.markdownContent blockquote {
+  padding-left: 12px;
+  border-left: 3px solid #c9d2e2;
+  color: #667080;
+}
+
+.markdownContent code {
+  padding: 2px 4px;
+  border-radius: 4px;
+  background: #f1f3f6;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: .92em;
+}
+
+.markdownContent pre {
+  overflow-x: auto;
+  padding: 11px 12px;
+  border-radius: 7px;
+  background: #f4f6f8;
+}
+
+.markdownContent pre code {
+  padding: 0;
+  background: transparent;
+}
+
+.markdownContent table {
+  width: 100%;
+  min-width: 420px;
+  border-collapse: collapse;
+}
+
+.markdownContent th,
+.markdownContent td {
+  padding: 7px 9px;
+  border: 1px solid #dfe3e9;
+  text-align: left;
+  vertical-align: top;
+}
+
+.markdownContent th {
+  background: #f5f7f9;
+  font-weight: 600;
+}
+
+.markdownContent a {
+  color: #2f5fd0;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.markdownContent input[type="checkbox"] {
+  margin-right: 6px;
+}
+
+.markdownImagePlaceholder,
+.markdownEmpty {
+  color: #9298a3;
+  font-style: italic;
+}
+
+.markdownEmpty {
+  min-height: 112px;
+  margin: 0;
+  padding: 12px 14px;
+  font-size: 12px;
+}
+
 .ruleField>.counter {
   align-self: flex-end;
 }
@@ -186,7 +382,7 @@
   color: #a4a9b3;
 }
 
-/* 右栏只有消息区域伸展滚动，底部文件、输入和模式选择始终相邻。 */
+/* 右栏只有消息区域伸展滚动，底部附件、确认和统一输入区始终相邻。 */
 .agentPanel {
   display: flex;
   flex-direction: column;
@@ -210,6 +406,12 @@
   font-weight: 600;
 }
 
+.agentHeader p {
+  margin: 3px 0 0;
+  color: #8a919d;
+  font-size: 11px;
+}
+
 .agentIcon {
   display: grid;
   place-items: center;
@@ -225,6 +427,81 @@
   flex: 1;
   min-height: 0;
   overflow-y: auto;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  scrollbar-gutter: stable;
+}
+
+.emptyMessages {
+  margin: auto;
+  max-width: 250px;
+  color: #939aa5;
+  font-size: 12px;
+  line-height: 1.7;
+  text-align: center;
+}
+
+.message {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  max-width: 88%;
+}
+
+.message>span {
+  color: #949ba6;
+  font-size: 10px;
+}
+
+.message p {
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-size: 12px;
+  line-height: 1.75;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.userMessage {
+  align-self: flex-end;
+  align-items: flex-end;
+}
+
+.userMessage p {
+  background: #2f5fd0;
+  color: #fff;
+  border-bottom-right-radius: 3px;
+}
+
+.agentMessage {
+  align-self: flex-start;
+}
+
+.agentMessage p {
+  border: 1px solid #e6e9ee;
+  background: #fff;
+  color: #3f4651;
+  border-bottom-left-radius: 3px;
+}
+
+.stageMessage {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #747d8a !important;
+}
+
+.stageMessage svg {
+  animation: agentSpin 1s linear infinite;
+}
+
+@keyframes agentSpin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .agentControls {
@@ -236,8 +513,42 @@
 
 .uploadGrid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr);
   gap: 10px;
+}
+
+.confirmationCard {
+  padding: 13px;
+  border: 1px solid #efd9aa;
+  border-radius: 10px;
+  background: #fffaf0;
+}
+
+.confirmationTitle {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #8a6118;
+  font-size: 12px;
+}
+
+.confirmationCard>p {
+  margin: 8px 0 10px;
+  color: #6d6049;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.confirmationOptions {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.confirmationOptions button {
+  width: 100%;
+  justify-content: flex-start;
+  border-radius: 8px;
 }
 
 .uploadCard {
@@ -337,18 +648,9 @@
   border-radius: 8px;
 }
 
-.modeSelect {
-  width: 116px;
-}
-
-.modeSelect button {
-  min-height: 34px;
-  height: 34px;
-  font-size: 12px;
-  border-radius: 8px;
-  background: #fff;
-  border: 1px solid #e5e8ed;
-  box-shadow: none;
+.routingHint {
+  color: #9299a4;
+  font-size: 11px;
 }
 
 /* 中等桌面缩窄时基本信息纵向排布，避免输入和操作按钮互相挤压。 */
@@ -489,8 +791,18 @@
 
 .variableTooltip {
   max-width: min(360px, calc(100vw - 32px));
-  white-space: pre-wrap;
+  max-height: min(420px, calc(100vh - 48px));
+  overflow: auto;
+  white-space: normal;
   overflow-wrap: anywhere;
+}
+
+.variableTooltip .markdownContent,
+.variableTooltip .markdownEmpty {
+  min-height: 0;
+  padding: 0;
+  color: inherit;
+  font-size: 12px;
 }
 
 .variableForm {
@@ -510,7 +822,7 @@
   margin-top: 12px;
 }
 
-/* 工具栏参与正常布局，让模式选择与发送按钮始终位于输入内容下方。 */
+/* 工具栏参与正常布局，让路由提示与发送按钮始终位于输入内容下方。 */
 .composerToolbar {
   display: flex;
   align-items: center;

@@ -2,6 +2,10 @@
 
 import { revalidatePath } from "next/cache";
 import { getDatabase } from "@/lib/database";
+import {
+  TEMPLATE_FIELD_LIMITS,
+  TEMPLATE_TEXT_FIELD_LIMITS,
+} from "@/lib/template-agent/limits";
 import type {
   ActionResult,
   CreateTemplateInput,
@@ -32,6 +36,7 @@ type TemplateListRow = {
 
 type TemplateDetailRow = {
   id: string;
+  revision: string | number;
   name: string;
   description: string | null;
   variables: unknown;
@@ -101,8 +106,12 @@ const normalizeTemplateVariables = (
     }
 
     const key = item.key.trim();
-    if (key.length > 20) return failure("变量名最多 20 字符。");
-    if (item.value.length > 500) return failure("变量定义最多 500 字符。");
+    if (key.length > TEMPLATE_FIELD_LIMITS.variableKey) {
+      return failure(`变量名最多 ${TEMPLATE_FIELD_LIMITS.variableKey} 字符。`);
+    }
+    if (item.value.length > TEMPLATE_FIELD_LIMITS.variableValue) {
+      return failure(`变量定义最多 ${TEMPLATE_FIELD_LIMITS.variableValue} 字符。`);
+    }
     if (keys.has(key)) return failure("变量名不能重复。");
 
     keys.add(key);
@@ -120,7 +129,9 @@ const validateCreateTemplateInput = (
   if (!isRequiredString(value.name)) return failure("name 不能为空。");
 
   const name = value.name.trim();
-  if (name.length > 50) return failure("name 不能超过 50 个字符。");
+  if (name.length > TEMPLATE_FIELD_LIMITS.name) {
+    return failure(`name 不能超过 ${TEMPLATE_FIELD_LIMITS.name} 个字符。`);
+  }
 
   return { success: true, data: { name } };
 };
@@ -129,6 +140,7 @@ const validateCreateTemplateInput = (
 const normalizeOptionalRule = (
   value: unknown,
   label: string,
+  maxLength: number,
 ): ActionResult<string | null> => {
   if (value === undefined || value === null || value === "") {
     return { success: true, data: null };
@@ -138,8 +150,8 @@ const normalizeOptionalRule = (
     return failure(`${label}必须是字符串。`);
   }
 
-  if (value.length > 1000) {
-    return failure(`${label}不能超过 1000 个字符。`);
+  if (value.length > maxLength) {
+    return failure(`${label}不能超过 ${maxLength} 个字符。`);
   }
 
   return { success: true, data: value };
@@ -152,13 +164,15 @@ const validateTemplateInput = (
   if (!isRecord(value)) return failure("模板数据格式不正确。");
 
   if (!isRequiredString(value.name)) return failure("name 不能为空。");
-  if (value.name.length > 50) return failure("name 不能超过 50 个字符。");
+  if (value.name.length > TEMPLATE_FIELD_LIMITS.name) {
+    return failure(`name 不能超过 ${TEMPLATE_FIELD_LIMITS.name} 个字符。`);
+  }
 
   if (!isRequiredString(value.description)) {
     return failure("description 不能为空。");
   }
-  if (value.description.length > 500) {
-    return failure("description 不能超过 500 个字符。");
+  if (value.description.length > TEMPLATE_FIELD_LIMITS.description) {
+    return failure(`description 不能超过 ${TEMPLATE_FIELD_LIMITS.description} 个字符。`);
   }
 
   const variables = normalizeTemplateVariables(value.variables);
@@ -167,8 +181,10 @@ const validateTemplateInput = (
   if (!isRequiredString(value.explainStructure)) {
     return failure("explainStructure 不能为空。");
   }
-  if (value.explainStructure.length > 10000) {
-    return failure("explainStructure 不能超过 10000 个字符。");
+  if (value.explainStructure.length > TEMPLATE_FIELD_LIMITS.explainStructure) {
+    return failure(
+      `explainStructure 不能超过 ${TEMPLATE_FIELD_LIMITS.explainStructure} 个字符。`,
+    );
   }
 
   if (
@@ -192,24 +208,28 @@ const validateTemplateInput = (
   const consistencyRules = normalizeOptionalRule(
     value.consistencyRules,
     "consistencyRules",
+    TEMPLATE_FIELD_LIMITS.consistencyRules,
   );
   if (!consistencyRules.success) return consistencyRules;
 
   const constraintRules = normalizeOptionalRule(
     value.constraintRules,
     "constraintRules",
+    TEMPLATE_FIELD_LIMITS.constraintRules,
   );
   if (!constraintRules.success) return constraintRules;
 
   const exceptionBoundaryRules = normalizeOptionalRule(
     value.exceptionBoundaryRules,
     "exceptionBoundaryRules",
+    TEMPLATE_FIELD_LIMITS.exceptionBoundaryRules,
   );
   if (!exceptionBoundaryRules.success) return exceptionBoundaryRules;
 
   const verificationRules = normalizeOptionalRule(
     value.verificationRules,
     "verificationRules",
+    TEMPLATE_FIELD_LIMITS.verificationRules,
   );
   if (!verificationRules.success) return verificationRules;
 
@@ -298,6 +318,7 @@ export async function queryTemplate(
     const rows = (await sql`
       SELECT
         id,
+        revision,
         name,
         description,
         variables,
@@ -329,6 +350,7 @@ export async function queryTemplate(
       success: true,
       data: {
         id: row.id,
+        revision: Number(row.revision),
         name: row.name,
         description: row.description,
         variables: variables.data,
@@ -373,15 +395,7 @@ const normalizeTemplateFieldUpdate = (
 
   if (typeof value.value !== "string") return failure("模板字段必须是字符串。");
 
-  const limits = {
-    name: 50,
-    description: 500,
-    explainStructure: 10000,
-    consistencyRules: 1000,
-    constraintRules: 1000,
-    exceptionBoundaryRules: 1000,
-    verificationRules: 1000,
-  } as const;
+  const limits = TEMPLATE_TEXT_FIELD_LIMITS;
 
   if (!(value.field in limits)) return failure("不支持修改该模板字段。");
 
