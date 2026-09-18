@@ -96,9 +96,68 @@ export const templatePatchSchema = z.object({
     TEMPLATE_FIELD_LIMITS.exceptionBoundaryRules,
   ).nullable(),
   verificationRules: z.string().max(TEMPLATE_FIELD_LIMITS.verificationRules).nullable(),
-});
+}).strict();
 
-type TemplatePatch = z.infer<typeof templatePatchSchema>;
+export type TemplatePatch = z.infer<typeof templatePatchSchema>;
+
+/**
+ * 初次调整可以明确返回补丁、无需修改或需要补充信息；补丁始终嵌套在 patch 内，
+ * 从而保留严格八字段协议并让 Workflow 在任何写库动作前完成结果分流。
+ */
+const adjustmentResultFields = {
+  message: z.string().trim().min(1).max(500),
+  missingItems: z.array(z.string().trim().min(1).max(200)).max(10),
+  patch: templatePatchSchema,
+};
+
+export const adjustmentDraftResultSchema = z.object({
+  outcome: z.enum(["patch", "unchanged", "needs_input"]),
+  ...adjustmentResultFields,
+}).strict();
+
+/** 评价未通过后不能再声称无需修改，优化阶段只允许给出新补丁或请求补充。 */
+export const adjustmentOptimizationResultSchema = z.object({
+  outcome: z.enum(["patch", "needs_input"]),
+  ...adjustmentResultFields,
+}).strict();
+
+export type AdjustmentDraftResult = z.infer<
+  typeof adjustmentDraftResultSchema
+>;
+export type AdjustmentOptimizationResult = z.infer<
+  typeof adjustmentOptimizationResultSchema
+>;
+
+type AdjustmentResult = AdjustmentDraftResult | AdjustmentOptimizationResult;
+
+/**
+ * JSON Schema 只约束单字段类型；这里补充 outcome 与补丁内容之间的组合不变量。
+ * 返回字符串表示模型结果不能安全使用，调用方必须停止且不得写库。
+ */
+export const getAdjustmentResultContractError = (
+  result: AdjustmentResult,
+): string | null => {
+  const hasPatch = Object.values(result.patch).some((value) => value !== null);
+
+  if (result.outcome === "patch") {
+    if (!hasPatch) return "outcome 为 patch 时至少一个补丁字段必须非 null。";
+    if (result.missingItems.length > 0) {
+      return "outcome 为 patch 时 missingItems 必须为空。";
+    }
+    return null;
+  }
+
+  if (hasPatch) {
+    return `outcome 为 ${result.outcome} 时补丁字段必须全部为 null。`;
+  }
+  if (result.outcome === "unchanged" && result.missingItems.length > 0) {
+    return "outcome 为 unchanged 时 missingItems 必须为空。";
+  }
+  if (result.outcome === "needs_input" && result.missingItems.length === 0) {
+    return "outcome 为 needs_input 时 missingItems 至少包含一项。";
+  }
+  return null;
+};
 
 /**
  * LLM 的 Markdown 统一使用 LF，并让每个非空字段以恰好一个 LF 结束。

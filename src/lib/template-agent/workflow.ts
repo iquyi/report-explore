@@ -6,10 +6,16 @@ import {
   type DeepSeekLanguageModelChatOptions,
 } from "@ai-sdk/deepseek";
 import { generateText, Output } from "ai";
-import { loadGenerateReportGuide } from "./generation-guide";
 import {
+  loadAdjustReportGuide,
+  loadGenerateReportGuide,
+} from "./generation-guide";
+import {
+  adjustmentDraftResultSchema,
+  adjustmentOptimizationResultSchema,
   completeTemplateContentSchema,
   evaluationSchema,
+  getAdjustmentResultContractError,
   getDeterministicValidationIssues,
   getTemplateContentState,
   normalizeTemplateMarkdown,
@@ -18,7 +24,6 @@ import {
   routeDecisionSchema,
   semanticValidationSchema,
   TEMPLATE_FIELD_LABELS,
-  templatePatchSchema,
   validateTemplateContent,
 } from "./schema";
 import {
@@ -271,6 +276,7 @@ async function evaluateCandidate({
   original,
   candidate,
   generationGuide,
+  adjustmentGuide,
   abortSignal,
 }: {
   operation: "generate" | "adjust";
@@ -279,6 +285,7 @@ async function evaluateCandidate({
   original: TemplateAgentContent;
   candidate: TemplateAgentContent;
   generationGuide?: string;
+  adjustmentGuide?: string;
   abortSignal?: AbortSignal;
 }) {
   const messages = buildEvaluationPrompt({
@@ -288,6 +295,7 @@ async function evaluateCandidate({
     original,
     candidate,
     generationGuide,
+    adjustmentGuide,
   });
   const { output } = await runModelCall(`evaluate-${operation}`, () =>
     generateText({
@@ -469,24 +477,61 @@ async function runAdjustWorkflow({
   abortSignal?: AbortSignal;
   onStage?: RunTemplateAgentInput["onStage"];
 }): Promise<TemplateAgentContent | TemplateAgentResult> {
+  onStage?.("loading-guide", "正在加载局部调整规范…");
+  let adjustmentGuide: string;
+  try {
+    // 路由与附件确认结束后只读取一次，补丁、评价和每轮优化共享完全相同的规范。
+    adjustmentGuide = await loadAdjustReportGuide();
+  } catch (error) {
+    console.error("Failed to load adjustment guide.", error);
+    return {
+      outcome: "error",
+      databaseUpdated: false,
+      message: "局部调整规范不可用，数据库没有被修改。请联系管理员检查提示词文件。",
+      retryable: false,
+    };
+  }
+
   onStage?.("adjusting", "正在生成最小修改补丁…");
-  // Schema 要求八个键全部存在，并用 null 明确表示“不修改”，降低模型输出歧义。
+  // 外层 outcome 区分补丁、无需修改和信息不足；内层仍保持严格八字段补丁。
   const adjustmentMessages = buildTemplateAdjustmentPrompt({
     userMessage,
     current,
+    adjustmentGuide,
   });
-  const { output: initialPatch } = await runModelCall("adjust-template", () =>
-    generateText({
-      ...callOptions(abortSignal, "disabled"),
-      output: Output.object({ schema: templatePatchSchema }),
-      ...adjustmentMessages,
-    }),
+  const { output: initialResult } = await runModelCall(
+    "adjust-template",
+    () =>
+      generateText({
+        ...callOptions(abortSignal, "disabled"),
+        output: Output.object({ schema: adjustmentDraftResultSchema }),
+        ...adjustmentMessages,
+      }),
   );
+
+  const initialContractError = getAdjustmentResultContractError(initialResult);
+  if (initialContractError) {
+    console.error("Invalid initial adjustment result.", initialContractError);
+    return {
+      outcome: "error",
+      databaseUpdated: false,
+      message: "局部调整结果格式不正确，数据库没有被修改，请重试。",
+      retryable: true,
+    };
+  }
+  if (initialResult.outcome === "needs_input") {
+    return {
+      outcome: "needs_input",
+      databaseUpdated: false,
+      message: initialResult.message,
+      missingItems: initialResult.missingItems,
+    };
+  }
 
   // 即使模型擅自返回新名称，也只有路由阶段确认用户明确要求改名后才会采用。
   let patch = {
-    ...normalizeTemplateMarkdownPatch(initialPatch),
-    name: renameRequested ? initialPatch.name : null,
+    ...normalizeTemplateMarkdownPatch(initialResult.patch),
+    name: renameRequested ? initialResult.patch.name : null,
   };
   let candidate = mergePatch(current, patch);
 
@@ -497,6 +542,7 @@ async function runAdjustWorkflow({
       userMessage,
       original: current,
       candidate,
+      adjustmentGuide,
       abortSignal,
     });
     if (evaluation.passed && evaluation.blockingIssues.length === 0) {
@@ -519,17 +565,45 @@ async function runAdjustWorkflow({
       patch,
       candidate,
       feedback: getEvaluationFeedback(evaluation),
+      adjustmentGuide,
     });
-    const { output: nextPatch } = await runModelCall("optimize-adjustment", () =>
-      generateText({
-        ...callOptions(abortSignal, "disabled"),
-        output: Output.object({ schema: templatePatchSchema }),
-        ...optimizationMessages,
-      }),
+    const { output: optimizationResult } = await runModelCall(
+      "optimize-adjustment",
+      () =>
+        generateText({
+          ...callOptions(abortSignal, "disabled"),
+          output: Output.object({ schema: adjustmentOptimizationResultSchema }),
+          ...optimizationMessages,
+        }),
     );
+
+    const optimizationContractError = getAdjustmentResultContractError(
+      optimizationResult,
+    );
+    if (optimizationContractError) {
+      console.error(
+        "Invalid adjustment optimization result.",
+        optimizationContractError,
+      );
+      return {
+        outcome: "error",
+        databaseUpdated: false,
+        message: "局部调整优化结果格式不正确，数据库没有被修改，请重试。",
+        retryable: true,
+      };
+    }
+    if (optimizationResult.outcome === "needs_input") {
+      return {
+        outcome: "needs_input",
+        databaseUpdated: false,
+        message: optimizationResult.message,
+        missingItems: optimizationResult.missingItems,
+      };
+    }
+
     patch = {
-      ...normalizeTemplateMarkdownPatch(nextPatch),
-      name: renameRequested ? nextPatch.name : null,
+      ...normalizeTemplateMarkdownPatch(optimizationResult.patch),
+      name: renameRequested ? optimizationResult.patch.name : null,
     };
     candidate = mergePatch(current, patch);
   }
@@ -806,6 +880,6 @@ export async function runTemplateAgent(
     databaseUpdated: true,
     revision: updated.revision,
     changedFields,
-    message: `已按照您的要求更新了模板内容，请在页面中查看。本次修改了：${summarizeChangedFields(changedFields)}。`,
+    message: `已按照您的要求更新模板内容，请在编辑区查看。本次修改涉及：${summarizeChangedFields(changedFields)}。`,
   };
 }

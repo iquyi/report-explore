@@ -44,4 +44,5 @@ next-env.d.ts
 *.xlsx
 *.md
 !/generate-report-v2.md
+!/adjust-report-v1.md
 /skill

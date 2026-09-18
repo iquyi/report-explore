@@ -2,9 +2,9 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactCompiler: true,
-  // 完整模板生成在 Node.js Route Handler 中读取根目录提示词，显式加入部署追踪产物。
+  // 两类模板工作流都会在 Node.js Route Handler 中读取根目录提示词，必须显式加入部署产物。
   outputFileTracingIncludes: {
-    "/*": ["./generate-report-v2.md"],
+    "/*": ["./generate-report-v2.md", "./adjust-report-v1.md"],
   },
   async redirects() {
     return [

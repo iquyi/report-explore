@@ -32,10 +32,10 @@ const CONTENT_OUTPUT_LENGTH_PROMPT = `
 </template_field_length_limits>`;
 
 /**
- * 所有 Agent 阶段共享的模板标准。
+ * 不加载完整指南的轻量阶段共享的模板标准。
  *
- * 每个阶段都会在自身角色说明后拼接这段规范，从而对八个字段的职责、Markdown
- * 格式和事实边界保持一致理解。修改这里会同时影响路由、生成、调整、评价和验证流程。
+ * 路由、资料检查和只读验证使用这段精简规范；完整生成与局部调整分别使用各自的
+ * 文件指南，避免精简标准覆盖更具体的工作流要求。
  */
 const STANDARD_PROMPT = `
 模板包含 name、description、variables、explainStructure、consistencyRules、constraintRules、exceptionBoundaryRules、verificationRules 八个字段。
@@ -83,6 +83,38 @@ ${generationGuide}
 ${STRUCTURED_OUTPUT_ADAPTER}`;
 };
 
+/** 调整指南定义 canonical snake_case 补丁；运行时外层判定和 camelCase 键由适配器声明。 */
+const ADJUSTMENT_OUTPUT_ADAPTER = `
+<adjustment_structured_output_adapter>
+通过结构化输出返回一个外层调整结果对象，字段固定为 outcome、message、missingItems、patch。
+- outcome 由当前阶段允许的枚举值中选择；
+- message 是非空的判定说明或用户提示；
+- missingItems 是需要用户补充的信息数组；
+- patch 固定包含八个模板字段，不增加其他字段。
+patch 内的字段键映射如下：
+- name -> name
+- description -> description
+- variables -> variables
+- explain_structure -> explainStructure
+- consistency_rules -> consistencyRules
+- constraint_rules -> constraintRules
+- exception_boundary_rules -> exceptionBoundaryRules
+- verification_rules -> verificationRules
+指南中的 snake_case 只用于表达 canonical 字段语义；实际结构化 patch 必须使用右侧 camelCase 键。
+</adjustment_structured_output_adapter>`;
+
+/** 调整的初稿、评价和优化共享完整指南，具体阶段再追加各自输出协议。 */
+const adjustmentGuidePrefix = (adjustmentGuide: string) => {
+  if (!adjustmentGuide.trim()) {
+    throw new Error("局部调整阶段缺少报告模板调整指南。");
+  }
+
+  return `
+<report_template_adjustment_guide>
+${adjustmentGuide}
+</report_template_adjustment_guide>`;
+};
+
 /**
  * 把附件包装为不可信参考数据。
  *
@@ -117,6 +149,7 @@ export const buildEvaluationPrompt = ({
   original,
   candidate,
   generationGuide,
+  adjustmentGuide,
 }: {
   operation: "generate" | "adjust";
   userMessage: string;
@@ -124,22 +157,32 @@ export const buildEvaluationPrompt = ({
   original: TemplateAgentContent;
   candidate: TemplateAgentContent;
   generationGuide?: string;
+  adjustmentGuide?: string;
 }): PromptMessages => ({
   system: operation === "generate"
     ? `${generationGuidePrefix(
       generationGuide ?? "",
     )}\n\n你是严格的模板质量评价器，只评价候选模板，不直接改写。必须使用上述完整指南作为评价标准。`
-    : `你是严格的模板质量评价器，只评价候选模板，不直接改写。${STANDARD_PROMPT}`,
+    : `${adjustmentGuidePrefix(adjustmentGuide ?? "")}
+
+<evaluation_stage_override>
+本阶段只评价局部调整结果，不生成补丁。把上述指南作为字段质量、最小修改和直接依赖标准，但忽略其中要求输出调整判定或八字段补丁的协议；实际输出只遵守评价 Schema。
+采用基线相对评价：检查用户要求、发生变化的字段及其直接依赖，确认候选没有引入新的悬空引用或跨字段矛盾，也没有误改无关字段；不得要求修复原模板中与本次调整无关的历史问题。
+</evaluation_stage_override>
+
+你是严格的模板局部调整评价器，只评价原模板与候选模板之间的变化，不直接改写。`,
   prompt: `
 操作：${operation === "generate" ? "完整生成" : "局部调整"}
 用户要求：${userMessage}
 原模板：${JSON.stringify(original)}
 候选模板：${JSON.stringify(candidate)}
-${attachmentBlock(attachment)}
+${operation === "generate" ? attachmentBlock(attachment) : ""}
 
-检查候选模板是否完整满足用户要求、是否正确使用参考资料、字段内容是否符合语义、是否存在无关内容或无依据推断。
+${operation === "generate"
+    ? "检查候选模板是否完整满足用户要求、是否正确使用参考资料、字段内容是否符合语义、是否存在无关内容或无依据推断。"
+    : "检查候选模板是否完成用户要求、修改范围是否最小、字段内容是否符合语义，以及直接依赖是否完整且没有新增矛盾。"}
 完整生成还必须检查 explainStructure 的模块和组件契约粒度、变量是否确实被多次引用、四类规则边界、实例事实是否被错误固化，以及结构化输出键是否符合适配映射。
-完整生成时检查全部六个 Markdown 内容字段；局部调整时只检查相较原模板发生变化的 Markdown 字段。
+完整生成时检查全部六个 Markdown 内容字段；局部调整时检查相较原模板发生变化的字段及其必要直接依赖。
 检查适合内容的 Markdown 结构和真实换行；普通段落本身合法，不得仅因没有标题或表格、CRLF/LF 差异或字段末尾换行判定失败。局部调整还必须检查未被用户要求修改的内容是否被不必要地改写。
 passed 只有在不存在阻塞性交付问题时才能为 true；反馈必须具体并可直接用于下一轮修正。
 `,
@@ -231,21 +274,27 @@ ${attachmentBlock(attachment)}
 /**
  * 局部调整 Prompt。
  *
- * 用户要求修改已有模板时使用，只能修改明确涉及的字段，其余字段必须返回 null。
- * 输出由 templatePatchSchema 约束。
+ * 用户要求修改已有模板时使用，输出调整判定以及严格八字段补丁。
+ * 输出由 adjustmentDraftResultSchema 约束。
  */
 export const buildTemplateAdjustmentPrompt = ({
   userMessage,
   current,
+  adjustmentGuide,
 }: {
   userMessage: string;
   current: TemplateAgentContent;
+  adjustmentGuide: string;
 }): PromptMessages => ({
-  system: `你是报告模板调整器。只修改用户明确要求的字段，其余字段必须输出 null。${STANDARD_PROMPT}${CONTENT_OUTPUT_LENGTH_PROMPT}`,
+  system: `${adjustmentGuidePrefix(adjustmentGuide)}
+${ADJUSTMENT_OUTPUT_ADAPTER}
+${CONTENT_OUTPUT_LENGTH_PROMPT}
+
+你是报告模板调整器。根据指南判断应生成补丁、声明无需修改或请求用户补充信息。初稿 outcome 只能是 patch、unchanged 或 needs_input。`,
   prompt: `
 用户要求：${userMessage}
 当前模板：${JSON.stringify(current)}
-输出八字段补丁；不修改的字段必须为 null。只有用户明确要求改名时才能修改 name；description 仅在用户明确要求或模板能力范围实质改变时修改。
+输出外层调整判定和内层八字段补丁。只有用户明确要求改名时才能修改 name；description 仅在用户明确要求或模板能力范围实质改变时修改。
 `,
 });
 
@@ -253,7 +302,7 @@ export const buildTemplateAdjustmentPrompt = ({
  * 局部调整优化 Prompt。
  *
  * 调整结果评价未通过时使用，根据评价反馈重新生成最小补丁，禁止顺带重写无关字段。
- * 输出由 templatePatchSchema 约束。
+ * 输出由 adjustmentOptimizationResultSchema 约束，因此不允许再次声明 unchanged。
  */
 export const buildAdjustmentOptimizationPrompt = ({
   userMessage,
@@ -261,21 +310,27 @@ export const buildAdjustmentOptimizationPrompt = ({
   patch,
   candidate,
   feedback,
+  adjustmentGuide,
 }: {
   userMessage: string;
   current: TemplateAgentContent;
   patch: { [Field in keyof TemplateAgentContent]: TemplateAgentContent[Field] | null };
   candidate: TemplateAgentContent;
   feedback: string[];
+  adjustmentGuide: string;
 }): PromptMessages => ({
-  system: `你是报告模板调整优化器。根据评价修正最小字段补丁，未涉及字段必须为 null。${STANDARD_PROMPT}${CONTENT_OUTPUT_LENGTH_PROMPT}`,
+  system: `${adjustmentGuidePrefix(adjustmentGuide)}
+${ADJUSTMENT_OUTPUT_ADAPTER}
+${CONTENT_OUTPUT_LENGTH_PROMPT}
+
+你是报告模板调整优化器。根据评价反馈重新生成最小字段补丁；优化阶段 outcome 只能是 patch 或 needs_input，不允许返回 unchanged。`,
   prompt: `
 用户要求：${userMessage}
 原模板：${JSON.stringify(current)}
 当前补丁：${JSON.stringify(patch)}
 当前合并结果：${JSON.stringify(candidate)}
 必须修正：${JSON.stringify(feedback)}
-输出新的八字段补丁。
+输出新的外层调整判定和内层八字段补丁。不得顺带修复与用户要求及直接依赖无关的问题。
 `,
 });
 
