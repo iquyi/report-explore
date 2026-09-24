@@ -228,11 +228,11 @@
   width: 768px;
   min-height: 100%;
   margin: 0 auto;
-  padding: clamp(80px, 18vh, 160px) 0 48px;
+  padding: clamp(64px, 12vh, 120px) 0 48px;
 }
 
 .reopenButton {
-  position: absolute;
+  position: fixed;
   top: 16px;
   left: 16px;
   z-index: 1;
@@ -252,9 +252,8 @@
 }
 
 .composerCard {
-  height: 183px;
+  height: 130px;
   overflow: hidden;
-  background: #fafafa;
   border-radius: 24px;
 }
 
@@ -297,7 +296,7 @@
   padding: 0;
   color: #fff;
   cursor: pointer;
-  background: #dedede;
+  background: #242424;
   border: 0;
   border-radius: 50%;
   place-items: center;
@@ -311,32 +310,218 @@
     outline: 2px solid #a8a8a8;
     outline-offset: 2px;
   }
-}
 
-.composerTools {
-  display: flex;
-  align-items: center;
-  height: 53px;
-  padding: 0 18px;
-  gap: 18px;
-
-  button {
-    display: flex;
-    align-items: center;
-    padding: 0;
-    font-size: 14px;
-    color: #666;
-    cursor: pointer;
-    background: transparent;
-    border: 0;
-    gap: 7px;
+  &:disabled {
+    cursor: not-allowed;
+    background: #dedede;
   }
 }
 
-.toolIcon {
+.quickPrompts {
+  margin-top: 18px;
+
+  h2 {
+    margin: 0 0 10px;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 20px;
+    color: #777;
+  }
+}
+
+.quickPromptList {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.quickPromptButton {
+  display: flex;
+  align-items: flex-start;
+  min-width: 0;
+  min-height: 68px;
+  padding: 13px 14px;
+  font: inherit;
+  font-size: 13px;
+  line-height: 20px;
+  color: #383838;
+  text-align: left;
+  cursor: pointer;
+  background: #fafafa;
+  border: 1px solid #e5e5e3;
+  border-radius: 12px;
+  gap: 8px;
+  transition: background-color 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+
+  svg {
+    flex: 0 0 auto;
+    margin-top: 1px;
+    color: #696969;
+  }
+
+  &:hover:not(:disabled) {
+    background: #fff;
+    border-color: #cfcfcd;
+    box-shadow: 0 5px 14px rgb(0 0 0 / 5%);
+  }
+
+  &:focus-visible {
+    outline: 2px solid #a8a8a8;
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: .55;
+  }
+}
+
+.messages {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 28px;
+  gap: 18px;
+}
+
+.userMessage,
+.assistantMessage {
+  max-width: 100%;
+
+  > p {
+    margin: 0;
+    white-space: pre-wrap;
+  }
+}
+
+.userMessage {
+  align-self: flex-end;
+  max-width: 78%;
+  padding: 12px 16px;
+  line-height: 1.6;
+  background: #f1f1ef;
+  border-radius: 16px 16px 4px 16px;
+}
+
+.assistantMessage {
+  align-self: stretch;
+  line-height: 1.65;
+}
+
+.stage {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  font-size: 13px;
+  color: #707070;
+  gap: 8px;
+
+  svg {
+    animation: spin 1s linear infinite;
+  }
+}
+
+.reportCard {
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid #e1e5eb;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgb(16 36 64 / 8%);
+}
+
+.reportHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 50px;
+  padding: 0 16px;
+  border-bottom: 1px solid #e8ebef;
+  gap: 16px;
+
+  strong {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+}
+
+.reportActions {
+  display: flex;
   flex: 0 0 auto;
-  width: 16px;
-  height: 16px;
+  align-items: center;
+  gap: 8px;
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    font-size: 13px;
+    color: #145dbf;
+    gap: 5px;
+
+    &:focus-visible {
+      outline: 2px solid #a8a8a8;
+      outline-offset: 2px;
+    }
+  }
+}
+
+.reportActions .downloadButton {
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  color: #555;
+  text-decoration: none;
+  border-radius: 8px;
+
+  &:hover {
+    color: #145dbf;
+    background: #f0f4fa;
+  }
+}
+
+.reportMarkdown {
+  margin: 12px 0;
+  overflow-wrap: anywhere;
+
+  > :first-child {
+    margin-top: 0;
+  }
+
+  > :last-child {
+    margin-bottom: 0;
+  }
+
+  a {
+    color: #145dbf;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  pre {
+    overflow-x: auto;
+    padding: 10px 12px;
+    background: #f4f6f8;
+    border-radius: 8px;
+  }
+}
+
+.reportFormatStatus {
+  margin: 0;
+  color: #777;
+  font-size: 13px;
+}
+
+.reportFrame {
+  display: block;
+  width: 100%;
+  height: min(72vh, 760px);
+  background: #fff;
+  border: 0;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 
 @media (max-width: 720px) {
@@ -345,7 +530,12 @@
   }
 
   .workspaceContent {
+    width: auto;
     margin-right: 32px;
     margin-left: 32px;
+  }
+
+  .quickPromptList {
+    grid-template-columns: 1fr;
   }
 }

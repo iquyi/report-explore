@@ -6,6 +6,7 @@ import { TEMPLATE_FIELD_LIMITS } from "@/lib/template-agent/limits";
 import { updateTemplateField } from "../actions";
 import type { TemplateTextEditableField, TemplateVariable } from "../types";
 import MarkdownEditor from "./MarkdownEditor";
+import { useAgentActions } from "./AgentActionContext";
 import useAutoSaveField from "./useAutoSaveField";
 import styles from "./page.module.scss";
 import VariableFields from "./VariableFields";
@@ -39,6 +40,7 @@ function RuleField({
   templateId: string;
 }) {
   const [value, setValue] = useState(initialValue);
+  const { markValidationStale } = useAgentActions();
   const { saveIfChanged } = useAutoSaveField({
     initialValue,
     serialize: serializeText,
@@ -52,7 +54,10 @@ function RuleField({
   return (
     <TextField
       value={value}
-      onChange={(nextValue) => setValue(nextValue.slice(0, field.limit))}
+      onChange={(nextValue) => {
+        markValidationStale();
+        setValue(nextValue.slice(0, field.limit));
+      }}
       className={styles.ruleField}
     >
       <div className={styles.ruleHeading}>

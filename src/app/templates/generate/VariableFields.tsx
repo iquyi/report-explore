@@ -18,6 +18,7 @@ import { updateTemplateField } from "../actions";
 import type { TemplateVariable } from "../types";
 import MarkdownContent from "./MarkdownContent";
 import MarkdownEditor from "./MarkdownEditor";
+import { useAgentActions } from "./AgentActionContext";
 import useAutoSaveField from "./useAutoSaveField";
 import styles from "./page.module.scss";
 
@@ -60,6 +61,7 @@ export default function VariableFields({
   const [submitted, setSubmitted] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
   const addRef = useRef<HTMLButtonElement>(null);
+  const { markValidationStale } = useAgentActions();
   const { saveIfChanged } = useAutoSaveField({
     initialValue,
     serialize: serializeVariables,
@@ -109,6 +111,7 @@ export default function VariableFields({
     const nextVariables = editingId
       ? variables.map((item) => (item.id === editingId ? variable : item))
       : [...variables, variable];
+    markValidationStale();
     setVariables(nextVariables);
     saveIfChanged(toTemplateVariables(nextVariables));
     close();
@@ -116,6 +119,7 @@ export default function VariableFields({
 
   function remove() {
     const nextVariables = variables.filter((item) => item.id !== editingId);
+    markValidationStale();
     setVariables(nextVariables);
     saveIfChanged(toTemplateVariables(nextVariables));
     close();
@@ -190,7 +194,10 @@ export default function VariableFields({
               <Modal.Body className={styles.variableForm}>
                 <TextField
                   value={name}
-                  onChange={(value) => setName(value.slice(0, 20))}
+                  onChange={(value) => {
+                    markValidationStale();
+                    setName(value.slice(0, 20));
+                  }}
                   maxLength={20}
                   isRequired
                   isInvalid={submitted && !!nameError}
@@ -204,7 +211,10 @@ export default function VariableFields({
                 </TextField>
                 <TextField
                   value={definition}
-                  onChange={(value) => setDefinition(value.slice(0, 500))}
+                  onChange={(value) => {
+                    markValidationStale();
+                    setDefinition(value.slice(0, 500));
+                  }}
                   maxLength={500}
                   isRequired
                   isInvalid={submitted && !!definitionError}

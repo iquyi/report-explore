@@ -12,6 +12,7 @@
 
 # testing
 /coverage
+/.test-dist
 
 # next.js
 /.next/
@@ -32,6 +33,7 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
 
 # vercel
 .vercel
@@ -42,7 +44,5 @@ next-env.d.ts
 
 # other
 *.xlsx
-*.md
-!/generate-report-v2.md
-!/adjust-report-v1.md
 /skill
+!/design-skill.md

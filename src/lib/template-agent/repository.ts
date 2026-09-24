@@ -116,7 +116,9 @@ export async function updateTemplateAgentSnapshot(
       consistency_rules = ${content.consistencyRules || null},
       constraint_rules = ${content.constraintRules || null},
       exception_boundary_rules = ${content.exceptionBoundaryRules || null},
-      verification_rules = ${content.verificationRules || null}
+      verification_rules = ${content.verificationRules || null},
+      is_draft = 1,
+      status = 0
     WHERE id = ${id}
       AND revision = ${expectedRevision}
     RETURNING id, revision
@@ -128,4 +130,3 @@ export async function updateTemplateAgentSnapshot(
   revalidatePath(`/templates/generate/${id}`);
   return { status: "updated", revision: Number(rows[0].revision) };
 }
-

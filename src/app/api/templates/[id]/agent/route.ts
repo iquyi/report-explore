@@ -4,6 +4,7 @@ import {
   type UIMessageStreamWriterWithOutcome,
 } from "ai";
 import { z } from "zod";
+import { formatQualityEvaluationReply } from "@/lib/template-agent/quality-evaluation";
 import { runTemplateAgent } from "@/lib/template-agent/workflow";
 import { TEMPLATE_FIELD_LABELS } from "@/lib/template-agent/schema";
 import type {
@@ -94,6 +95,17 @@ const formatAgentReply = (result: TemplateAgentResult): string => {
       .join("\n")}`;
   }
 
+  // 保存结果携带最终质量评价时，将结构化问题和建议完整转换为用户可读文本。
+  if (
+    (result.outcome === "updated" || result.outcome === "unchanged") &&
+    result.qualityEvaluation
+  ) {
+    return formatQualityEvaluationReply(
+      result.message,
+      result.qualityEvaluation,
+    );
+  }
+
   return result.message;
 };
 
@@ -153,7 +165,6 @@ export async function POST(request: Request, { params }: AgentRouteProps) {
             writer.write({
               type: "data-status",
               data: { stage, label },
-              transient: true,
             });
           },
         });

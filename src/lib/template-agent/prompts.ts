@@ -184,6 +184,8 @@ ${operation === "generate"
 完整生成还必须检查 explainStructure 的模块和组件契约粒度、变量是否确实被多次引用、四类规则边界、实例事实是否被错误固化，以及结构化输出键是否符合适配映射。
 完整生成时检查全部六个 Markdown 内容字段；局部调整时检查相较原模板发生变化的字段及其必要直接依赖。
 检查适合内容的 Markdown 结构和真实换行；普通段落本身合法，不得仅因没有标题或表格、CRLF/LF 差异或字段末尾换行判定失败。局部调整还必须检查未被用户要求修改的内容是否被不必要地改写。
+每轮都必须一次性检查当前评价范围内的全部标准并返回全部阻塞问题，不得发现一个问题后提前停止，也不得把已能识别的问题留到下一轮。
+反馈中只能使用模板名称、用途描述、模板变量、报告结构、一致性规则、核心约束、异常边界处理、交付校验规则这些中文字段名，不得出现数据库或结构化输出使用的英文字段名。
 passed 只有在不存在阻塞性交付问题时才能为 true；反馈必须具体并可直接用于下一轮修正。
 `,
 });
@@ -191,7 +193,7 @@ passed 只有在不存在阻塞性交付问题时才能为 true；反馈必须�
 /**
  * 完整生成优化 Prompt。
  *
- * 候选模板评价未通过时使用，只按评价反馈修正完整八字段内容，不能忽略共享字段标准。
+ * 候选模板评价未通过时使用，优先处理反馈并按完整指南复查八字段内容。
  * 输出由 completeTemplateContentSchema 约束。
  */
 export const buildGenerationOptimizationPrompt = ({
@@ -210,7 +212,7 @@ export const buildGenerationOptimizationPrompt = ({
   system: `${generationGuidePrefix(generationGuide)}
 ${CONTENT_OUTPUT_LENGTH_PROMPT}
 
-你是报告模板优化器。只按评价反馈修正候选模板，并继续遵守上述完整指南与结构化输出映射。`,
+你是报告模板优化器。优先按评价反馈修正候选模板，并依据上述完整指南对全部八字段执行一次完整自检；同时继续遵守结构化输出映射。`,
   prompt: `
 用户要求：${userMessage}
 当前候选：${JSON.stringify(candidate)}
@@ -323,7 +325,7 @@ export const buildAdjustmentOptimizationPrompt = ({
 ${ADJUSTMENT_OUTPUT_ADAPTER}
 ${CONTENT_OUTPUT_LENGTH_PROMPT}
 
-你是报告模板调整优化器。根据评价反馈重新生成最小字段补丁；优化阶段 outcome 只能是 patch 或 needs_input，不允许返回 unchanged。`,
+你是报告模板调整优化器。根据评价反馈重新生成最小字段补丁，并复查发生变化的字段及其直接依赖；不得借自检扩大修改范围。优化阶段 outcome 只能是 patch 或 needs_input，不允许返回 unchanged。`,
   prompt: `
 用户要求：${userMessage}
 原模板：${JSON.stringify(current)}
@@ -337,8 +339,9 @@ ${CONTENT_OUTPUT_LENGTH_PROMPT}
 /**
  * 模板语义验证 Prompt。
  *
- * 用户执行验证操作时使用，在程序确定性校验的基础上检查字段语义和跨字段一致性，
- * 只能报告问题，绝不能修改模板。输出由 semanticValidationSchema 约束。
+ * 用户执行验证操作时使用，在程序确定性校验的基础上只检查各字段的整体语义，
+ * 不执行生成阶段的细粒度规则审查。只能报告问题，绝不能修改模板。
+ * 输出由 semanticValidationSchema 约束。
  */
 export const buildTemplateValidationPrompt = ({
   current,
@@ -347,11 +350,15 @@ export const buildTemplateValidationPrompt = ({
   current: TemplateAgentContent;
   deterministicIssues: TemplateValidationIssue[];
 }): PromptMessages => ({
-  system: `你是严格的报告模板语义验证器。验证但绝不能修改模板。${STANDARD_PROMPT}`,
+  system: `你是报告模板字段语义验证器。验证但绝不能修改模板。${STANDARD_PROMPT}`,
   prompt: `
 待验证模板：${JSON.stringify(current)}
 程序已发现的问题：${JSON.stringify(deterministicIssues)}
-逐字段检查内容是否符合字段含义、是否包含明显无关内容，并检查跨字段一致性。不得仅因 CRLF/LF 差异或字段末尾换行判定验证失败。只报告真实问题，不重复程序问题。
+只对每个字段的整体语义进行检查：判断内容是否基本符合该字段的职责，是否存在明显无关、完全错位或自相矛盾的内容。不要按照完整生成指南逐条审查内容粒度，也不要检查字段之间的细粒度映射。
+特别是，不得因为报告结构没有逐项体现或引用一致性规则、核心约束、异常边界处理、交付校验规则而判定失败；这四类规则只需各自内容的整体语义与字段职责相符。
+不得因为报告结构没有穷举模块、组件、字段、数量、排序、示例或数据契约而判定失败。不得仅因 CRLF/LF 差异、字段末尾换行、Markdown 形式简单或缺少特定排版元素而判定失败。
+只报告会导致字段整体语义错误的真实问题，不重复程序已经发现的问题。
+问题原因和建议只能使用模板名称、用途描述、模板变量、报告结构、一致性规则、核心约束、异常边界处理、交付校验规则这些中文字段名，不得出现数据库或结构化输出使用的英文字段名。
 `,
 });
 

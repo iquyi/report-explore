@@ -57,6 +57,12 @@ type TemplateDetailRow = {
 
 type IdRow = { id: string };
 type StatusRow = { id: string; status: number };
+type MutationRow = {
+  id: string;
+  revision: string | number;
+  status: number;
+  is_draft: number;
+};
 
 type NormalizedTemplateInput = Required<
   Omit<
@@ -416,7 +422,7 @@ const normalizeTemplateFieldUpdate = (
 export async function updateTemplateField(
   id: string,
   update: TemplateFieldUpdate,
-): Promise<ActionResult<{ id: string }>> {
+): Promise<ActionResult<{ id: string; revision: number; status: TemplateStatus; isDraft: 0 | 1 }>> {
   const idValidation = validateId(id);
   if (!idValidation.success) return idValidation;
 
@@ -426,32 +432,32 @@ export async function updateTemplateField(
   try {
     const sql = getDatabase();
     const value = updateValidation.data;
-    let rows: IdRow[];
+    let rows: MutationRow[];
 
     switch (value.field) {
       case "name":
-        rows = (await sql`UPDATE templates SET name = ${value.value} WHERE id = ${idValidation.data} RETURNING id`) as unknown as IdRow[];
+        rows = (await sql`UPDATE templates SET name = ${value.value}, is_draft = CASE WHEN name IS DISTINCT FROM ${value.value} THEN 1 ELSE is_draft END, status = CASE WHEN name IS DISTINCT FROM ${value.value} THEN 0 ELSE status END WHERE id = ${idValidation.data} RETURNING id, revision, status, is_draft`) as unknown as MutationRow[];
         break;
       case "description":
-        rows = (await sql`UPDATE templates SET description = ${value.value} WHERE id = ${idValidation.data} RETURNING id`) as unknown as IdRow[];
+        rows = (await sql`UPDATE templates SET description = ${value.value}, is_draft = CASE WHEN description IS DISTINCT FROM ${value.value} THEN 1 ELSE is_draft END, status = CASE WHEN description IS DISTINCT FROM ${value.value} THEN 0 ELSE status END WHERE id = ${idValidation.data} RETURNING id, revision, status, is_draft`) as unknown as MutationRow[];
         break;
       case "variables":
-        rows = (await sql`UPDATE templates SET variables = ${JSON.stringify(value.value)}::jsonb WHERE id = ${idValidation.data} RETURNING id`) as unknown as IdRow[];
+        rows = (await sql`UPDATE templates SET variables = ${JSON.stringify(value.value)}::jsonb, is_draft = CASE WHEN variables IS DISTINCT FROM ${JSON.stringify(value.value)}::jsonb THEN 1 ELSE is_draft END, status = CASE WHEN variables IS DISTINCT FROM ${JSON.stringify(value.value)}::jsonb THEN 0 ELSE status END WHERE id = ${idValidation.data} RETURNING id, revision, status, is_draft`) as unknown as MutationRow[];
         break;
       case "explainStructure":
-        rows = (await sql`UPDATE templates SET explain_structure = ${value.value} WHERE id = ${idValidation.data} RETURNING id`) as unknown as IdRow[];
+        rows = (await sql`UPDATE templates SET explain_structure = ${value.value}, is_draft = CASE WHEN explain_structure IS DISTINCT FROM ${value.value} THEN 1 ELSE is_draft END, status = CASE WHEN explain_structure IS DISTINCT FROM ${value.value} THEN 0 ELSE status END WHERE id = ${idValidation.data} RETURNING id, revision, status, is_draft`) as unknown as MutationRow[];
         break;
       case "consistencyRules":
-        rows = (await sql`UPDATE templates SET consistency_rules = ${value.value} WHERE id = ${idValidation.data} RETURNING id`) as unknown as IdRow[];
+        rows = (await sql`UPDATE templates SET consistency_rules = ${value.value}, is_draft = CASE WHEN consistency_rules IS DISTINCT FROM ${value.value} THEN 1 ELSE is_draft END, status = CASE WHEN consistency_rules IS DISTINCT FROM ${value.value} THEN 0 ELSE status END WHERE id = ${idValidation.data} RETURNING id, revision, status, is_draft`) as unknown as MutationRow[];
         break;
       case "constraintRules":
-        rows = (await sql`UPDATE templates SET constraint_rules = ${value.value} WHERE id = ${idValidation.data} RETURNING id`) as unknown as IdRow[];
+        rows = (await sql`UPDATE templates SET constraint_rules = ${value.value}, is_draft = CASE WHEN constraint_rules IS DISTINCT FROM ${value.value} THEN 1 ELSE is_draft END, status = CASE WHEN constraint_rules IS DISTINCT FROM ${value.value} THEN 0 ELSE status END WHERE id = ${idValidation.data} RETURNING id, revision, status, is_draft`) as unknown as MutationRow[];
         break;
       case "exceptionBoundaryRules":
-        rows = (await sql`UPDATE templates SET exception_boundary_rules = ${value.value} WHERE id = ${idValidation.data} RETURNING id`) as unknown as IdRow[];
+        rows = (await sql`UPDATE templates SET exception_boundary_rules = ${value.value}, is_draft = CASE WHEN exception_boundary_rules IS DISTINCT FROM ${value.value} THEN 1 ELSE is_draft END, status = CASE WHEN exception_boundary_rules IS DISTINCT FROM ${value.value} THEN 0 ELSE status END WHERE id = ${idValidation.data} RETURNING id, revision, status, is_draft`) as unknown as MutationRow[];
         break;
       case "verificationRules":
-        rows = (await sql`UPDATE templates SET verification_rules = ${value.value} WHERE id = ${idValidation.data} RETURNING id`) as unknown as IdRow[];
+        rows = (await sql`UPDATE templates SET verification_rules = ${value.value}, is_draft = CASE WHEN verification_rules IS DISTINCT FROM ${value.value} THEN 1 ELSE is_draft END, status = CASE WHEN verification_rules IS DISTINCT FROM ${value.value} THEN 0 ELSE status END WHERE id = ${idValidation.data} RETURNING id, revision, status, is_draft`) as unknown as MutationRow[];
         break;
     }
 
@@ -459,7 +465,15 @@ export async function updateTemplateField(
 
     revalidatePath(TEMPLATE_MANAGE_PATH);
     revalidatePath(`/templates/generate/${idValidation.data}`);
-    return { success: true, data: { id: String(rows[0].id) } };
+    return {
+      success: true,
+      data: {
+        id: String(rows[0].id),
+        revision: Number(rows[0].revision),
+        status: Number(rows[0].status) as TemplateStatus,
+        isDraft: Number(rows[0].is_draft) as 0 | 1,
+      },
+    };
   } catch (error) {
     console.error("Failed to update template field.", error);
     return failure("模板字段保存失败，请稍后重试。");
@@ -543,11 +557,11 @@ export async function forkTemplate(
   }
 }
 
-/** 修改 Action 覆盖全部可编辑字段，updated_at 由数据库触发器维护。 */
+/** 完整保存检测真实字段差异；已发布模板的首次变化会在同一 SQL 中退回草稿。 */
 export async function updateTemplate(
   id: string,
   input: TemplateMutationInput,
-): Promise<ActionResult<{ id: string }>> {
+): Promise<ActionResult<{ id: string; revision: number; status: TemplateStatus; isDraft: 0 | 1 }>> {
   const idValidation = validateId(id);
   if (!idValidation.success) return idValidation;
 
@@ -569,18 +583,45 @@ export async function updateTemplate(
         exception_boundary_rules = ${value.exceptionBoundaryRules},
         verification_rules = ${value.verificationRules},
         type = ${value.type},
-        status = ${value.status},
         blueprint = ${value.blueprint},
         cover = ${value.cover},
-        group_id = ${value.groupId}
+        group_id = ${value.groupId},
+        is_draft = CASE WHEN ROW(
+          name, description, variables, explain_structure, consistency_rules,
+          constraint_rules, exception_boundary_rules, verification_rules,
+          type, blueprint, cover, group_id
+        ) IS DISTINCT FROM ROW(
+          ${value.name}, ${value.description}, ${JSON.stringify(value.variables)}::jsonb,
+          ${value.explainStructure}, ${value.consistencyRules}, ${value.constraintRules},
+          ${value.exceptionBoundaryRules}, ${value.verificationRules}, ${value.type},
+          ${value.blueprint}, ${value.cover}, ${value.groupId}
+        ) THEN 1 ELSE is_draft END,
+        status = CASE WHEN ROW(
+          name, description, variables, explain_structure, consistency_rules,
+          constraint_rules, exception_boundary_rules, verification_rules,
+          type, blueprint, cover, group_id
+        ) IS DISTINCT FROM ROW(
+          ${value.name}, ${value.description}, ${JSON.stringify(value.variables)}::jsonb,
+          ${value.explainStructure}, ${value.consistencyRules}, ${value.constraintRules},
+          ${value.exceptionBoundaryRules}, ${value.verificationRules}, ${value.type},
+          ${value.blueprint}, ${value.cover}, ${value.groupId}
+        ) THEN 0 ELSE status END
       WHERE id = ${idValidation.data}
-      RETURNING id
-    `) as unknown as IdRow[];
+      RETURNING id, revision, status, is_draft
+    `) as unknown as MutationRow[];
 
     if (rows.length === 0) return failure("模板不存在或已被删除。");
 
     revalidatePath(TEMPLATE_MANAGE_PATH);
-    return { success: true, data: { id: String(rows[0].id) } };
+    return {
+      success: true,
+      data: {
+        id: String(rows[0].id),
+        revision: Number(rows[0].revision),
+        status: Number(rows[0].status) as TemplateStatus,
+        isDraft: Number(rows[0].is_draft) as 0 | 1,
+      },
+    };
   } catch (error) {
     console.error("Failed to update template.", error);
     return failure("模板修改失败，请稍后重试。");
@@ -612,6 +653,52 @@ export async function deleteTemplate(
   }
 }
 
+/**
+ * 发布只执行 ID、存在性与 revision 并发校验；验证凭据有意不进入后端。
+ * 因此直接调用此 Action 也可以发布，这是产品明确接受的边界。
+ */
+export async function publishTemplate(
+  id: string,
+  expectedRevision: number,
+): Promise<ActionResult<{ id: string; revision: number; status: 1; isDraft: 0 }>> {
+  const idValidation = validateId(id);
+  if (!idValidation.success) return idValidation;
+  if (!Number.isInteger(expectedRevision) || expectedRevision < 1) {
+    return failure("模板 revision 格式不正确。");
+  }
+
+  try {
+    const sql = getDatabase();
+    const rows = (await sql`
+      UPDATE templates
+      SET is_draft = 0, status = 1
+      WHERE id = ${idValidation.data}
+        AND revision = ${expectedRevision}
+      RETURNING id, revision, status, is_draft
+    `) as unknown as MutationRow[];
+
+    if (rows.length === 0) {
+      return failure("模板已被修改或不存在，请刷新后重新验证。");
+    }
+
+    revalidatePath(TEMPLATE_MANAGE_PATH);
+    revalidatePath(`/templates/generate/${idValidation.data}`);
+    revalidatePath("/chat");
+    return {
+      success: true,
+      data: {
+        id: String(rows[0].id),
+        revision: Number(rows[0].revision),
+        status: 1,
+        isDraft: 0,
+      },
+    };
+  } catch (error) {
+    console.error("Failed to publish template.", error);
+    return failure("模板发布失败，请稍后重试。");
+  }
+}
+
 /** 状态更新只允许 0/1，避免将任意数字写入 SMALLINT 字段。 */
 export async function setTemplateStatus(
   id: string,
@@ -627,10 +714,13 @@ export async function setTemplateStatus(
       UPDATE templates
       SET status = ${status}
       WHERE id = ${idValidation.data}
+        AND (${status} = 0 OR is_draft = 0)
       RETURNING id, status
     `) as unknown as StatusRow[];
 
-    if (rows.length === 0) return failure("模板不存在或已被删除。");
+    if (rows.length === 0) {
+      return failure(status === 1 ? "草稿必须验证并发布后才能启用。" : "模板不存在或已被删除。");
+    }
 
     revalidatePath(TEMPLATE_MANAGE_PATH);
     return {

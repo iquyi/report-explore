@@ -1,9 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { Button, Input, Label, TextField } from "@heroui/react";
-import { updateTemplateField } from "../actions";
+import { useRouter } from "next/navigation";
+import { Button, Input, Label, TextField, toast } from "@heroui/react";
+import { publishTemplate, updateTemplateField } from "../actions";
 import { useAgentActions } from "./AgentActionContext";
+import { useAutoSaveStatus } from "./AutoSaveStatus";
 import useAutoSaveField from "./useAutoSaveField";
 import styles from "./page.module.scss";
 
@@ -23,7 +25,17 @@ export default function BasicInformation({
 }: BasicInformationProps) {
   const [name, setName] = useState(initialName);
   const [description, setDescription] = useState(initialDescription);
-  const { requestValidation, isAgentBusy } = useAgentActions();
+  const [publishing, setPublishing] = useState(false);
+  const router = useRouter();
+  const {
+    requestValidation,
+    isAgentBusy,
+    validationState,
+    validatedRevision,
+    markValidationStale,
+    clearValidation,
+  } = useAgentActions();
+  const { pendingCount, waitUntilIdle } = useAutoSaveStatus();
   const { saveIfChanged: saveNameIfChanged } = useAutoSaveField({
     initialValue: initialName,
     serialize: serializeText,
@@ -37,12 +49,30 @@ export default function BasicInformation({
       updateTemplateField(templateId, { field: "description", value }),
   });
 
+  const publish = async () => {
+    if (validationState !== "passed" || validatedRevision === null) return;
+    setPublishing(true);
+    await waitUntilIdle();
+    const result = await publishTemplate(templateId, validatedRevision);
+    setPublishing(false);
+    if (!result.success) {
+      toast.danger(result.error);
+      return;
+    }
+    clearValidation();
+    toast.success("模板已发布并启用。");
+    router.refresh();
+  };
+
   return (
     <div className={styles.basicInformation}>
       <div className={styles.metadataFields}>
         <TextField
           value={name}
-          onChange={(value) => setName(value.slice(0, 50))}
+          onChange={(value) => {
+            markValidationStale();
+            setName(value.slice(0, 50));
+          }}
           className={styles.metadataField}
         >
           <div className={styles.labelRow}>
@@ -64,7 +94,10 @@ export default function BasicInformation({
         </TextField>
         <TextField
           value={description}
-          onChange={(value) => setDescription(value.slice(0, 500))}
+          onChange={(value) => {
+            markValidationStale();
+            setDescription(value.slice(0, 500));
+          }}
           className={styles.metadataField}
         >
           <div className={styles.labelRow}>
@@ -85,12 +118,19 @@ export default function BasicInformation({
         <Button
           type="button"
           variant="secondary"
-          isDisabled={isAgentBusy}
+          isDisabled={isAgentBusy || validationState === "validating" || pendingCount > 0}
           onPress={requestValidation}
         >
-          验证
+          {validationState === "validating" ? "验证中…" : "验证"}
         </Button>
-        <Button type="button" variant="primary">发布</Button>
+        <Button
+          type="button"
+          variant="primary"
+          isDisabled={validationState !== "passed" || pendingCount > 0 || isAgentBusy || publishing}
+          onPress={() => void publish()}
+        >
+          {publishing ? "发布中…" : "发布"}
+        </Button>
       </div>
     </div>
   );

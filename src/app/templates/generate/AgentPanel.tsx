@@ -87,7 +87,6 @@ export default function AgentPanel({ templateId }: AgentPanelProps) {
   const router = useRouter();
   const [prompt, setPrompt] = useState("");
   const [reference, setReference] = useState<File | null>(null);
-  const [stage, setStage] = useState("");
   const [pendingConfirmation, setPendingConfirmation] =
     useState<PendingConfirmation | null>(null);
   const pendingAttachmentRef = useRef<TemplateAgentAttachment | undefined>(
@@ -95,8 +94,9 @@ export default function AgentPanel({ templateId }: AgentPanelProps) {
   );
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const lastValidationRequestRef = useRef(0);
+  const validationRunningRef = useRef(false);
   const { waitUntilIdle } = useAutoSaveStatus();
-  const { validationRequest, setAgentBusy } = useAgentActions();
+  const { validationRequest, setAgentBusy, setValidationResult } = useAgentActions();
 
   const transport = useMemo(
     () =>
@@ -117,14 +117,13 @@ export default function AgentPanel({ templateId }: AgentPanelProps) {
       id: `template-agent-${templateId}`,
       transport,
       onData(part) {
-        if (part.type === "data-status") {
-          setStage(part.data.label);
-          return;
-        }
         if (part.type !== "data-result") return;
 
         const result = part.data;
-        setStage("");
+        if (result.outcome === "validated") {
+          validationRunningRef.current = false;
+          setValidationResult(result.valid, result.revision);
+        }
         if (result.outcome === "confirmation_required") {
           setPendingConfirmation(result.confirmation);
           return;
@@ -140,16 +139,46 @@ export default function AgentPanel({ templateId }: AgentPanelProps) {
         }
       },
       onFinish() {
-        setStage("");
+        if (validationRunningRef.current) {
+          validationRunningRef.current = false;
+          setValidationResult(false, 0);
+        }
       },
       onError(error) {
         console.error("Template agent request failed.", error);
-        setStage("");
+        if (validationRunningRef.current) {
+          validationRunningRef.current = false;
+          setValidationResult(false, 0);
+        }
         toast.danger("Agent 请求失败，请稍后重试。");
       },
     });
 
   const running = status === "submitted" || status === "streaming";
+
+  /**
+   * 当前请求的 Assistant 消息位于消息列表末尾；只有它尚未收到任何阶段事件时，
+   * 才显示通用占位，避免上一轮已完成的阶段记录影响本轮判断。
+   */
+  const hasCurrentRequestStatus = useMemo(() => {
+    const latestMessage = messages[messages.length - 1];
+    return latestMessage?.role === "assistant" && latestMessage.parts.some(
+      (part) => part.type === "data-status",
+    );
+  }, [messages]);
+
+  /** 只检查当前请求的 Assistant 消息，避免新请求让上一轮最后阶段重新旋转。 */
+  const latestStatusKey = useMemo(() => {
+    const latestMessage = messages[messages.length - 1];
+    if (latestMessage?.role !== "assistant") return null;
+
+    for (let partIndex = latestMessage.parts.length - 1; partIndex >= 0; partIndex -= 1) {
+      if (latestMessage.parts[partIndex].type === "data-status") {
+        return `${latestMessage.id}-status-${partIndex}`;
+      }
+    }
+    return null;
+  }, [messages]);
 
   useEffect(() => {
     setAgentBusy(running || pendingConfirmation !== null);
@@ -158,7 +187,7 @@ export default function AgentPanel({ templateId }: AgentPanelProps) {
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ block: "nearest" });
-  }, [messages, stage, pendingConfirmation]);
+  }, [messages, pendingConfirmation]);
 
   /** 点击 Agent 前先让当前编辑控件失焦，并等待由失焦触发的自动保存完成。 */
   const flushEditorSaves = useCallback(async () => {
@@ -172,6 +201,7 @@ export default function AgentPanel({ templateId }: AgentPanelProps) {
   const submitValidation = useCallback(async () => {
     if (running || pendingConfirmation) return;
     await flushEditorSaves();
+    validationRunningRef.current = true;
     await sendMessage(
       { text: VALIDATION_MESSAGE },
       { body: { operation: "validate" } },
@@ -274,29 +304,59 @@ export default function AgentPanel({ templateId }: AgentPanelProps) {
             描述模板需求，或上传 MD / HTML 参考文件。
           </div>
         )}
-        {messages.map((message) => {
-          const text = getText(message);
-          if (!text) return null;
-          return (
-            <article
-              key={message.id}
-              className={`${styles.message} ${
-                message.role === "user"
-                  ? styles.userMessage
-                  : styles.agentMessage
-              }`}
-            >
-              <span>{message.role === "user" ? "你" : "Agent"}</span>
-              <p>{text}</p>
-            </article>
-          );
-        })}
-        {running && (
+        {messages.flatMap((message) =>
+          message.parts.flatMap((part, partIndex) => {
+            // 文本分片继续在自己的气泡中增量更新；结果数据仅供 onData 处理，不重复展示。
+            if (part.type === "text") {
+              if (!part.text) return [];
+              return [
+                <article
+                  key={`${message.id}-text-${partIndex}`}
+                  className={`${styles.message} ${
+                    message.role === "user"
+                      ? styles.userMessage
+                      : styles.agentMessage
+                  }`}
+                >
+                  <span>{message.role === "user" ? "你" : "Agent"}</span>
+                  <p>{part.text}</p>
+                </article>,
+              ];
+            }
+
+            if (part.type !== "data-status") return [];
+            const statusKey = `${message.id}-status-${partIndex}`;
+            const isActive = running && statusKey === latestStatusKey;
+            return [
+              <article
+                key={statusKey}
+                className={`${styles.message} ${styles.agentMessage}`}
+              >
+                <span>Agent</span>
+                <p className={styles.stageMessage}>
+                  <Icon
+                    icon={isActive ? "tabler:loader-2" : "tabler:check"}
+                    width={15}
+                    aria-hidden="true"
+                    className={isActive ? styles.stageSpinner : undefined}
+                  />
+                  {part.data.label}
+                </p>
+              </article>,
+            ];
+          }),
+        )}
+        {running && !hasCurrentRequestStatus && (
           <div className={`${styles.message} ${styles.agentMessage}`}>
             <span>Agent</span>
             <p className={styles.stageMessage}>
-              <Icon icon="tabler:loader-2" width={15} aria-hidden="true" />
-              {stage || "正在处理…"}
+              <Icon
+                icon="tabler:loader-2"
+                width={15}
+                aria-hidden="true"
+                className={styles.stageSpinner}
+              />
+              正在处理…
             </p>
           </div>
         )}

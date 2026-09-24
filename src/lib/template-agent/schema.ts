@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { TEMPLATE_FIELD_LABELS } from "./field-labels";
 import { TEMPLATE_FIELD_LIMITS } from "./limits";
 import type {
   TemplateAgentContent,
@@ -7,16 +8,7 @@ import type {
   TemplateValidationIssue,
 } from "./types";
 
-export const TEMPLATE_FIELD_LABELS: Record<TemplateAgentField, string> = {
-  name: "模板名称",
-  description: "用途描述",
-  variables: "模板变量",
-  explainStructure: "报告结构",
-  consistencyRules: "一致性规则",
-  constraintRules: "核心约束",
-  exceptionBoundaryRules: "异常边界处理",
-  verificationRules: "交付校验规则",
-};
+export { TEMPLATE_FIELD_LABELS } from "./field-labels";
 
 export const TEMPLATE_CONTENT_FIELDS = Object.keys(
   TEMPLATE_FIELD_LABELS,

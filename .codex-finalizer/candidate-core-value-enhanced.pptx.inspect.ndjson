@@ -1,0 +1,651 @@
+{"kind":"deck","id":"pr/gr6kkm","name":"Deck"}
+{"kind":"layout","layoutId":"/ppt/slideMasters/slideMaster1.xml","name":"","type":"master","placeholders":[{"name":"title","type":"title","textPreview":"单击此处编辑母版标题样式"},{"name":"body","type":"body","textPreview":"单击此处编辑母版文本样式 | 二级 | 三级 | 四级 | 五级"},{"name":"dateTime","type":"dateTime"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout1.xml","name":"仅标题","type":"titleOnly","placeholders":[{"name":"title","type":"title","textPreview":"单击此处编辑母版标题样式"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout2.xml","name":"标题幻灯片","type":"title","placeholders":[{"name":"title","type":"title","textPreview":"单击此处编辑母版标题样式"},{"name":"subtitle","type":"subtitle","textPreview":"单击此处编辑母版副标题样式"},{"name":"dateTime","type":"dateTime"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout3.xml","name":"标题和内容","type":"obj","placeholders":[{"name":"title","type":"title","textPreview":"单击此处编辑母版标题样式"},{"name":"2","textPreview":"单击此处编辑母版文本样式 | 二级 | 三级 | 四级 | 五级"},{"name":"dateTime","type":"dateTime"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout4.xml","name":"节标题","type":"secHead","placeholders":[{"name":"title","type":"title","textPreview":"单击此处编辑母版标题样式"},{"name":"body","type":"body","textPreview":"单击此处编辑母版文本样式"},{"name":"dateTime","type":"dateTime"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout5.xml","name":"两栏内容","type":"twoObj","placeholders":[{"name":"title","type":"title","textPreview":"单击此处编辑母版标题样式"},{"name":"2","textPreview":"单击此处编辑母版文本样式 | 二级 | 三级 | 四级 | 五级"},{"name":"3","textPreview":"单击此处编辑母版文本样式 | 二级 | 三级 | 四级 | 五级"},{"name":"dateTime","type":"dateTime"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout6.xml","name":"比较","type":"twoTxTwoObj","placeholders":[{"name":"title","type":"title","textPreview":"单击此处编辑母版标题样式"},{"name":"body","type":"body","textPreview":"单击此处编辑母版文本样式"},{"name":"3","textPreview":"单击此处编辑母版文本样式 | 二级 | 三级 | 四级 | 五级"},{"name":"body","type":"body","textPreview":"单击此处编辑母版文本样式"},{"name":"5","textPreview":"单击此处编辑母版文本样式 | 二级 | 三级 | 四级 | 五级"},{"name":"dateTime","type":"dateTime"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout7.xml","name":"空白","type":"blank","placeholders":[{"name":"dateTime","type":"dateTime"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout8.xml","name":"内容与标题","type":"objTx","placeholders":[{"name":"title","type":"title","textPreview":"单击此处编辑母版标题样式"},{"name":"2","textPreview":"单击此处编辑母版文本样式 | 二级 | 三级 | 四级 | 五级"},{"name":"body","type":"body","textPreview":"单击此处编辑母版文本样式"},{"name":"dateTime","type":"dateTime"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout9.xml","name":"图片与标题","type":"picTx","placeholders":[{"name":"title","type":"title","textPreview":"单击此处编辑母版标题样式"},{"name":"picture","type":"picture"},{"name":"body","type":"body","textPreview":"单击此处编辑母版文本样式"},{"name":"dateTime","type":"dateTime"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout10.xml","name":"标题和竖排文字"}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout11.xml","name":"篇章页","placeholders":[{"name":"body","type":"body","textPreview":"这里是一个标题文字"},{"name":"body","type":"body","textPreview":"THIS IS ONE TITLE CHARACTER"},{"name":"body","type":"body","textPreview":"01"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout12.xml","name":"空白","type":"blank","placeholders":[{"name":"dateTime","type":"dateTime"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout13.xml","name":"空白","type":"blank","placeholders":[{"name":"dateTime","type":"dateTime"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout14.xml","name":"Title Only","type":"titleOnly","placeholders":[{"name":"title","type":"title","textPreview":"Click to add title"},{"name":"dateTime","type":"dateTime"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout15.xml","name":"标题幻灯片","type":"title","placeholders":[{"name":"title","type":"title","textPreview":"单击此处编辑母版标题样式"},{"name":"subtitle","type":"subtitle","textPreview":"单击此处编辑母版副标题样式"},{"name":"dateTime","type":"dateTime"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout16.xml","name":"标题幻灯片","type":"title","placeholders":[{"name":"title","type":"title","textPreview":"单击此处编辑母版标题样式"},{"name":"subtitle","type":"subtitle","textPreview":"单击此处编辑母版副标题样式"},{"name":"dateTime","type":"dateTime"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout17.xml","name":"Blank","type":"blank","placeholders":[{"name":"dateTime","type":"dateTime"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout18.xml","name":"Blank","type":"blank","placeholders":[{"name":"dateTime","type":"dateTime"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout19.xml","name":"Blank","type":"blank","placeholders":[{"name":"dateTime","type":"dateTime"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout20.xml","name":"标题幻灯片","type":"title","placeholders":[{"name":"title","type":"title","textPreview":"单击此处编辑母版标题样式"},{"name":"subtitle","type":"subtitle","textPreview":"单击此处编辑母版副标题样式"},{"name":"dateTime","type":"dateTime"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout21.xml","name":"Blank","type":"blank","placeholders":[{"name":"dateTime","type":"dateTime"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout22.xml","name":"空白","type":"blank","placeholders":[{"name":"dateTime","type":"dateTime"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout23.xml","name":"标题幻灯片","type":"title","placeholders":[{"name":"title","type":"title","textPreview":"单击此处编辑母版标题样式"},{"name":"subtitle","type":"subtitle","textPreview":"单击此处编辑母版副标题样式"},{"name":"dateTime","type":"dateTime"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout24.xml","name":"封面"}
+{"kind":"slide","id":"sl/y90nupkv","slide":1,"title":"申报人：曲艺（研发三部）","textShapes":7}
+{"kind":"textbox","id":"sh/wn6dc7eh","slide":1,"name":"Rounded Rectangle 9","text":"申报人：曲艺（研发三部）","textPreview":"申报人：曲艺（研发三部）","textChars":12,"textLines":1,"bbox":[67.87,646.73,320,34.8]}
+{"kind":"textbox","id":"sh/hofulsf2","slide":1,"name":"Rounded Rectangle 10","text":"  2026-09-20","textPreview":"2026-09-20","textChars":12,"textLines":1,"bbox":[412.87,646.72,180,34.8]}
+{"kind":"shape","id":"sh/5sfepcfe","slide":1,"name":"圆角矩形 14","bbox":[42,138,10,180]}
+{"kind":"textbox","id":"sh/ipovexwn","slide":1,"name":"矩形 15","text":"PROMPT 即模板","textPreview":"PROMPT 即模板","textChars":10,"textLines":1,"bbox":[80,142,520,42]}
+{"kind":"textbox","id":"sh/3qxwn2x8","slide":1,"name":"矩形 16","text":"报告生成与模板资产化方案","textPreview":"报告生成与模板资产化方案","textChars":12,"textLines":1,"bbox":[80,204,880,94]}
+{"kind":"textbox","id":"sh/sfqdkrep","slide":1,"name":"矩形 17","text":"让报告模板从代码实现转变为可检索、可复用、可治理的组织资产","textPreview":"让报告模板从代码实现转变为可检索、可复用、可治理的组织资产","textChars":29,"textLines":1,"bbox":[84,322,910,48]}
+{"kind":"shape","id":"sh/0bmd476t","slide":1,"name":"圆角矩形 20","bbox":[80,399.2,370.8,159.4]}
+{"kind":"textbox","id":"sh/zadcv2p8","slide":1,"name":"矩形 21","text":"核心命题","textPreview":"核心命题","textChars":4,"textLines":1,"bbox":[118,435.2,180,28]}
+{"kind":"textbox","id":"sh/e94v2hon","slide":1,"name":"矩形 22","text":"Prompt 即模板","textPreview":"Prompt 即模板","textChars":10,"textLines":1,"bbox":[118,477.2,311.6,51.93]}
+{"kind":"notes","id":"nt/y90nupkv","slide":1,"text":"开场先说明主题来自真实报告需求。核心问题不是能否生成一份报告，而是如何把生成质量稳定下来，并让模板持续演进。\n[资料] 用户提供 PPT 与逐字稿。"}
+{"kind":"slide","id":"sl/hwbqtkby","slide":2,"title":"01 · 为什么要改变","textShapes":21}
+{"kind":"shape","id":"sh/a9gvulkj","slide":2,"name":"圆角矩形 33","bbox":[50,45,7,82]}
+{"kind":"textbox","id":"sh/9072xkry","slide":2,"name":"矩形 1","text":"01 · 为什么要改变","textPreview":"01 · 为什么要改变","textChars":11,"textLines":1,"bbox":[72,42,310,28]}
+{"kind":"textbox","id":"sh/ozy1ofad","slide":2,"name":"矩形 2","text":"一次模板调整，往往要走完一轮软件发版","textPreview":"一次模板调整，往往要走完一轮软件发版","textChars":18,"textLines":1,"bbox":[72,74,1040,62]}
+{"kind":"shape","id":"sh/b29kza94","slide":2,"name":"直接连接符 3","bbox":[74,674,1130,0]}
+{"kind":"textbox","id":"sh/a10jqpsj","slide":2,"name":"矩形 4","text":"PROMPT 即模板 · 内部分享","textPreview":"PROMPT 即模板 · 内部分享","textChars":17,"textLines":1,"bbox":[74,684,330,18]}
+{"kind":"textbox","id":"sh/x4r21kru","slide":2,"name":"矩形 5","text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[1150,681,54,20]}
+{"kind":"shape","id":"sh/ba9cn6l4","slide":2,"name":"s2-glow-wide","bbox":[140,315,980,42]}
+{"kind":"shape","id":"sh/wbidwb29","slide":2,"name":"s2-glow-core","bbox":[316.4,327,627.2,18]}
+{"kind":"shape","id":"sh/xcrupg3u","slide":2,"name":"s2-track","bbox":[150,338,980,0]}
+{"kind":"shape","id":"sh/id0vylkf","slide":2,"name":"s2-step-1-circle","bbox":[133,316,44,44]}
+{"kind":"textbox","id":"sh/je9crql0","slide":2,"name":"s2-step-1-text","text":"1","textPreview":"1","textChars":1,"textLines":1,"bbox":[133,316,44,44]}
+{"kind":"textbox","id":"sh/ru5cbqd4","slide":2,"name":"s2-label-1","text":"业务提出修改","textPreview":"业务提出修改","textChars":6,"textLines":1,"bbox":[82,373,146,62]}
+{"kind":"shape","id":"sh/69wbilcj","slide":2,"name":"s2-step-2-circle","bbox":[293,316,44,44]}
+{"kind":"textbox","id":"sh/tw7ud0va","slide":2,"name":"s2-step-2-text","text":"2","textPreview":"2","textChars":1,"textLines":1,"bbox":[293,316,44,44]}
+{"kind":"textbox","id":"sh/svedkvup","slide":2,"name":"s2-label-2","text":"产品重新确认","textPreview":"产品重新确认","textChars":6,"textLines":1,"bbox":[242,373,146,62]}
+{"kind":"shape","id":"sh/fypcfqdg","slide":2,"name":"s2-step-3-circle","bbox":[453,316,44,44]}
+{"kind":"textbox","id":"sh/exgvmlcv","slide":2,"name":"s2-step-3-text","text":"3","textPreview":"3","textChars":1,"textLines":1,"bbox":[453,316,44,44]}
+{"kind":"textbox","id":"sh/107uh0v6","slide":2,"name":"s2-label-3","text":"设计调整视觉","textPreview":"设计调整视觉","textChars":6,"textLines":1,"bbox":[402,373,146,62]}
+{"kind":"shape","id":"sh/gzydovul","slide":2,"name":"s2-step-4-circle","bbox":[613,316,44,44]}
+{"kind":"textbox","id":"sh/v2lc36dw","slide":2,"name":"s2-step-4-text","text":"4","textPreview":"4","textChars":1,"textLines":1,"bbox":[613,316,44,44]}
+{"kind":"textbox","id":"sh/a1cba1wb","slide":2,"name":"s2-label-4","text":"前后端改代码","textPreview":"前后端改代码","textChars":6,"textLines":1,"bbox":[562,373,146,62]}
+{"kind":"shape","id":"sh/0vq1o36x","slide":2,"name":"s2-step-5-circle","bbox":[773,316,44,44]}
+{"kind":"textbox","id":"sh/1wzix87i","slide":2,"name":"s2-step-5-text","text":"5","textPreview":"5","textChars":1,"textLines":1,"bbox":[773,316,44,44]}
+{"kind":"textbox","id":"sh/et8zmto7","slide":2,"name":"s2-label-5","text":"联调与测试","textPreview":"联调与测试","textChars":5,"textLines":1,"bbox":[722,373,146,62]}
+{"kind":"shape","id":"sh/zuh0vypc","slide":2,"name":"s2-step-6-circle","bbox":[933,316,44,44]}
+{"kind":"textbox","id":"sh/c76hk361","slide":2,"name":"s2-step-6-text","text":"6","textPreview":"6","textChars":1,"textLines":1,"bbox":[933,316,44,44]}
+{"kind":"textbox","id":"sh/d8zit87m","slide":2,"name":"s2-label-6","text":"部署上线","textPreview":"部署上线","textChars":4,"textLines":1,"bbox":[882,373,146,62]}
+{"kind":"shape","id":"sh/q5ozitov","slide":2,"name":"s2-step-7-circle","bbox":[1093,316,44,44]}
+{"kind":"textbox","id":"sh/r6x0rypg","slide":2,"name":"s2-step-7-text","text":"7","textPreview":"7","textChars":1,"textLines":1,"bbox":[1093,316,44,44]}
+{"kind":"textbox","id":"sh/w3a1wn65","slide":2,"name":"s2-label-7","text":"下一次再次\n重复","textPreview":"下一次再次 | 重复","textChars":8,"textLines":2,"bbox":[1042,373,146,62]}
+{"kind":"textbox","id":"sh/5kfipszu","slide":2,"name":"s2-root","text":"根因：模板的“业务属性”与“代码属性”强绑定。","textPreview":"根因：模板的“业务属性”与“代码属性”强绑定。","textChars":23,"textLines":1,"bbox":[112,475,900,42]}
+{"kind":"textbox","id":"sh/kj6hgny9","slide":2,"name":"s2-main","text":"模板天然需要定制化和高频迭代，却仍以软件版本的方式交付。","textPreview":"模板天然需要定制化和高频迭代，却仍以软件版本的方式交付。","textChars":28,"textLines":1,"bbox":[112,530,1050,48]}
+{"kind":"textbox","id":"sh/jix0niho","slide":2,"name":"s2-sub","text":"每次业务调整都被转化为开发、测试与发布任务。","textPreview":"每次业务调整都被转化为开发、测试与发布任务。","textChars":22,"textLines":1,"bbox":[112,585,1000,38]}
+{"kind":"notes","id":"nt/hwbqtkby","slide":2,"text":"报告模板经常只是结构、口径或视觉上的小调整，但传统模式仍要求走完整的软件研发流程。问题的根源是业务模板和代码交付绑定。\n[资料] 逐字稿第 1 页。"}
+{"kind":"slide","id":"sl/ofy9wn61","slide":3,"title":"01 · 为什么要改变","textShapes":21}
+{"kind":"shape","id":"sh/re9g7yxo","slide":3,"name":"圆角矩形 24","bbox":[50,45,7,82]}
+{"kind":"textbox","id":"sh/cza94vmx","slide":3,"name":"矩形 1","text":"01 · 为什么要改变","textPreview":"01 · 为什么要改变","textChars":11,"textLines":1,"bbox":[72,42,310,28]}
+{"kind":"textbox","id":"sh/d0jax03i","slide":3,"name":"矩形 2","text":"低代码与 AI 直接生成，都只能解决部分问题","textPreview":"低代码与 AI 直接生成，都只能解决部分问题","textChars":22,"textLines":1,"bbox":[72,74,1040,62]}
+{"kind":"shape","id":"sh/298ryl4v","slide":3,"name":"直接连接符 3","bbox":[74,674,1130,0]}
+{"kind":"textbox","id":"sh/3ah8rqlg","slide":3,"name":"矩形 4","text":"PROMPT 即模板 · 内部分享","textPreview":"PROMPT 即模板 · 内部分享","textChars":17,"textLines":1,"bbox":[74,684,330,18]}
+{"kind":"textbox","id":"sh/obq90bml","slide":3,"name":"矩形 5","text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[1150,681,54,20]}
+{"kind":"shape","id":"sh/sfix03y9","slide":3,"name":"s3-left-field","bbox":[68,170,540,402.73]}
+{"kind":"shape","id":"sh/tgry9ofu","slide":3,"name":"s3-right-field","bbox":[672,170,540,402.8]}
+{"kind":"shape","id":"sh/a9kfadwn","slide":3,"name":"s3-divider","bbox":[636,175.93,3,390]}
+{"kind":"textbox","id":"sh/batgjixs","slide":3,"name":"s3-left-number","text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[98,188,80,58]}
+{"kind":"textbox","id":"sh/l4fi9cza","slide":3,"name":"s3-left-tag","text":"方案一","textPreview":"方案一","textChars":3,"textLines":1,"bbox":[183,196,110,36]}
+{"kind":"textbox","id":"sh/k3m1g7yp","slide":3,"name":"s3-left-title","text":"低代码：组件化配置","textPreview":"低代码：组件化配置","textChars":9,"textLines":1,"bbox":[98,250,450,45]}
+{"kind":"textbox","id":"sh/z2d07mh4","slide":3,"name":"s3-left-flow","text":"预置组件与规则 → 业务人员配置组装","textPreview":"预置组件与规则 → 业务人员配置组装","textChars":18,"textLines":1,"bbox":[98,300,450,35]}
+{"kind":"textbox","id":"sh/y14jehgj","slide":3,"name":"s3-left-relief-label","text":"能够缓解","textPreview":"能够缓解","textChars":4,"textLines":1,"bbox":[98,355,140,28]}
+{"kind":"textbox","id":"sh/x0vi5czy","slide":3,"name":"s3-left-relief","text":"在标准化场景中，减少部分重复开发。","textPreview":"在标准化场景中，减少部分重复开发。","textChars":17,"textLines":1,"bbox":[98,382,450,34]}
+{"kind":"textbox","id":"sh/czmhc7id","slide":3,"name":"s3-left-risk-label","text":"主要局限","textPreview":"主要局限","textChars":4,"textLines":1,"bbox":[98,438,140,28]}
+{"kind":"textbox","id":"sh/byd032h8","slide":3,"name":"s3-left-risk","text":"• 组件有限，难满足高定制需求\n• 配置方式复杂\n• 平台本身研发成本高","textPreview":"• 组件有限，难满足高定制需求 | • 配置方式复杂 | • 平台本身研发成本高","textChars":36,"textLines":3,"bbox":[98,469,450,105]}
+{"kind":"textbox","id":"sh/ax4zax0n","slide":3,"name":"s3-right-number","text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[702,188,80,58]}
+{"kind":"textbox","id":"sh/hwzihwzi","slide":3,"name":"s3-right-tag","text":"方案二","textPreview":"方案二","textChars":3,"textLines":1,"bbox":[787,196,110,36]}
+{"kind":"textbox","id":"sh/wv61obyx","slide":3,"name":"s3-right-title","text":"AI 直接生成：自由生成","textPreview":"AI 直接生成：自由生成","textChars":12,"textLines":1,"bbox":[702,250,450,45]}
+{"kind":"textbox","id":"sh/4nuhs7uh","slide":3,"name":"s3-right-flow","text":"数据 + 指令 → 大模型直接输出报告","textPreview":"数据 + 指令 → 大模型直接输出报告","textChars":19,"textLines":1,"bbox":[702,300,450,35]}
+{"kind":"textbox","id":"sh/po3ilcvm","slide":3,"name":"s3-right-relief-label","text":"能够缓解","textPreview":"能够缓解","textChars":4,"textLines":1,"bbox":[702,355,140,28]}
+{"kind":"textbox","id":"sh/21szqxcb","slide":3,"name":"s3-right-relief","text":"不依赖预先固化的完整模板代码。","textPreview":"不依赖预先固化的完整模板代码。","textChars":15,"textLines":1,"bbox":[702,382,450,34]}
+{"kind":"textbox","id":"sh/32l0j2dw","slide":3,"name":"s3-right-risk-label","text":"主要问题","textPreview":"主要问题","textChars":4,"textLines":1,"bbox":[702,438,140,28]}
+{"kind":"textbox","id":"sh/cruhwrud","slide":3,"name":"s3-right-risk","text":"• 交付质量一致性与稳定性不足\n• 模型或参数变化带来结构、风格与质量漂移\n• 优秀结果难以稳定复现","textPreview":"• 交付质量一致性与稳定性不足 | • 模型或参数变化带来结构、风格与质量漂移 | • 优秀结果难以稳定复现","textChars":50,"textLines":3,"bbox":[702,469,450,105]}
+{"kind":"textbox","id":"sh/ds3ipcvy","slide":3,"name":"s3-conclusion","text":"低代码受限于组件边界，AI 直出受限于质量方差；需要兼顾灵活性、复用性与可控性。","textPreview":"低代码受限于组件边界，AI 直出受限于质量方差；需要兼顾灵活性、复用性与可控性。","textChars":40,"textLines":1,"bbox":[122,603.87,1036,42]}
+{"kind":"notes","id":"nt/ofy9wn61","slide":3,"text":"低代码依赖预置组件，灵活性越高平台越复杂。AI 直接生成虽然自由，但缺少稳定边界，优秀结果难以复现。\n[资料] 逐字稿第 1-2 页。"}
+{"kind":"slide","id":"sl/jyx0ra1s","slide":4,"title":"01 · 为什么要改变","textShapes":17}
+{"kind":"shape","id":"sh/fu9sn2p0","slide":4,"name":"圆角矩形 25","bbox":[50,45,7,82]}
+{"kind":"textbox","id":"sh/1cj2d8b6","slide":4,"name":"矩形 1","text":"01 · 为什么要改变","textPreview":"01 · 为什么要改变","textChars":11,"textLines":1,"bbox":[72,42,310,28]}
+{"kind":"textbox","id":"sh/0ba143al","slide":4,"name":"矩形 2","text":"需要解决的三个痛点","textPreview":"需要解决的三个痛点","textChars":9,"textLines":1,"bbox":[72,74,1040,62]}
+{"kind":"shape","id":"sh/rm1k7yt4","slide":4,"name":"直接连接符 3","bbox":[74,674,1130,0]}
+{"kind":"textbox","id":"sh/ql8jytsj","slide":4,"name":"矩形 4","text":"PROMPT 即模板 · 内部分享","textPreview":"PROMPT 即模板 · 内部分享","textChars":17,"textLines":1,"bbox":[74,684,330,18]}
+{"kind":"textbox","id":"sh/doj29oba","slide":4,"name":"矩形 5","text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[1150,681,54,20]}
+{"kind":"textbox","id":"sh/et0reh8f","slide":4,"name":"s4-num-1","text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[82,195,110,72]}
+{"kind":"shape","id":"sh/tsrqlc7u","slide":4,"name":"s4-line-1","bbox":[82,277,300,4]}
+{"kind":"textbox","id":"sh/sri9s7q9","slide":4,"name":"s4-title-1","text":"变更驱动代码发版","textPreview":"变更驱动代码发版","textChars":8,"textLines":1,"bbox":[82,304.8,300,48]}
+{"kind":"textbox","id":"sh/ilwf69kv","slide":4,"name":"s4-body-1","text":"每次样式或内容调整都要经历开发、测试、部署和上线。","textPreview":"每次样式或内容调整都要经历开发、测试、部署和上线。","textChars":25,"textLines":1,"bbox":[82,373.13,300,104]}
+{"kind":"textbox","id":"sh/jm5gze1g","slide":4,"name":"s4-tag-1","text":"响应慢 · 成本高","textPreview":"响应慢 · 成本高","textChars":9,"textLines":1,"bbox":[140,212.13,242.07,40]}
+{"kind":"textbox","id":"sh/knex8j21","slide":4,"name":"s4-num-2","text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[440,195,110,72]}
+{"kind":"shape","id":"sh/5ony1oj6","slide":4,"name":"s4-line-2","bbox":[440,277,300,4]}
+{"kind":"textbox","id":"sh/axcf29kj","slide":4,"name":"s4-title-2","text":"跨场景复用困难","textPreview":"跨场景复用困难","textChars":7,"textLines":1,"bbox":[440,304.8,300,48]}
+{"kind":"textbox","id":"sh/vy5gbe14","slide":4,"name":"s4-body-2","text":"模板与技术栈、业务代码、数据结构和渲染环境强绑定。","textPreview":"模板与技术栈、业务代码、数据结构和渲染环境强绑定。","textChars":25,"textLines":1,"bbox":[440,373.13,300,104]}
+{"kind":"textbox","id":"sh/wzex4z2p","slide":4,"name":"s4-tag-2","text":"难沉淀 · 难流转","textPreview":"难沉淀 · 难流转","textChars":9,"textLines":1,"bbox":[519.47,212.07,220.47,40]}
+{"kind":"textbox","id":"sh/xknyx4ja","slide":4,"name":"s4-num-3","text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[798,195,110,72]}
+{"kind":"shape","id":"sh/mtcfypkn","slide":4,"name":"s4-line-3","bbox":[798,277,300,4]}
+{"kind":"textbox","id":"sh/nulw7u18","slide":4,"name":"s4-title-3","text":"AI 质量难以复现","textPreview":"AI 质量难以复现","textChars":9,"textLines":1,"bbox":[798,304.8,300,48]}
+{"kind":"textbox","id":"sh/fm5c3q54","slide":4,"name":"s4-body-3","text":"模型和参数不同，结构、风格与质量可能完全不同。","textPreview":"模型和参数不同，结构、风格与质量可能完全不同。","textChars":23,"textLines":1,"bbox":[798,373.13,300,104]}
+{"kind":"textbox","id":"sh/elwba54j","slide":4,"name":"s4-tag-3","text":"方差大 · 不稳定","textPreview":"方差大 · 不稳定","textChars":9,"textLines":1,"bbox":[868,212.07,230,40]}
+{"kind":"textbox","id":"sh/18nu50nu","slide":4,"name":"s4-result","text":"结果：优秀的模板经验分散在代码、Agent 流程和应用配置中，难以统一版本、评测和持续迭代。","textPreview":"结果：优秀的模板经验分散在代码、Agent 流程和应用配置中，难以统一版本、评测和持续迭代。","textChars":46,"textLines":1,"bbox":[112,539.47,1056,54]}
+{"kind":"notes","id":"nt/jyx0ra1s","slide":4,"text":"本方案集中解决三个问题：变更依赖发版、跨场景复用困难、AI 输出方差过大。后续所有设计都围绕这三个问题展开。\n[资料] 逐字稿第 2-3 页。"}
+{"kind":"slide","id":"sl/i107q5of","slide":5,"title":"02 · 核心理念","textShapes":11}
+{"kind":"shape","id":"sh/032tgr6d","slide":5,"name":"s5-axis-glow-wide","bbox":[719.67,311.13,430,244.87]}
+{"kind":"shape","id":"sh/fe94nm1w","slide":5,"name":"s5-axis-glow-wide","bbox":[90,311.2,430,244.87]}
+{"kind":"shape","id":"sh/j6dwfqds","slide":5,"name":"圆角矩形 16","bbox":[50,45,7,82]}
+{"kind":"textbox","id":"sh/dgbulwnm","slide":5,"name":"矩形 1","text":"02 · 核心理念","textPreview":"02 · 核心理念","textChars":9,"textLines":1,"bbox":[72,42,310,28]}
+{"kind":"textbox","id":"sh/cf2tcr61","slide":5,"name":"矩形 2","text":"Prompt 即模板：用结构化描述替代代码实现","textPreview":"Prompt 即模板：用结构化描述替代代码实现","textChars":23,"textLines":1,"bbox":[72,74,1040,62]}
+{"kind":"shape","id":"sh/z2tcnm5s","slide":5,"name":"直接连接符 3","bbox":[74,674,1130,0]}
+{"kind":"textbox","id":"sh/yhkbe1o7","slide":5,"name":"矩形 4","text":"PROMPT 即模板 · 内部分享","textPreview":"PROMPT 即模板 · 内部分享","textChars":17,"textLines":1,"bbox":[74,684,330,18]}
+{"kind":"textbox","id":"sh/l4bupwny","slide":5,"name":"矩形 5","text":"04","textPreview":"04","textChars":2,"textLines":1,"bbox":[1150,681,54,20]}
+{"kind":"textbox","id":"sh/sb6xsvu9","slide":5,"name":"s5-intro","text":"模板不再是一段前后端代码","textPreview":"模板不再是一段前后端代码","textChars":12,"textLines":1,"bbox":[90,190,720,52]}
+{"kind":"textbox","id":"sh/tcfel0vu","slide":5,"name":"s5-main","text":"而是一份能够描述内容结构、数据语义和视觉规则的结构化 Prompt。","textPreview":"而是一份能够描述内容结构、数据语义和视觉规则的结构化 Prompt。","textChars":34,"textLines":1,"bbox":[90,246,1100,86]}
+{"kind":"textbox","id":"sh/hgrmpwj2","slide":5,"name":"s5-left-label","text":"传统模板","textPreview":"传统模板","textChars":4,"textLines":1,"bbox":[130.33,382,270,42]}
+{"kind":"textbox","id":"sh/gfi5grih","slide":5,"name":"s5-left-value","text":"前端组件 + 后端逻辑 + 发布流程","textPreview":"前端组件 + 后端逻辑 + 发布流程","textChars":18,"textLines":1,"bbox":[130.33,432,430,52]}
+{"kind":"shape","id":"sh/pkr6tgjy","slide":5,"name":"s5-axis","bbox":[537.33,441.53,165,0.07]}
+{"kind":"textbox","id":"sh/3i94r61s","slide":5,"name":"s5-right-label","text":"Prompt 模板","textPreview":"Prompt 模板","textChars":9,"textLines":1,"bbox":[779.67,382,300,42]}
+{"kind":"textbox","id":"sh/2h0ni107","slide":5,"name":"s5-right-value","text":"内容结构 + 规则约束 + 视觉规则","textPreview":"内容结构 + 规则约束 + 视觉规则","textChars":18,"textLines":1,"bbox":[779.67,432,370,52]}
+{"kind":"textbox","id":"sh/5o7mhcju","slide":5,"name":"s5-conclusion","text":"模板从“代码资产”转变为“内容资产”。","textPreview":"模板从“代码资产”转变为“内容资产”。","textChars":19,"textLines":1,"bbox":[260,556,760,52]}
+{"kind":"notes","id":"nt/i107q5of","slide":5,"text":"Prompt 即模板并不是一句简单指令，而是一套能够描述内容结构、业务语义和视觉规则的结构化资产。它可以独立于业务代码进行维护。\n[资料] 逐字稿第 3 页。"}
+{"kind":"slide","id":"sl/x8f69ofe","slide":6,"title":"02 · 核心理念","textShapes":11}
+{"kind":"shape","id":"sh/twfux0ne","slide":6,"name":"圆角矩形 17","bbox":[50,45,7,82]}
+{"kind":"textbox","id":"sh/yhg7epsj","slide":6,"name":"矩形 1","text":"02 · 核心理念","textPreview":"02 · 核心理念","textChars":9,"textLines":1,"bbox":[72,42,310,28]}
+{"kind":"textbox","id":"sh/zi98nu94","slide":6,"name":"矩形 2","text":"一个模板，拆成内容与视觉两条可独立演进的轨道","textPreview":"一个模板，拆成内容与视觉两条可独立演进的轨道","textChars":22,"textLines":1,"bbox":[72,74,1040,62]}
+{"kind":"shape","id":"sh/87ipkzal","slide":6,"name":"直接连接符 3","bbox":[74,674,1130,0]}
+{"kind":"textbox","id":"sh/98rqt4r6","slide":6,"name":"矩形 4","text":"PROMPT 即模板 · 内部分享","textPreview":"PROMPT 即模板 · 内部分享","textChars":17,"textLines":1,"bbox":[74,684,330,18]}
+{"kind":"textbox","id":"sh/ml07i9sv","slide":6,"name":"矩形 5","text":"05","textPreview":"05","textChars":2,"textLines":1,"bbox":[1150,681,54,20]}
+{"kind":"shape","id":"sh/cbe5g3ih","slide":6,"name":"s6-left-track-a","bbox":[163.27,324.33,330,66]}
+{"kind":"shape","id":"sh/dcnm98zm","slide":6,"name":"s6-left-track-b","bbox":[163.27,337.33,330,66]}
+{"kind":"shape","id":"sh/qpwnet0b","slide":6,"name":"s6-right-track-a","bbox":[731.8,323.93,330,66]}
+{"kind":"shape","id":"sh/bq547yhw","slide":6,"name":"s6-right-track-b","bbox":[731.8,336.93,330,66]}
+{"kind":"textbox","id":"sh/0fy5k3id","slide":6,"name":"s6-left-kicker","text":"内容结构维度","textPreview":"内容结构维度","textChars":6,"textLines":1,"bbox":[160,240.2,270,30]}
+{"kind":"textbox","id":"sh/lg76d8zy","slide":6,"name":"s6-left-title","text":"Report-skill","textPreview":"Report-skill","textChars":12,"textLines":1,"bbox":[160,272.2,350,60]}
+{"kind":"textbox","id":"sh/ydgnit07","slide":6,"name":"s6-left-body","text":"基本信息·变量定义·报告结构·四类规则","textPreview":"基本信息·变量定义·报告结构·四类规则","textChars":19,"textLines":1,"bbox":[160,393.53,430,54]}
+{"kind":"textbox","id":"sh/gju58ji9","slide":6,"name":"s6-right-kicker","text":"视觉规范维度","textPreview":"视觉规范维度","textChars":6,"textLines":1,"bbox":[725.27,232.4,290,30]}
+{"kind":"textbox","id":"sh/1k3mhozu","slide":6,"name":"s6-right-title","text":"Design-skill","textPreview":"Design-skill","textChars":12,"textLines":1,"bbox":[725.27,264.4,350,60]}
+{"kind":"textbox","id":"sh/jet8nm1c","slide":6,"name":"s6-right-body","text":"配色方案·组件主题·Design Tokens\n字体规范·间距与布局规则\n","textPreview":"配色方案·组件主题·Design Tokens | 字体规范·间距与布局规则 |","textChars":37,"textLines":3,"bbox":[725.27,397.2,416.33,107.73]}
+{"kind":"textbox","id":"sh/50bqpcj2","slide":6,"name":"s6-common","text":"共同特征：可被 Agent 检索 · 可热拔插 · 可版本化 · 可审核 · 可发布与回滚","textPreview":"共同特征：可被 Agent 检索 · 可热拔插 · 可版本化 · 可审核 · 可发布与回滚","textChars":45,"textLines":1,"bbox":[160,563,960,46]}
+{"kind":"notes","id":"nt/x8f69ofe","slide":6,"text":"完整模板拆成 Report-skill 和 Design-skill。前者负责报告讲什么，后者负责如何呈现，二者解耦后才能形成组合复用。\n[资料] 逐字稿第 3-4 页。"}
+{"kind":"slide","id":"sl/gnmp4jqx","slide":7,"title":"03 · 方案架构","textShapes":18}
+{"kind":"shape","id":"sh/2x8nqp83","slide":7,"name":"圆角矩形 32","bbox":[50,45,7,82]}
+{"kind":"textbox","id":"sh/cb2tkvap","slide":7,"name":"矩形 1","text":"03 · 方案架构","textPreview":"03 · 方案架构","textChars":9,"textLines":1,"bbox":[72,42,310,28]}
+{"kind":"textbox","id":"sh/dcbud0ra","slide":7,"name":"矩形 2","text":"业务入口、模板资产、智能调度与数据能力形成闭环","textPreview":"业务入口、模板资产、智能调度与数据能力形成闭环","textChars":23,"textLines":1,"bbox":[72,74,1040,62]}
+{"kind":"shape","id":"sh/ydkbm5sv","slide":7,"name":"直接连接符 3","bbox":[74,674,1130,0]}
+{"kind":"textbox","id":"sh/zedcfa9g","slide":7,"name":"矩形 4","text":"PROMPT 即模板 · 内部分享","textPreview":"PROMPT 即模板 · 内部分享","textChars":17,"textLines":1,"bbox":[74,684,330,18]}
+{"kind":"textbox","id":"sh/kzmdova1","slide":7,"name":"矩形 5","text":"06","textPreview":"06","textChars":2,"textLines":1,"bbox":[1150,681,54,20]}
+{"kind":"shape","id":"sh/x4j6p47q","slide":7,"name":"s7-user","bbox":[95,165,330.07,82]}
+{"kind":"shape","id":"sh/c3a5wzq5","slide":7,"name":"s7-user-accent","bbox":[95,165,8,82]}
+{"kind":"textbox","id":"sh/b2h4nupk","slide":7,"name":"s7-user-title","text":"用户（业务方 / 运营）","textPreview":"用户（业务方 / 运营）","textChars":12,"textLines":1,"bbox":[119,178,260,34]}
+{"kind":"textbox","id":"sh/a18nup8z","slide":7,"name":"s7-user-body","text":"提出需求 · 管理模板 · 审阅结果","textPreview":"提出需求 · 管理模板 · 审阅结果","textChars":18,"textLines":1,"bbox":[119,214,260,22]}
+{"kind":"shape","id":"sh/lsj6t47m","slide":7,"name":"s7-customer","bbox":[855,165,330,82]}
+{"kind":"shape","id":"sh/kra50jqh","slide":7,"name":"s7-customer-accent","bbox":[855,165,8,82]}
+{"kind":"textbox","id":"sh/wneps3ap","slide":7,"name":"s7-customer-title","text":"客户","textPreview":"客户","textChars":2,"textLines":1,"bbox":[879,178,260,34]}
+{"kind":"textbox","id":"sh/honq18ru","slide":7,"name":"s7-customer-body","text":"提出需求·查看报告·下载导出","textPreview":"提出需求·查看报告·下载导出","textChars":14,"textLines":1,"bbox":[879,214,260,22]}
+{"kind":"shape","id":"sh/ulc7qdsj","slide":7,"name":"s7-workbench","bbox":[95,315,330,118]}
+{"kind":"shape","id":"sh/vm58zi94","slide":7,"name":"s7-workbench-accent","bbox":[95,315,8,118]}
+{"kind":"textbox","id":"sh/8jupo3ad","slide":7,"name":"s7-workbench-title","text":"Prompt模板工作台","textPreview":"Prompt模板工作台","textChars":11,"textLines":1,"bbox":[119,328,290,34]}
+{"kind":"textbox","id":"sh/9k3qx8ry","slide":7,"name":"s7-workbench-body","text":"AI 辅助生成/调整·模板全生命周期","textPreview":"AI 辅助生成/调整·模板全生命周期","textChars":18,"textLines":1,"bbox":[119,364,290,58]}
+{"kind":"shape","id":"sh/mxc7mts7","slide":7,"name":"s7-agent","bbox":[515,236,250,170]}
+{"kind":"textbox","id":"sh/7yl8vy9s","slide":7,"name":"s7-agent-title","text":"AI Agent","textPreview":"AI Agent","textChars":8,"textLines":1,"bbox":[545,256,190,42]}
+{"kind":"textbox","id":"sh/sfy907ah","slide":7,"name":"s7-agent-body","text":"意图理解 · 模板匹配\n资料研究 · 报告生成\n结果验证 · 多轮修改","textPreview":"意图理解 · 模板匹配 | 资料研究 · 报告生成 | 结果验证 · 多轮修改","textChars":35,"textLines":3,"bbox":[540,301,200,82]}
+{"kind":"shape","id":"sh/tg7q9sr2","slide":7,"name":"s7-frontend","bbox":[855,315,330,118]}
+{"kind":"shape","id":"sh/na9sz6tk","slide":7,"name":"s7-frontend-accent","bbox":[855,315,8,118]}
+{"kind":"textbox","id":"sh/290bq1cz","slide":7,"name":"s7-frontend-title","text":"前端交互层","textPreview":"前端交互层","textChars":5,"textLines":1,"bbox":[879,328,290,34]}
+{"kind":"textbox","id":"sh/pcra1wba","slide":7,"name":"s7-frontend-body","text":"Agent 对话·HTML 报告安全渲染","textPreview":"Agent 对话·HTML 报告安全渲染","textChars":20,"textLines":1,"bbox":[879,364,290,58]}
+{"kind":"shape","id":"sh/obitsrup","slide":7,"name":"s7-design","bbox":[95,527,330,78]}
+{"kind":"shape","id":"sh/betc36tg","slide":7,"name":"s7-design-accent","bbox":[95,527,8,78]}
+{"kind":"textbox","id":"sh/adkbu1cv","slide":7,"name":"s7-design-title","text":"设计平台（可选）：MCP","textPreview":"设计平台（可选）：MCP","textChars":12,"textLines":1,"bbox":[119,540,290,34]}
+{"kind":"shape","id":"sh/xgbu5gbm","slide":7,"name":"s7-library","bbox":[475,512,330,108]}
+{"kind":"shape","id":"sh/cf2twbu1","slide":7,"name":"s7-library-accent","bbox":[475,512,8,108]}
+{"kind":"textbox","id":"sh/ripsrmtc","slide":7,"name":"s7-library-title","text":"双轨模板库","textPreview":"双轨模板库","textChars":5,"textLines":1,"bbox":[499,525,290,34]}
+{"kind":"textbox","id":"sh/6hgbihcr","slide":7,"name":"s7-library-body","text":"Report-skill · Design-skill","textPreview":"Report-skill · Design-skill","textChars":27,"textLines":1,"bbox":[499,561,290,48]}
+{"kind":"shape","id":"sh/uponm90b","slide":7,"name":"s7-data","bbox":[855,527,330,78]}
+{"kind":"shape","id":"sh/vah4fehw","slide":7,"name":"s7-data-accent","bbox":[855,527,8,78]}
+{"kind":"textbox","id":"sh/gbq5ojih","slide":7,"name":"s7-data-title","text":"数据/后端：可靠数据源","textPreview":"数据/后端：可靠数据源","textChars":11,"textLines":1,"bbox":[879,540,290,34]}
+{"kind":"shape","id":"sh/i5wruh0f","slide":7,"name":"肘形连接符 104","bbox":[226.03,280.97,68,0.07]}
+{"kind":"shape","id":"sh/587apwjq","slide":7,"name":"肘形连接符 105","bbox":[986,281,68,0.33]}
+{"kind":"shape","id":"sh/47y9wri5","slide":7,"name":"肘形连接符 106","bbox":[260,433,215,133]}
+{"kind":"shape","id":"sh/zal8b21g","slide":7,"name":"直接箭头连接符 107","bbox":[640,406,0,106]}
+{"kind":"shape","id":"sh/ofa5s3yt","slide":7,"name":"肘形连接符 109","bbox":[769.5,276.5,121,380]}
+{"kind":"shape","id":"sh/pgj6l8ze","slide":7,"name":"直接箭头连接符 110","bbox":[260,433,0,94]}
+{"kind":"notes","id":"nt/gnmp4jqx","slide":7,"text":"[Sources]\n- PDF 第 2-4 页：整体架构、Agent 服务、模板管理台、前端交互、后端数据\n- 补充图：codex-clipboard-d0a13f99-c5c2-443f-8997-2b8b4d5a1410.png"}
+{"kind":"slide","id":"sl/fu1gfa1s","slide":8,"title":"03 · 方案架构","textShapes":23}
+{"kind":"shape","id":"sh/6187yp8b","slide":8,"name":"圆角矩形 48","bbox":[50,45,7,82]}
+{"kind":"textbox","id":"sh/18byd4zy","slide":8,"name":"矩形 1","text":"03 · 方案架构","textPreview":"03 · 方案架构","textChars":9,"textLines":1,"bbox":[72,42,310,28]}
+{"kind":"textbox","id":"sh/g72x4zyd","slide":8,"name":"矩形 2","text":"模板工作台 - 完整的AI辅助生成流程","textPreview":"模板工作台 - 完整的AI辅助生成流程","textChars":19,"textLines":1,"bbox":[72,74,1040,62]}
+{"kind":"shape","id":"sh/ri9g7uhw","slide":8,"name":"直接连接符 3","bbox":[74,674,1130,0]}
+{"kind":"textbox","id":"sh/6h0fypgb","slide":8,"name":"矩形 4","text":"PROMPT 即模板","textPreview":"PROMPT 即模板","textChars":10,"textLines":1,"bbox":[74,684,330,18]}
+{"kind":"textbox","id":"sh/tkby9kzm","slide":8,"name":"矩形 5","text":"07","textPreview":"07","textChars":2,"textLines":1,"bbox":[1150,681,54,20]}
+{"kind":"shape","id":"sh/cvmdsb2h","slide":8,"name":"s8-track-top","bbox":[150,243.2,680,0]}
+{"kind":"shape","id":"sh/xwvelwj2","slide":8,"name":"s8-track-turn","bbox":[850,243.2,210,0.07]}
+{"kind":"shape","id":"sh/at4vq1kr","slide":8,"name":"s8-track-bottom","bbox":[130,463.2,680,0]}
+{"kind":"shape","id":"sh/budwj61c","slide":8,"name":"s8-1-circle","bbox":[130,215,54,54]}
+{"kind":"textbox","id":"sh/kjmdwbit","slide":8,"name":"s8-1-text","text":"1","textPreview":"1","textChars":1,"textLines":1,"bbox":[130,215,54,54]}
+{"kind":"textbox","id":"sh/lkvepgje","slide":8,"name":"s8-1-title","text":"新建草稿","textPreview":"新建草稿","textChars":4,"textLines":1,"bbox":[102,279,240,38]}
+{"kind":"textbox","id":"sh/yx4vu10n","slide":8,"name":"s8-1-body","text":"输入模板名称，进入模板工作台","textPreview":"输入模板名称，进入模板工作台","textChars":14,"textLines":1,"bbox":[102,315,250,58]}
+{"kind":"shape","id":"sh/zidwn618","slide":8,"name":"s8-2-circle","bbox":[460,215,54,54]}
+{"kind":"textbox","id":"sh/0n2dkr2p","slide":8,"name":"s8-2-text","text":"2","textPreview":"2","textChars":1,"textLines":1,"bbox":[460,215,54,54]}
+{"kind":"textbox","id":"sh/1obudcju","slide":8,"name":"s8-2-title","text":"描述需求或上传资料","textPreview":"描述需求或上传资料","textChars":9,"textLines":1,"bbox":[432,280.6,240,38]}
+{"kind":"textbox","id":"sh/hk3ah8by","slide":8,"name":"s8-2-body","text":"说明业务目标，或上传参考附件","textPreview":"说明业务目标，或上传参考附件","textChars":14,"textLines":1,"bbox":[432,316.6,250,58]}
+{"kind":"shape","id":"sh/gjuto3ud","slide":8,"name":"s8-3-circle","bbox":[796.8,215,54,54]}
+{"kind":"textbox","id":"sh/filsfyts","slide":8,"name":"s8-3-text","text":"3","textPreview":"3","textChars":1,"textLines":1,"bbox":[796.8,215,54,54]}
+{"kind":"textbox","id":"sh/uhsbmtc7","slide":8,"name":"s8-3-title","text":"Agent 判断操作路径","textPreview":"Agent 判断操作路径","textChars":12,"textLines":1,"bbox":[762,280.6,240,38]}
+{"kind":"textbox","id":"sh/po3ulsbu","slide":8,"name":"s8-3-body","text":"自动判断完整生成、局部调整或追问","textPreview":"自动判断完整生成、局部调整或追问","textChars":16,"textLines":1,"bbox":[762,316.6,264.07,58]}
+{"kind":"shape","id":"sh/4nutsnu9","slide":8,"name":"s8-4-circle","bbox":[797.93,435,54,54]}
+{"kind":"textbox","id":"sh/3mlcjit4","slide":8,"name":"s8-4-text","text":"4","textPreview":"4","textChars":1,"textLines":1,"bbox":[797.93,435,54,54]}
+{"kind":"textbox","id":"sh/2lcbqdcj","slide":8,"name":"s8-4-title","text":"生成模板候选","textPreview":"生成模板候选","textChars":6,"textLines":1,"bbox":[762,499,240,38]}
+{"kind":"textbox","id":"sh/dcnupsb6","slide":8,"name":"s8-4-body","text":"生成结构化模板\n或输出最小修改补丁","textPreview":"生成结构化模板 | 或输出最小修改补丁","textChars":17,"textLines":2,"bbox":[762,535,250,58]}
+{"kind":"shape","id":"sh/cbetwnul","slide":8,"name":"s8-5-circle","bbox":[460,435,54,54]}
+{"kind":"textbox","id":"sh/axo7qps3","slide":8,"name":"s8-5-text","text":"5","textPreview":"5","textChars":1,"textLines":1,"bbox":[460,435,54,54]}
+{"kind":"textbox","id":"sh/vyx8ju9o","slide":8,"name":"s8-5-title","text":"人工编辑与自动保存","textPreview":"人工编辑与自动保存","textChars":9,"textLines":1,"bbox":[432,499,240,38]}
+{"kind":"textbox","id":"sh/wzq9szat","slide":8,"name":"s8-5-body","text":"在编辑区检查并修改字段\n内容自动保存","textPreview":"在编辑区检查并修改字段 | 内容自动保存","textChars":18,"textLines":2,"bbox":[432,535,250,58]}
+{"kind":"shape","id":"sh/x0zql4re","slide":8,"name":"s8-6-circle","bbox":[130,435,54,54]}
+{"kind":"textbox","id":"sh/i18ru9sz","slide":8,"name":"s8-6-text","text":"6","textPreview":"6","textChars":1,"textLines":1,"bbox":[130,435,54,54]}
+{"kind":"textbox","id":"sh/jmh8nu9k","slide":8,"name":"s8-6-title","text":"验证、启用与复用","textPreview":"验证、启用与复用","textChars":8,"textLines":1,"bbox":[102,499,240,38]}
+{"kind":"textbox","id":"sh/knq9wza5","slide":8,"name":"s8-6-body","text":"验证通过后启用\n也可 Fork 后继续迭代","textPreview":"验证通过后启用 | 也可 Fork 后继续迭代","textChars":21,"textLines":2,"bbox":[102,535,250,58]}
+{"kind":"textbox","id":"sh/7q18re9g","slide":8,"name":"s8-current","text":" Agent 对话、自动保存、模板验证、Fork 和启停，验证结果持续推动模板修正。","textPreview":"Agent 对话、自动保存、模板验证、Fork 和启停，验证结果持续推动模板修正。","textChars":42,"textLines":1,"bbox":[160,618,960,28]}
+{"kind":"shape","id":"sh/je9g3ahk","slide":8,"name":"s8-track-bottom","bbox":[850,463.27,210.07,0.07]}
+{"kind":"shape","id":"sh/id0fu50z","slide":8,"name":"s8-track-turn","bbox":[1059.67,241.47,0.13,118.47]}
+{"kind":"shape","id":"sh/o7ydoret","slide":8,"name":"s8-track-bottom","bbox":[1059.87,350.53,0.07,112.73]}
+{"kind":"notes","id":"nt/fu1gfa1s","slide":8,"text":"左侧模板工作台负责把专业经验变成模板资产，右侧报告工作台负责消费模板并生成结果。生成效果再反向推动模板调整，形成闭环。\n[资料] 当前项目模板编辑页、Agent 工作流与 design-output 报告预览。"}
+{"kind":"slide","id":"sl/udsvah03","slide":9,"title":"03 · 方案架构","textShapes":34}
+{"kind":"shape","id":"sh/v2l4nitk","slide":9,"name":"圆角矩形 43","bbox":[50,45,7,82]}
+{"kind":"textbox","id":"sh/1cfmhgne","slide":9,"name":"矩形 1","text":"03 · 方案架构","textPreview":"03 · 方案架构","textChars":9,"textLines":1,"bbox":[72,42,310,28]}
+{"kind":"textbox","id":"sh/0b65obm9","slide":9,"name":"矩形 2","text":"模板工作台 - Agent 的受控工作流","textPreview":"模板工作台 - Agent 的受控工作流","textChars":20,"textLines":1,"bbox":[72,74,1040,62]}
+{"kind":"shape","id":"sh/nex4jq5k","slide":9,"name":"直接连接符 3","bbox":[74,674,1130,0]}
+{"kind":"textbox","id":"sh/mdonql4z","slide":9,"name":"矩形 4","text":"PROMPT 即模板","textPreview":"PROMPT 即模板","textChars":10,"textLines":1,"bbox":[74,684,330,18]}
+{"kind":"textbox","id":"sh/9gzml0nq","slide":9,"name":"矩形 5","text":"08","textPreview":"08","textChars":2,"textLines":1,"bbox":[1150,681,54,20]}
+{"kind":"shape","id":"sh/u1cnedcz","slide":9,"name":"s9-spine","bbox":[159,262.93,992,0.13]}
+{"kind":"shape","id":"sh/h43mp8ba","slide":9,"name":"s9-1-circle","bbox":[117,239,48,48]}
+{"kind":"textbox","id":"sh/w3u5g3u5","slide":9,"name":"s9-1-text","text":"1","textPreview":"1","textChars":1,"textLines":1,"bbox":[117,239,48,48]}
+{"kind":"textbox","id":"sh/j6l4ritg","slide":9,"name":"s9-1-title","text":"读取最新快照","textPreview":"读取最新快照","textChars":6,"textLines":1,"bbox":[71,301,140,50]}
+{"kind":"textbox","id":"sh/i5cnidcv","slide":9,"name":"s9-1-body","text":"从数据库读取模板内容和 revision","textPreview":"从数据库读取模板内容和 revision","textChars":20,"textLines":1,"bbox":[68,359,146,82]}
+{"kind":"shape","id":"sh/0bel8na9","slide":9,"name":"s9-2-circle","bbox":[283,239,48,48]}
+{"kind":"textbox","id":"sh/1wnm1sru","slide":9,"name":"s9-2-text","text":"2","textPreview":"2","textChars":1,"textLines":1,"bbox":[283,239,48,48]}
+{"kind":"textbox","id":"sh/e9w36ds3","slide":9,"name":"s9-2-title","text":"意图路由","textPreview":"意图路由","textChars":4,"textLines":1,"bbox":[237,301,140,50]}
+{"kind":"textbox","id":"sh/fa54zi9o","slide":9,"name":"s9-2-body","text":"判断完整生成、局部调整或澄清","textPreview":"判断完整生成、局部调整或澄清","textChars":14,"textLines":1,"bbox":[234,359,146,82]}
+{"kind":"shape","id":"sh/s7el4nax","slide":9,"name":"s9-3-circle","bbox":[449,239,48,48]}
+{"kind":"textbox","id":"sh/t8nmx8ri","slide":9,"name":"s9-3-text","text":"3","textPreview":"3","textChars":1,"textLines":1,"bbox":[449,239,48,48]}
+{"kind":"textbox","id":"sh/65c32ds7","slide":9,"name":"s9-3-title","text":"风险门禁","textPreview":"风险门禁","textChars":4,"textLines":1,"bbox":[403,301,140,50]}
+{"kind":"textbox","id":"sh/r654vi9c","slide":9,"name":"s9-3-body","text":"检查资料完整性、附件边界与覆盖风险","textPreview":"检查资料完整性、附件边界与覆盖风险","textChars":17,"textLines":1,"bbox":[400,359,146,82]}
+{"kind":"shape","id":"sh/43ul03a1","slide":9,"name":"s9-4-circle","bbox":[615,239,48,48]}
+{"kind":"textbox","id":"sh/5432t8rm","slide":9,"name":"s9-4-text","text":"4","textPreview":"4","textChars":1,"textLines":1,"bbox":[615,239,48,48]}
+{"kind":"textbox","id":"sh/l0v2x4ja","slide":9,"name":"s9-4-title","text":"候选生成","textPreview":"候选生成","textChars":4,"textLines":1,"bbox":[569,301,140,50]}
+{"kind":"textbox","id":"sh/kzm14z2p","slide":9,"name":"s9-4-body-a","text":"完整生成八字段模板\n或生成最小修改补丁\n","textPreview":"完整生成八字段模板 | 或生成最小修改补丁 |","textChars":20,"textLines":3,"bbox":[559,364,160,48]}
+{"kind":"shape","id":"sh/xwvitkje","slide":9,"name":"s9-5-circle","bbox":[781,239,48,48]}
+{"kind":"textbox","id":"sh/wvm10f2t","slide":9,"name":"s9-5-text","text":"5","textPreview":"5","textChars":1,"textLines":1,"bbox":[781,239,48,48]}
+{"kind":"textbox","id":"sh/but0ra18","slide":9,"name":"s9-5-title","text":"评价与修正","textPreview":"评价与修正","textChars":5,"textLines":1,"bbox":[735,301,140,50]}
+{"kind":"textbox","id":"sh/atkjypkn","slide":9,"name":"s9-5-body","text":"评价候选内容，失败后最多修正两轮","textPreview":"评价候选内容，失败后最多修正两轮","textChars":16,"textLines":1,"bbox":[732,359,146,82]}
+{"kind":"shape","id":"sh/hsf25oji","slide":9,"name":"s9-6-circle","bbox":[947,239,48,48]}
+{"kind":"textbox","id":"sh/gr61cj2x","slide":9,"name":"s9-6-text","text":"6","textPreview":"6","textChars":1,"textLines":1,"bbox":[947,239,48,48]}
+{"kind":"textbox","id":"sh/ed0z6l0f","slide":9,"name":"s9-6-title","text":"双层校验","textPreview":"双层校验","textChars":4,"textLines":1,"bbox":[901,301,140,50]}
+{"kind":"textbox","id":"sh/ze9gzqh0","slide":9,"name":"s9-6-body","text":"程序校验结构，模型校验语义与跨字段一致性","textPreview":"程序校验结构，模型校验语义与跨字段一致性","textChars":20,"textLines":1,"bbox":[898,359,146,82]}
+{"kind":"shape","id":"sh/0zih8bil","slide":9,"name":"s9-7-circle","bbox":[1113,239,48,48]}
+{"kind":"textbox","id":"sh/10ry1gz6","slide":9,"name":"s9-7-text","text":"7","textPreview":"7","textChars":1,"textLines":1,"bbox":[1113,239,48,48]}
+{"kind":"textbox","id":"sh/q9gf210j","slide":9,"name":"s9-7-title","text":"版本保护写入","textPreview":"版本保护写入","textChars":6,"textLines":1,"bbox":[1067,301,140,50]}
+{"kind":"textbox","id":"sh/rapgv61o","slide":9,"name":"s9-7-body","text":"按 revision 原子更新，并发变化时拒绝覆盖","textPreview":"按 revision 原子更新，并发变化时拒绝覆盖","textChars":25,"textLines":1,"bbox":[1064,359,146,82]}
+{"kind":"shape","id":"sh/cbyx4bi9","slide":9,"name":"s9-gate-line-1","bbox":[209,466,0,36]}
+{"kind":"shape","id":"sh/dcryxgzu","slide":9,"name":"s9-gate-accent-1","bbox":[123,504,172,3]}
+{"kind":"textbox","id":"sh/a5kze50n","slide":9,"name":"s9-gate-title-1","text":"资料不足","textPreview":"资料不足","textChars":4,"textLines":1,"bbox":[117,512,184,28]}
+{"kind":"textbox","id":"sh/b6tg7ah8","slide":9,"name":"s9-gate-body-1","text":"继续追问，不生成","textPreview":"继续追问，不生成","textChars":8,"textLines":1,"bbox":[117,540,184,28]}
+{"kind":"shape","id":"sh/ja58b650","slide":9,"name":"s9-gate-line-2","bbox":[457,466,0,36]}
+{"kind":"shape","id":"sh/y9w721of","slide":9,"name":"s9-gate-accent-2","bbox":[371,504,172,3]}
+{"kind":"textbox","id":"sh/lc7qdgn6","slide":9,"name":"s9-gate-title-2","text":"覆盖已有内容","textPreview":"覆盖已有内容","textChars":6,"textLines":1,"bbox":[365,512,184,28]}
+{"kind":"textbox","id":"sh/kbep4b6l","slide":9,"name":"s9-gate-body-2","text":"要求用户二次确认","textPreview":"要求用户二次确认","textChars":8,"textLines":1,"bbox":[365,540,184,28]}
+{"kind":"shape","id":"sh/bm5o7m54","slide":9,"name":"s9-gate-line-3","bbox":[787,466,0,36]}
+{"kind":"shape","id":"sh/alw7yhoj","slide":9,"name":"s9-gate-accent-3","bbox":[701,504,172,3]}
+{"kind":"textbox","id":"sh/x8n69wnu","slide":9,"name":"s9-gate-title-3","text":"评价仍未通过","textPreview":"评价仍未通过","textChars":6,"textLines":1,"bbox":[695,512,184,28]}
+{"kind":"textbox","id":"sh/wnep0r6p","slide":9,"name":"s9-gate-body-3","text":"返回问题，不保存","textPreview":"返回问题，不保存","textChars":8,"textLines":1,"bbox":[695,540,184,28]}
+{"kind":"shape","id":"sh/nilo3m5s","slide":9,"name":"s9-gate-line-4","bbox":[1053,466,0,36]}
+{"kind":"shape","id":"sh/mhc7uho7","slide":9,"name":"s9-gate-accent-4","bbox":[967,504,172,3]}
+{"kind":"textbox","id":"sh/sna54nm5","slide":9,"name":"s9-gate-title-4","text":"并发版本变化","textPreview":"并发版本变化","textChars":6,"textLines":1,"bbox":[961,512,184,28]}
+{"kind":"textbox","id":"sh/dojmxs3q","slide":9,"name":"s9-gate-body-4","text":"拒绝覆盖新版本","textPreview":"拒绝覆盖新版本","textChars":7,"textLines":1,"bbox":[961,540,184,28]}
+{"kind":"textbox","id":"sh/ql832d4z","slide":9,"name":"s9-conclusion","text":"最终校验通过后才写数据库；任一门禁失败，原模板保持不变。","textPreview":"最终校验通过后才写数据库；任一门禁失败，原模板保持不变。","textChars":28,"textLines":1,"bbox":[200,610,910,38]}
+{"kind":"notes","id":"nt/udsvah03","slide":9,"text":"模板 Agent 不直接自由改库。它先判断操作类型，再检查资料和覆盖风险，生成候选后经过评价、修正和双层校验，最后才按版本保护写入。\n[资料] src/lib/template-agent/workflow.ts。"}
+{"kind":"slide","id":"sl/m90b6t0r","slide":10,"title":"04 · Skill 结构","textShapes":21}
+{"kind":"shape","id":"sh/xwnupgvy","slide":10,"name":"圆角矩形 19","bbox":[50,45,7,82]}
+{"kind":"textbox","id":"sh/xc3mho32","slide":10,"name":"矩形 1","text":"04 · Skill 结构","textPreview":"04 · Skill 结构","textChars":13,"textLines":1,"bbox":[72,42,310,28]}
+{"kind":"textbox","id":"sh/cbu58j2h","slide":10,"name":"矩形 2","text":"Report-skill - 模板的结构模型","textPreview":"Report-skill - 模板的结构模型","textChars":22,"textLines":1,"bbox":[72,74,1040,62]}
+{"kind":"shape","id":"sh/zelojyl8","slide":10,"name":"直接连接符 3","bbox":[74,674,1130,0]}
+{"kind":"textbox","id":"sh/ydcnatkn","slide":10,"name":"矩形 4","text":"PROMPT 即模板","textPreview":"PROMPT 即模板","textChars":10,"textLines":1,"bbox":[74,684,330,18]}
+{"kind":"textbox","id":"sh/l036l83y","slide":10,"name":"矩形 5","text":"09","textPreview":"09","textChars":2,"textLines":1,"bbox":[1150,681,54,20]}
+{"kind":"shape","id":"sh/wvetgbud","slide":10,"name":"s10-spine","bbox":[108.87,175,8,417]}
+{"kind":"shape","id":"sh/bu5cnqd8","slide":10,"name":"s10-band-1","bbox":[118,175,1070,82]}
+{"kind":"shape","id":"sh/atwbelcn","slide":10,"name":"s10-num-1-circle","bbox":[90.8,194,44,44]}
+{"kind":"textbox","id":"sh/lk7ut0va","slide":10,"name":"s10-num-1-text","text":"1","textPreview":"1","textChars":1,"textLines":1,"bbox":[90.8,194,44,44]}
+{"kind":"textbox","id":"sh/kjytkvup","slide":10,"name":"s10-title-1","text":"能力识别","textPreview":"能力识别","textChars":4,"textLines":1,"bbox":[160,187,235,58]}
+{"kind":"textbox","id":"sh/jypcrqd4","slide":10,"name":"s10-fields-1","text":"名称、用途描述","textPreview":"名称、用途描述","textChars":7,"textLines":1,"bbox":[420,187,340,58]}
+{"kind":"textbox","id":"sh/yxgbilcj","slide":10,"name":"s10-body-1","text":"说明模板能力、适用场景与触发边界","textPreview":"说明模板能力、适用场景与触发边界","textChars":16,"textLines":1,"bbox":[780,187,370,58]}
+{"kind":"shape","id":"sh/1o3ahwvq","slide":10,"name":"s10-band-2","bbox":[118,268,1070,82]}
+{"kind":"shape","id":"sh/0nut8rul","slide":10,"name":"s10-num-2-circle","bbox":[90.8,287,44,44]}
+{"kind":"textbox","id":"sh/q9srixs3","slide":10,"name":"s10-num-2-text","text":"2","textPreview":"2","textChars":1,"textLines":1,"bbox":[90.8,287,44,44]}
+{"kind":"textbox","id":"sh/ru18r2to","slide":10,"name":"s10-title-2","text":"复用输入","textPreview":"复用输入","textChars":4,"textLines":1,"bbox":[160,280,235,58]}
+{"kind":"textbox","id":"sh/cva9k7a9","slide":10,"name":"s10-fields-2","text":"模板变量","textPreview":"模板变量","textChars":4,"textLines":1,"bbox":[420,280,340,58]}
+{"kind":"textbox","id":"sh/dwjqtcbu","slide":10,"name":"s10-body-2","text":"统一会在结构中多次引用的业务概念或者动态内容","textPreview":"统一会在结构中多次引用的业务概念或者动态内容","textChars":22,"textLines":1,"bbox":[780,280,370,58]}
+{"kind":"shape","id":"sh/exsrmhsf","slide":10,"name":"s10-band-3","bbox":[118,361,1070,94]}
+{"kind":"shape","id":"sh/zyl8vmt0","slide":10,"name":"s10-num-3-circle","bbox":[90.8,386,44,44]}
+{"kind":"textbox","id":"sh/0zu9ora5","slide":10,"name":"s10-num-3-text","text":"3","textPreview":"3","textChars":1,"textLines":1,"bbox":[90.8,386,44,44]}
+{"kind":"textbox","id":"sh/103qxcbq","slide":10,"name":"s10-title-3","text":"结构契约","textPreview":"结构契约","textChars":4,"textLines":1,"bbox":[160,373,235,70]}
+{"kind":"textbox","id":"sh/u187adsv","slide":10,"name":"s10-fields-3","text":"报告结构","textPreview":"报告结构","textChars":4,"textLines":1,"bbox":[420,373,340,70]}
+{"kind":"textbox","id":"sh/f2h8jitg","slide":10,"name":"s10-body-3","text":"固定模块顺序、组件、字段、数量和数据关系","textPreview":"固定模块顺序、组件、字段、数量和数据关系","textChars":20,"textLines":1,"bbox":[780,373,370,70]}
+{"kind":"shape","id":"sh/bmpgrah8","slide":10,"name":"s10-band-4","bbox":[118,466,1070,126]}
+{"kind":"shape","id":"sh/algfy50n","slide":10,"name":"s10-num-4-circle","bbox":[90.8,507,44,44]}
+{"kind":"textbox","id":"sh/xo7ytkzy","slide":10,"name":"s10-num-4-text","text":"4","textPreview":"4","textChars":1,"textLines":1,"bbox":[90.8,507,44,44]}
+{"kind":"textbox","id":"sh/wnyx0fit","slide":10,"name":"s10-title-4","text":"质量边界","textPreview":"质量边界","textChars":4,"textLines":1,"bbox":[160,478,235,102]}
+{"kind":"textbox","id":"sh/jq9gvuh4","slide":10,"name":"s10-fields-4","text":"一致性规则    ·  核心约束规则\n\n异常边界规则 ·  交付验证规则","textPreview":"一致性规则    ·  核心约束规则 |  | 异常边界规则 ·  交付验证规则","textChars":36,"textLines":3,"bbox":[420,478,340,102]}
+{"kind":"textbox","id":"sh/ip0f2p0j","slide":10,"name":"s10-body-4","text":"分别约束跨模块一致性、正常生成要求、异常处理和交付验收","textPreview":"分别约束跨模块一致性、正常生成要求、异常处理和交付验收","textChars":27,"textLines":1,"bbox":[780,478,370,102]}
+{"kind":"textbox","id":"sh/5cryx4za","slide":10,"name":"s10-summary","text":"业务口径与数据需求写入变量、组件数据契约和规则，始终绑定最终报告结构。","textPreview":"业务口径与数据需求写入变量、组件数据契约和规则，始终绑定最终报告结构。","textChars":35,"textLines":1,"bbox":[165,610,950,38]}
+{"kind":"notes","id":"nt/m90b6t0r","slide":10,"text":"当前 Report-skill 使用八个业务字段。数据需求与计算口径并没有被拆成孤立字段，而是通过变量、结构和规则共同表达，确保它们与最终报告结构绑定。\n[资料] src/lib/template-agent/types.ts、schema.ts、generate-report-v2.md。"}
+{"kind":"slide","id":"sl/jetc3ut0","slide":11,"title":"04 · Skill 结构","textShapes":33}
+{"kind":"shape","id":"sh/ydcfq1kb","slide":11,"name":"圆角矩形 37","bbox":[50,45,7,82]}
+{"kind":"textbox","id":"sh/xcryxg7y","slide":11,"name":"矩形 1","text":"04 · Skill 结构","textPreview":"04 · Skill 结构","textChars":13,"textLines":1,"bbox":[72,42,310,28]}
+{"kind":"textbox","id":"sh/wbih4b6d","slide":11,"name":"矩形 2","text":"Design-skill - 报告呈现风格的结构与生成","textPreview":"Design-skill - 报告呈现风格的结构与生成","textChars":27,"textLines":1,"bbox":[72,74,1040,62]}
+{"kind":"shape","id":"sh/n69grmpw","slide":11,"name":"直接连接符 3","bbox":[74,674,1130,0]}
+{"kind":"textbox","id":"sh/250zy18b","slide":11,"name":"矩形 4","text":"PROMPT 即模板","textPreview":"PROMPT 即模板","textChars":10,"textLines":1,"bbox":[74,684,330,18]}
+{"kind":"textbox","id":"sh/98rytw72","slide":11,"name":"矩形 5","text":"10","textPreview":"10","textChars":2,"textLines":1,"bbox":[1150,681,54,20]}
+{"kind":"shape","id":"sh/jylwj6lw","slide":11,"name":"s11-source-1","bbox":[80,173,210,126]}
+{"kind":"shape","id":"sh/3qhsfypc","slide":11,"name":"s11-source-1-accent","bbox":[80,173,8,126]}
+{"kind":"textbox","id":"sh/ip8bmtor","slide":11,"name":"s11-source-1-title","text":"设计平台 MCP","textPreview":"设计平台 MCP","textChars":8,"textLines":1,"bbox":[104,186,170,34]}
+{"kind":"textbox","id":"sh/5sjah872","slide":11,"name":"s11-source-1-body","text":"直接对接设计协作平台\n\n非多模态模型也能理解设计","textPreview":"直接对接设计协作平台 |  | 非多模态模型也能理解设计","textChars":24,"textLines":3,"bbox":[104,222,170,66]}
+{"kind":"shape","id":"sh/4rato36h","slide":11,"name":"s11-source-2","bbox":[335,173,210,126]}
+{"kind":"shape","id":"sh/v2hsbyp0","slide":11,"name":"s11-source-2-accent","bbox":[335,173,8,126]}
+{"kind":"textbox","id":"sh/u18bit8f","slide":11,"name":"s11-source-2-title","text":"报告文件","textPreview":"报告文件","textChars":4,"textLines":1,"bbox":[359,186,170,34]}
+{"kind":"textbox","id":"sh/h4zado76","slide":11,"name":"s11-source-2-body","text":"提取既有报告的视觉语言","textPreview":"提取既有报告的视觉语言","textChars":11,"textLines":1,"bbox":[359,222,170,66]}
+{"kind":"shape","id":"sh/g3qtkj6l","slide":11,"name":"s11-source-3","bbox":[590,173,210,126]}
+{"kind":"shape","id":"sh/fy1cnipk","slide":11,"name":"s11-source-3-accent","bbox":[590,173,8,126]}
+{"kind":"textbox","id":"sh/exsbudoz","slide":11,"name":"s11-source-3-title","text":"参考图","textPreview":"参考图","textChars":3,"textLines":1,"bbox":[614,186,170,34]}
+{"kind":"textbox","id":"sh/c3mpof6h","slide":11,"name":"s11-source-3-body","text":"利用多模态模型的图像理解能力","textPreview":"利用多模态模型的图像理解能力","textChars":14,"textLines":1,"bbox":[614,222,170,66]}
+{"kind":"textbox","id":"sh/x4vqhknm","slide":11,"name":"s11-slash-1","text":"/","textPreview":"/","textChars":1,"textLines":1,"bbox":[297,212,28,42]}
+{"kind":"textbox","id":"sh/a147m5ob","slide":11,"name":"s11-slash-2","text":"/","textPreview":"/","textChars":1,"textLines":1,"bbox":[552,212,28,42]}
+{"kind":"shape","id":"sh/b2d8fa5w","slide":11,"name":"s11-design-skill","bbox":[895,173,300,126]}
+{"kind":"shape","id":"sh/k7mpsfmd","slide":11,"name":"s11-design-skill-accent","bbox":[895,173,8,126]}
+{"kind":"textbox","id":"sh/l8fqlkny","slide":11,"name":"s11-design-skill-title","text":"Design-skill","textPreview":"Design-skill","textChars":12,"textLines":1,"bbox":[919,186,260,34]}
+{"kind":"textbox","id":"sh/y547qp47","slide":11,"name":"s11-design-skill-body","text":"配色  ·  字体  ·  层级  ·  布局\n\n图表主题  ·  Design Tokens","textPreview":"配色  ·  字体  ·  层级  ·  布局 |  | 图表主题  ·  Design Tokens","textChars":47,"textLines":3,"bbox":[919,222,260,66]}
+{"kind":"textbox","id":"sh/z6d8ju5s","slide":11,"name":"s11-source-arrow","text":"→","textPreview":"→","textChars":1,"textLines":1,"bbox":[810,210,65,52]}
+{"kind":"textbox","id":"sh/8b69wzm9","slide":11,"name":"s11-planning","text":"设计思路","textPreview":"设计思路","textChars":4,"textLines":1,"bbox":[80,326,220,28]}
+{"kind":"textbox","id":"sh/twfqp4nu","slide":11,"name":"s11-flow-title","text":"建立受控的设计语言提取工作流","textPreview":"建立受控的设计语言提取工作流","textChars":14,"textLines":1,"bbox":[80,363,520,34]}
+{"kind":"shape","id":"sh/hgryt0b2","slide":11,"name":"s11-flow-band-1","bbox":[80,427,114,58]}
+{"kind":"textbox","id":"sh/wfihkvah","slide":11,"name":"s11-flow-text-1","text":"     来源准入","textPreview":"来源准入","textChars":9,"textLines":1,"bbox":[85,429,94,54]}
+{"kind":"shape","id":"sh/ve9grqtw","slide":11,"name":"s11-flow-band-2","bbox":[183,427,114,58]}
+{"kind":"textbox","id":"sh/ud0zi5sb","slide":11,"name":"s11-flow-text-2","text":"     视觉解析","textPreview":"视觉解析","textChars":9,"textLines":1,"bbox":[188,429,94,54]}
+{"kind":"shape","id":"sh/5kbyxkby","slide":11,"name":"s11-flow-band-3","bbox":[286,427,114,58]}
+{"kind":"textbox","id":"sh/4j2hofad","slide":11,"name":"s11-flow-text-3","text":"   Token \n   归一","textPreview":"Token  |    归一","textChars":15,"textLines":2,"bbox":[291,429,94,54]}
+{"kind":"shape","id":"sh/jitgvats","slide":11,"name":"s11-flow-band-4","bbox":[389,427,114,58]}
+{"kind":"textbox","id":"sh/ihkzm5sn","slide":11,"name":"s11-flow-text-4","text":"  试生成\n  对照","textPreview":"试生成 |   对照","textChars":10,"textLines":2,"bbox":[394,429,99.93,54]}
+{"kind":"shape","id":"sh/lo7ylgbu","slide":11,"name":"s11-flow-band-5","bbox":[492,427,114,58]}
+{"kind":"textbox","id":"sh/knyxcba9","slide":11,"name":"s11-flow-text-5","text":"     审核发布","textPreview":"审核发布","textChars":9,"textLines":1,"bbox":[497,429,94,54]}
+{"kind":"textbox","id":"sh/atwvmh87","slide":11,"name":"s11-flow-desc","text":"每一步保留输入、转换结果和审阅记录；\n提取结果经过试生成对照后，才能发布为可用资产。","textPreview":"每一步保留输入、转换结果和审阅记录； | 提取结果经过试生成对照后，才能发布为可用资产。","textChars":42,"textLines":2,"bbox":[80,511,520,72]}
+{"kind":"textbox","id":"sh/bu5wfm9s","slide":11,"name":"s11-structure-title","text":"建立标准化的Design-skill结构与规范","textPreview":"建立标准化的Design-skill结构与规范","textChars":23,"textLines":1,"bbox":[665,363,520,34]}
+{"kind":"shape","id":"sh/cfedorqx","slide":11,"name":"s11-row-line-1","bbox":[665,452,520,1]}
+{"kind":"textbox","id":"sh/xgnehwri","slide":11,"name":"s11-row-label-1","text":"适用场景","textPreview":"适用场景","textChars":4,"textLines":1,"bbox":[665,414,100,34]}
+{"kind":"textbox","id":"sh/yhwvq183","slide":11,"name":"s11-row-value-1","text":"name、description 与触发条件","textPreview":"name、description 与触发条件","textChars":22,"textLines":1,"bbox":[780,414,405,34]}
+{"kind":"shape","id":"sh/zipwjm9o","slide":11,"name":"s11-row-line-2","bbox":[665,497,520,1]}
+{"kind":"textbox","id":"sh/kjyxsrq9","slide":11,"name":"s11-row-label-2","text":"视觉参数","textPreview":"视觉参数","textChars":4,"textLines":1,"bbox":[665,459,100,34]}
+{"kind":"textbox","id":"sh/lk7elwru","slide":11,"name":"s11-row-value-2","text":"基础 Token 与语义 Token","textPreview":"基础 Token 与语义 Token","textChars":18,"textLines":1,"bbox":[780,459,405,34]}
+{"kind":"shape","id":"sh/elcvex8z","slide":11,"name":"s11-row-line-3","bbox":[665,542,520,1]}
+{"kind":"textbox","id":"sh/fmlw729k","slide":11,"name":"s11-row-label-3","text":"呈现规则","textPreview":"呈现规则","textChars":4,"textLines":1,"bbox":[665,504,100,34]}
+{"kind":"textbox","id":"sh/jutoj2lk","slide":11,"name":"s11-row-value-3","text":"字体层级、间距布局、组件及图表主题","textPreview":"字体层级、间距布局、组件及图表主题","textChars":17,"textLines":1,"bbox":[780,504,405,34]}
+{"kind":"shape","id":"sh/i90nax4f","slide":11,"name":"s11-row-line-4","bbox":[665,587,520,3]}
+{"kind":"textbox","id":"sh/5wb6ls3q","slide":11,"name":"s11-row-label-4","text":"治理规则","textPreview":"治理规则","textChars":4,"textLines":1,"bbox":[665,549,100,34]}
+{"kind":"textbox","id":"sh/kv2pcnm5","slide":11,"name":"s11-row-value-4","text":"验证、版本、发布与回滚","textPreview":"验证、版本、发布与回滚","textChars":11,"textLines":1,"bbox":[780,549,405,34]}
+{"kind":"textbox","id":"sh/7yton2lw","slide":11,"name":"s11-structure-desc","text":"统一命名和字段边界，让 Agent 能够稳定读取、组合和验证设计语言。","textPreview":"统一命名和字段边界，让 Agent 能够稳定读取、组合和验证设计语言。","textChars":35,"textLines":1,"bbox":[665,601,520,32]}
+{"kind":"notes","id":"nt/jetc3ut0","slide":11,"text":"Design-skill 可以从设计平台、既有报告或参考图中提取。参考图需要多模态模型。最终形成的设计规范可以与不同 Report-skill 自由组合。\n[资料] 逐字稿第 4-5、7 页；用户补充方案。"}
+{"kind":"slide","id":"sl/8f2psfyx","slide":12,"title":"04 · 生成闭环","textShapes":12}
+{"kind":"shape","id":"sh/cbm5kbyh","slide":12,"name":"圆角矩形 28","bbox":[50,45,7,82]}
+{"kind":"textbox","id":"sh/1gbm9s3a","slide":12,"name":"矩形 1","text":"04 · 生成闭环","textPreview":"04 · 生成闭环","textChars":9,"textLines":1,"bbox":[72,42,310,28]}
+{"kind":"textbox","id":"sh/0f2lgnmp","slide":12,"name":"矩形 2","text":"完整报告生成与可行性验证","textPreview":"完整报告生成与可行性验证","textChars":12,"textLines":1,"bbox":[72,74,1040,62]}
+{"kind":"shape","id":"sh/ra943il8","slide":12,"name":"直接连接符 3","bbox":[74,674,1130,0]}
+{"kind":"textbox","id":"sh/q903ad4n","slide":12,"name":"矩形 4","text":"PROMPT 即模板","textPreview":"PROMPT 即模板","textChars":10,"textLines":1,"bbox":[74,684,330,18]}
+{"kind":"textbox","id":"sh/dcbm583y","slide":12,"name":"矩形 5","text":"11","textPreview":"11","textChars":2,"textLines":1,"bbox":[1150,681,54,20]}
+{"kind":"shape","id":"sh/bm5sryt8","slide":12,"name":"s12-halo-1","bbox":[259.47,227,200,200]}
+{"kind":"shape","id":"sh/wnetkjat","slide":12,"name":"s12-dot-1","bbox":[329.47,297,60,60]}
+{"kind":"textbox","id":"sh/xonutobe","slide":12,"name":"s12-check-1","text":"✓","textPreview":"✓","textChars":1,"textLines":1,"bbox":[329.47,297,60,60]}
+{"kind":"textbox","id":"sh/mhcbe9sr","slide":12,"name":"s12-label-1","text":"真实场景验证","textPreview":"真实场景验证","textChars":6,"textLines":1,"bbox":[249.47,182,220,32]}
+{"kind":"textbox","id":"sh/nilsnetc","slide":12,"name":"s12-title-1","text":"招商智能体 已成功验证 Agent 通过报告模板生成完整报告的可行性","textPreview":"招商智能体 已成功验证 Agent 通过报告模板生成完整报告的可行性","textChars":34,"textLines":1,"bbox":[169.47,452.33,380,82]}
+{"kind":"textbox","id":"sh/ojutgjah","slide":12,"name":"s12-body-1","text":"从用户需求到报告生成，到结果预览的闭环","textPreview":"从用户需求到报告生成，到结果预览的闭环","textChars":19,"textLines":1,"bbox":[169.47,544.33,380,58]}
+{"kind":"shape","id":"sh/9k3apob2","slide":12,"name":"s12-halo-2","bbox":[799.47,227,200,200]}
+{"kind":"shape","id":"sh/6dgbqdsv","slide":12,"name":"s12-dot-2","bbox":[869.47,297,60,60]}
+{"kind":"textbox","id":"sh/7epczitg","slide":12,"name":"s12-check-2","text":"✓","textPreview":"✓","textChars":1,"textLines":1,"bbox":[869.47,297,60,60]}
+{"kind":"textbox","id":"sh/r6l8vaxw","slide":12,"name":"s12-label-2","text":"POC验证","textPreview":"POC验证","textChars":5,"textLines":1,"bbox":[789.47,182,220,32]}
+{"kind":"textbox","id":"sh/q5c7m5wb","slide":12,"name":"s12-title-2","text":"模板管理平台 POC 已成功验证 Agent 生成模板、模板匹配的可行性","textPreview":"模板管理平台 POC 已成功验证 Agent 生成模板、模板匹配的可行性","textChars":36,"textLines":1,"bbox":[709.47,452.33,380,82]}
+{"kind":"textbox","id":"sh/d8nqxkf2","slide":12,"name":"s12-body-2","text":"进一步把模板生产和报告生成连接成可持续迭代的产品闭环","textPreview":"进一步把模板生产和报告生成连接成可持续迭代的产品闭环","textChars":26,"textLines":1,"bbox":[694,544.33,433.47,58]}
+{"kind":"notes","id":"nt/8f2psfyx","slide":12,"text":"运行时把用户需求、内容模板、设计语言和数据工具交给报告 Agent，最终生成可预览的 HTML。招商智能体 POC 已验证这条路径具备现实可行性。\n[资料] 用户补充信息；design-output 报告样例。"}
+{"kind":"slide","id":"sl/hgzapcr6","slide":13,"title":"05 · 核心价值","textShapes":19}
+{"kind":"shape","id":"sh/9wjyp4bq","slide":13,"name":"圆角矩形 28","bbox":[50,45,7,82]}
+{"kind":"textbox","id":"sh/q50nydsj","slide":13,"name":"矩形 1","text":"05 · 核心价值","textPreview":"05 · 核心价值","textChars":9,"textLines":1,"bbox":[72,42,310,28]}
+{"kind":"textbox","id":"sh/bq9orito","slide":13,"name":"矩形 2","text":"模板变更从代码开发转为内容维护","textPreview":"模板变更从代码开发转为内容维护","textChars":15,"textLines":1,"bbox":[72,74,1040,62]}
+{"kind":"shape","id":"sh/o3i5w3ad","slide":13,"name":"直接连接符 3","bbox":[74,674,1130,0]}
+{"kind":"textbox","id":"sh/p4r6p8by","slide":13,"name":"矩形 4","text":"PROMPT 即模板","textPreview":"PROMPT 即模板","textChars":10,"textLines":1,"bbox":[74,684,330,18]}
+{"kind":"textbox","id":"sh/21gnuts7","slide":13,"name":"矩形 5","text":"12","textPreview":"12","textChars":2,"textLines":1,"bbox":[1150,681,54,20]}
+{"kind":"textbox","id":"sh/4re1o3ed","slide":13,"name":"s13-conclusion","text":"变更成本从“研发工程”降为“内容编辑”","textPreview":"变更成本从“研发工程”降为“内容编辑”","textChars":19,"textLines":1,"bbox":[210,589,860,48]}
+{"kind":"textbox","id":"sh/3yxgbqdg","slide":13,"name":"矩形 26","text":"传统模式","textPreview":"传统模式","textChars":4,"textLines":1,"bbox":[106,188,430,34]}
+{"kind":"textbox","id":"sh/gzy5s3a1","slide":13,"name":"矩形 7","text":"Prompt 模式","textPreview":"Prompt 模式","textChars":9,"textLines":1,"bbox":[744,188,430,34]}
+{"kind":"textbox","id":"sh/1076lobm","slide":13,"name":"矩形 8","text":"变更对象","textPreview":"变更对象","textChars":4,"textLines":1,"bbox":[564,268,152,28]}
+{"kind":"shape","id":"sh/5cn2h8vy","slide":13,"name":"圆角矩形 31","bbox":[78,250,450,64]}
+{"kind":"shape","id":"sh/hcfy9k3u","slide":13,"name":"圆角矩形 9","bbox":[752,250,450,64]}
+{"kind":"textbox","id":"sh/re5kjydo","slide":13,"name":"矩形 33","text":"修改前后端模板代码","textPreview":"修改前后端模板代码","textChars":9,"textLines":1,"bbox":[100,268,406,30]}
+{"kind":"textbox","id":"sh/6dwjqtw3","slide":13,"name":"矩形 34","text":"通过 Agent 辅助调整Prompt","textPreview":"通过 Agent 辅助调整Prompt","textChars":19,"textLines":1,"bbox":[774,268,406,30]}
+{"kind":"textbox","id":"sh/tgn2l8vu","slide":13,"name":"矩形 35","text":"变更流程","textPreview":"变更流程","textChars":4,"textLines":1,"bbox":[564,350,152,28]}
+{"kind":"shape","id":"sh/sfe1s3e9","slide":13,"name":"圆角矩形 36","bbox":[78,332,450,64]}
+{"kind":"shape","id":"sh/7i107edk","slide":13,"name":"圆角矩形 37","bbox":[752,332,450,64]}
+{"kind":"textbox","id":"sh/mhsje9wz","slide":13,"name":"矩形 38","text":"进入研发排期与联调，重新测试和部署","textPreview":"进入研发排期与联调，重新测试和部署","textChars":17,"textLines":1,"bbox":[100,350,406,30]}
+{"kind":"textbox","id":"sh/y1wju94v","slide":13,"name":"矩形 39","text":"模板管理台完成调整，实时发布","textPreview":"模板管理台完成调整，实时发布","textChars":14,"textLines":1,"bbox":[774,350,406,30]}
+{"kind":"textbox","id":"sh/z25kne5g","slide":13,"name":"矩形 40","text":"变更耗时","textPreview":"变更耗时","textChars":4,"textLines":1,"bbox":[564,432,152,28]}
+{"kind":"shape","id":"sh/gb6x0zm9","slide":13,"name":"圆角矩形 10","bbox":[78,414,450,64]}
+{"kind":"shape","id":"sh/l4n2po3m","slide":13,"name":"圆角矩形 42","bbox":[752,414,450,64]}
+{"kind":"textbox","id":"sh/m5gjyt4r","slide":13,"name":"矩形 43","text":"通常以天为单位","textPreview":"通常以天为单位","textChars":7,"textLines":1,"bbox":[100,432,406,30]}
+{"kind":"textbox","id":"sh/n6pkrelc","slide":13,"name":"矩形 44","text":"快至几分钟","textPreview":"快至几分钟","textChars":5,"textLines":1,"bbox":[774,432,406,30]}
+{"kind":"textbox","id":"sh/8ry10jmx","slide":13,"name":"矩形 45","text":"复用程度","textPreview":"复用程度","textChars":4,"textLines":1,"bbox":[564,514,152,28]}
+{"kind":"shape","id":"sh/9s72to3i","slide":13,"name":"圆角矩形 46","bbox":[78,496,450,64]}
+{"kind":"shape","id":"sh/atgj2t43","slide":13,"name":"圆角矩形 47","bbox":[752,496,450,64]}
+{"kind":"textbox","id":"sh/vupkvylo","slide":13,"name":"矩形 48","text":"新场景重复建设","textPreview":"新场景重复建设","textChars":7,"textLines":1,"bbox":[100,514,406,30]}
+{"kind":"textbox","id":"sh/50behwr2","slide":13,"name":"矩形 49","text":"一键切换历史版本、从已有模板扩展","textPreview":"一键切换历史版本、从已有模板扩展","textChars":16,"textLines":1,"bbox":[774,514,406,30]}
+{"kind":"notes","id":"nt/hgzapcr6","slide":13,"text":"第一项价值是把常见模板变更从软件开发任务转成内容维护任务。新场景也可以从现有模板出发补充，而不是重建完整生成链路。\n[资料] 逐字稿第 8 页。"}
+{"kind":"slide","id":"sl/6lsnupw7","slide":14,"title":"05 · 核心价值","textShapes":19}
+{"kind":"shape","id":"sh/2t4fyl8z","slide":14,"name":"圆角矩形 26","bbox":[50,45,7,82]}
+{"kind":"textbox","id":"sh/xc7eds76","slide":14,"name":"矩形 1","text":"05 · 核心价值","textPreview":"05 · 核心价值","textChars":9,"textLines":1,"bbox":[72,42,310,28]}
+{"kind":"textbox","id":"sh/wbydknq1","slide":14,"name":"矩形 2","text":"设计语言适配不同受众和交付场景","textPreview":"设计语言适配不同受众和交付场景","textChars":15,"textLines":1,"bbox":[72,74,1040,62]}
+{"kind":"shape","id":"sh/jepwf2pc","slide":14,"name":"直接连接符 3","bbox":[74,674,1130,0]}
+{"kind":"textbox","id":"sh/idgvmx8r","slide":14,"name":"矩形 4","text":"PROMPT 即模板","textPreview":"PROMPT 即模板","textChars":10,"textLines":1,"bbox":[74,684,330,18]}
+{"kind":"textbox","id":"sh/5grehs7i","slide":14,"name":"矩形 5","text":"13","textPreview":"13","textChars":2,"textLines":1,"bbox":[1150,681,54,20]}
+{"kind":"textbox","id":"sh/d0fydk7m","slide":14,"name":"s14-label","text":"多对多组合","textPreview":"多对多组合","textChars":5,"textLines":1,"bbox":[98,196,220,36]}
+{"kind":"shape","id":"sh/cz6h4fq1","slide":14,"name":"s14-left-1-circle","bbox":[110,278,38,38]}
+{"kind":"textbox","id":"sh/atg3idk7","slide":14,"name":"s14-left-1-text","text":"1","textPreview":"1","textChars":1,"textLines":1,"bbox":[110,278,38,38]}
+{"kind":"textbox","id":"sh/bup4rils","slide":14,"name":"s14-left-text-1","text":"招商线索分析报告","textPreview":"招商线索分析报告","textChars":8,"textLines":1,"bbox":[160,276,270,42]}
+{"kind":"shape","id":"sh/cvylkn2d","slide":14,"name":"s14-left-2-circle","bbox":[110,364,38,38]}
+{"kind":"textbox","id":"sh/xw7mts3y","slide":14,"name":"s14-left-2-text","text":"2","textPreview":"2","textChars":1,"textLines":1,"bbox":[110,364,38,38]}
+{"kind":"textbox","id":"sh/yxgnmxkj","slide":14,"name":"s14-left-text-2","text":"企业画像报告","textPreview":"企业画像报告","textChars":6,"textLines":1,"bbox":[160,362,270,42]}
+{"kind":"shape","id":"sh/jyp4fil4","slide":14,"name":"s14-left-3-circle","bbox":[110,450,38,38]}
+{"kind":"textbox","id":"sh/kzy5on2p","slide":14,"name":"s14-left-3-text","text":"3","textPreview":"3","textChars":1,"textLines":1,"bbox":[110,450,38,38]}
+{"kind":"textbox","id":"sh/lkrmhsju","slide":14,"name":"s14-left-text-3","text":"产业诊断报告","textPreview":"产业诊断报告","textChars":6,"textLines":1,"bbox":[160,448,270,42]}
+{"kind":"shape","id":"sh/6l0nqxkf","slide":14,"name":"s14-right-1-circle","bbox":[1130,278,38,38]}
+{"kind":"textbox","id":"sh/7m94j210","slide":14,"name":"s14-right-1-text","text":"1","textPreview":"1","textChars":1,"textLines":1,"bbox":[1130,278,38,38]}
+{"kind":"textbox","id":"sh/fi5432t4","slide":14,"name":"s14-right-text-1","text":"特定行业风格","textPreview":"特定行业风格","textChars":6,"textLines":1,"bbox":[850,276,270,42]}
+{"kind":"shape","id":"sh/uhw3axcj","slide":14,"name":"s14-right-2-circle","bbox":[1130,364,38,38]}
+{"kind":"textbox","id":"sh/h4nm5sba","slide":14,"name":"s14-right-2-text","text":"2","textPreview":"2","textChars":1,"textLines":1,"bbox":[1130,364,38,38]}
+{"kind":"textbox","id":"sh/gjelc7up","slide":14,"name":"s14-right-text-2","text":"特定受众风格","textPreview":"特定受众风格","textChars":6,"textLines":1,"bbox":[850,362,270,42]}
+{"kind":"shape","id":"sh/365472tg","slide":14,"name":"s14-right-3-circle","bbox":[1130,450,38,38]}
+{"kind":"textbox","id":"sh/25w3excv","slide":14,"name":"s14-right-3-text","text":"3","textPreview":"3","textChars":1,"textLines":1,"bbox":[1130,450,38,38]}
+{"kind":"textbox","id":"sh/p87m9cb6","slide":14,"name":"s14-right-text-3","text":"客户定制风格","textPreview":"客户定制风格","textChars":6,"textLines":1,"bbox":[850,448,270,42]}
+{"kind":"shape","id":"sh/47y5g7u1","slide":14,"name":"s14-center-halo","bbox":[485,237,310,310]}
+{"kind":"shape","id":"sh/jal4vidw","slide":14,"name":"s14-center","bbox":[530,282,220,220]}
+{"kind":"textbox","id":"sh/i9c32dcr","slide":14,"name":"s14-center-text","text":"按受众和场景\n选择适合的组合","textPreview":"按受众和场景 | 选择适合的组合","textChars":14,"textLines":2,"bbox":[555,333,170,118]}
+{"kind":"shape","id":"sh/ofq1cja9","slide":14,"name":"s14-left-flow","bbox":[334.6,385,105,0]}
+{"kind":"shape","id":"sh/9gji5oru","slide":14,"name":"s14-right-flow","bbox":[840.4,383,95,0]}
+{"kind":"textbox","id":"sh/mt8ja9sj","slide":14,"name":"s14-conclusion","text":"同一内容可切换多种风格，一套设计语言也能服务多类报告。","textPreview":"同一内容可切换多种风格，一套设计语言也能服务多类报告。","textChars":27,"textLines":1,"bbox":[260,586.47,760,42]}
+{"kind":"notes","id":"nt/6lsnupw7","slide":14,"text":"第二项价值来自 Design-skill。设计团队维护语言和规范，Agent 根据受众与场景落实为具体页面，UI 不需要为每份报告重新作图。\n[资料] 用户补充思想。"}
+{"kind":"slide","id":"sl/vaxsvy10","slide":15,"title":"05 · 核心价值","textShapes":30}
+{"kind":"shape","id":"sh/cbuh8nmh","slide":15,"name":"圆角矩形 28","bbox":[50,45,7,82]}
+{"kind":"textbox","id":"sh/547mhg3m","slide":15,"name":"矩形 1","text":"05 · 核心价值","textPreview":"05 · 核心价值","textChars":9,"textLines":1,"bbox":[72,42,310,28]}
+{"kind":"textbox","id":"sh/k3y5ov21","slide":15,"name":"矩形 2","text":"结构化 Prompt 提高报告生成稳定性","textPreview":"结构化 Prompt 提高报告生成稳定性","textChars":20,"textLines":1,"bbox":[72,74,1040,62]}
+{"kind":"shape","id":"sh/76p4jqls","slide":15,"name":"直接连接符 3","bbox":[74,674,1130,0]}
+{"kind":"textbox","id":"sh/65gnqlk7","slide":15,"name":"矩形 4","text":"PROMPT 即模板","textPreview":"PROMPT 即模板","textChars":10,"textLines":1,"bbox":[74,684,330,18]}
+{"kind":"textbox","id":"sh/t87ml0ji","slide":15,"name":"矩形 5","text":"14","textPreview":"14","textChars":2,"textLines":1,"bbox":[1150,681,54,20]}
+{"kind":"textbox","id":"sh/uh4v2pkj","slide":15,"name":"s15-left-head","text":"完全自由生成","textPreview":"完全自由生成","textChars":6,"textLines":1,"bbox":[90,178,420,45]}
+{"kind":"textbox","id":"sh/vixcvu14","slide":15,"name":"s15-left-sub","text":"结构、数据和视觉随模型发挥","textPreview":"结构、数据和视觉随模型发挥","textChars":13,"textLines":1,"bbox":[90,220,420,32]}
+{"kind":"textbox","id":"sh/wj6d4z2p","slide":15,"name":"s15-free-num-1","text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[110,284.33,70,50]}
+{"kind":"shape","id":"sh/hkfexkja","slide":15,"name":"s15-free-line-1","bbox":[185,310,28,3]}
+{"kind":"textbox","id":"sh/ilov6pkv","slide":15,"name":"s15-free-title-1","text":"结构容易漂移","textPreview":"结构容易漂移","textChars":6,"textLines":1,"bbox":[230,293,300,34]}
+{"kind":"textbox","id":"sh/jmxwzu1g","slide":15,"name":"s15-free-body-1","text":"章节和组件随运行变化","textPreview":"章节和组件随运行变化","textChars":10,"textLines":1,"bbox":[230,328,310,38]}
+{"kind":"textbox","id":"sh/4n6d8z21","slide":15,"name":"s15-free-num-2","text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[110,382.33,70,50]}
+{"kind":"shape","id":"sh/5ofe14j6","slide":15,"name":"s15-free-line-2","bbox":[185,408,28,3]}
+{"kind":"textbox","id":"sh/6p8va9kr","slide":15,"name":"s15-free-title-2","text":"业务口径不一致","textPreview":"业务口径不一致","textChars":7,"textLines":1,"bbox":[230,391,300,34]}
+{"kind":"textbox","id":"sh/rqhw3e1c","slide":15,"name":"s15-free-body-2","text":"数据解释依赖模型临场判断","textPreview":"数据解释依赖模型临场判断","textChars":12,"textLines":1,"bbox":[230,426,310,38]}
+{"kind":"textbox","id":"sh/f6dcnetg","slide":15,"name":"s15-free-num-3","text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[110,480.33,70,50]}
+{"kind":"shape","id":"sh/e54ve9cv","slide":15,"name":"s15-free-line-3","bbox":[185,506,28,3]}
+{"kind":"textbox","id":"sh/18vup4bm","slide":15,"name":"s15-free-title-3","text":"优秀结果难复现","textPreview":"优秀结果难复现","textChars":7,"textLines":1,"bbox":[230,489,300,34]}
+{"kind":"textbox","id":"sh/07mdgzu1","slide":15,"name":"s15-free-body-3","text":"模型或参数变化就可能得到另一种答案","textPreview":"模型或参数变化就可能得到另一种答案","textChars":17,"textLines":1,"bbox":[230,524,310,38]}
+{"kind":"shape","id":"sh/nadwrets","slide":15,"name":"s15-divider","bbox":[627,190,3,370]}
+{"kind":"textbox","id":"sh/294vi9c7","slide":15,"name":"s15-right-head","text":"模板约束下生成","textPreview":"模板约束下生成","textChars":7,"textLines":1,"bbox":[695,178,450,45]}
+{"kind":"textbox","id":"sh/pwfetobi","slide":15,"name":"s15-right-sub","text":"验证与试生成预览提前暴露问题","textPreview":"验证与试生成预览提前暴露问题","textChars":14,"textLines":1,"bbox":[695,220,450,32]}
+{"kind":"shape","id":"sh/ovmdkjud","slide":15,"name":"s15-guard-1","bbox":[692,277,470,60]}
+{"kind":"textbox","id":"sh/3etcfut8","slide":15,"name":"s15-guard-num-1","text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[715,281,48,48]}
+{"kind":"textbox","id":"sh/idkv6pc3","slide":15,"name":"s15-guard-title-1","text":"收敛输出空间","textPreview":"收敛输出空间","textChars":6,"textLines":1,"bbox":[774,279,170,30]}
+{"kind":"textbox","id":"sh/87e10r6p","slide":15,"name":"s15-guard-body-1","text":"限定模块、字段、数量与顺序","textPreview":"限定模块、字段、数量与顺序","textChars":13,"textLines":1,"bbox":[774,306,325,27]}
+{"kind":"shape","id":"sh/987itwnu","slide":15,"name":"s15-guard-2","bbox":[704,349,446,60]}
+{"kind":"textbox","id":"sh/m5wjyhoj","slide":15,"name":"s15-guard-num-2","text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[727,353,48,48]}
+{"kind":"textbox","id":"sh/n650rm54","slide":15,"name":"s15-guard-title-2","text":"统一业务语义","textPreview":"统一业务语义","textChars":6,"textLines":1,"bbox":[786,351,170,30]}
+{"kind":"textbox","id":"sh/03e1w76d","slide":15,"name":"s15-guard-body-2","text":"固化变量、业务口径与数据契约","textPreview":"固化变量、业务口径与数据契约","textChars":14,"textLines":1,"bbox":[786,378,301,27]}
+{"kind":"shape","id":"sh/l4nipcny","slide":15,"name":"s15-guard-3","bbox":[716,421,422,60]}
+{"kind":"textbox","id":"sh/y1wjuho7","slide":15,"name":"s15-guard-num-3","text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[739,425,48,48]}
+{"kind":"textbox","id":"sh/z250nm5s","slide":15,"name":"s15-guard-title-3","text":"明确异常边界","textPreview":"明确异常边界","textChars":6,"textLines":1,"bbox":[798,423,170,30]}
+{"kind":"textbox","id":"sh/4zi18b6h","slide":15,"name":"s15-guard-body-3","text":"规定缺失、冲突和不可比的处理方式","textPreview":"规定缺失、冲突和不可比的处理方式","textChars":16,"textLines":1,"bbox":[798,450,277,27]}
+{"kind":"shape","id":"sh/50r21gn2","slide":15,"name":"s15-guard-4","bbox":[728,493,398,60]}
+{"kind":"textbox","id":"sh/dgnilgf6","slide":15,"name":"s15-guard-num-4","text":"04","textPreview":"04","textChars":2,"textLines":1,"bbox":[751,497,48,48]}
+{"kind":"textbox","id":"sh/sfe1sbe1","slide":15,"name":"s15-guard-title-4","text":"阻断不合格结果","textPreview":"阻断不合格结果","textChars":7,"textLines":1,"bbox":[810,495,170,30]}
+{"kind":"textbox","id":"sh/ru50j6xg","slide":15,"name":"s15-guard-body-4","text":"通过验证和试生成预览提前发现问题","textPreview":"通过验证和试生成预览提前发现问题","textChars":16,"textLines":1,"bbox":[810,522,253,27]}
+{"kind":"textbox","id":"sh/qtcjq1gv","slide":15,"name":"s15-conclusion","text":"质量从单次生成的偶然性，转为模板资产与生成校验共同保证的可复现过程。","textPreview":"质量从单次生成的偶然性，转为模板资产与生成校验共同保证的可复现过程。","textChars":34,"textLines":1,"bbox":[160,597,960,46]}
+{"kind":"notes","id":"nt/vaxsvy10","slide":15,"text":"结构化 Skill 把结构、口径、异常和交付检查变成明确边界。生成后的验证与预览继续降低质量风险，招商 POC 提供了端到端证据。\n[资料] 项目 Agent 工作流；用户补充 POC 信息。"}
+{"kind":"slide","id":"sl/gny5sjyp","slide":16,"title":"05 · 核心价值","textShapes":25}
+{"kind":"shape","id":"sh/ih0jedob","slide":16,"name":"圆角矩形 27","bbox":[50,45,7,82]}
+{"kind":"textbox","id":"sh/8z2h8bq1","slide":16,"name":"矩形 1","text":"05 · 核心价值","textPreview":"05 · 核心价值","textChars":9,"textLines":1,"bbox":[72,42,310,28]}
+{"kind":"textbox","id":"sh/9kby1g7m","slide":16,"name":"矩形 2","text":"独立模板平台让优秀经验跨场景沉淀、复用与治理","textPreview":"独立模板平台让优秀经验跨场景沉淀、复用与治理","textChars":22,"textLines":1,"bbox":[72,74,1040,62]}
+{"kind":"shape","id":"sh/ytkf2h8j","slide":16,"name":"直接连接符 3","bbox":[74,674,1130,0]}
+{"kind":"textbox","id":"sh/zutgvm94","slide":16,"name":"矩形 4","text":"PROMPT 即模板","textPreview":"PROMPT 即模板","textChars":10,"textLines":1,"bbox":[74,684,330,18]}
+{"kind":"textbox","id":"sh/kv2h4rqp","slide":16,"name":"矩形 5","text":"15","textPreview":"15","textChars":2,"textLines":1,"bbox":[1150,681,54,20]}
+{"kind":"shape","id":"sh/ji9k7ypw","slide":16,"name":"s16-track","bbox":[165,275,950,0]}
+{"kind":"shape","id":"sh/tcbmdcre","slide":16,"name":"s16-station-1-circle","bbox":[135,245,60,60]}
+{"kind":"textbox","id":"sh/sb2l47at","slide":16,"name":"s16-station-1-text","text":"1","textPreview":"1","textChars":1,"textLines":1,"bbox":[135,245,60,60]}
+{"kind":"textbox","id":"sh/rat4b298","slide":16,"name":"s16-title-1","text":"专业经验","textPreview":"专业经验","textChars":4,"textLines":1,"bbox":[65,321,200,40]}
+{"kind":"textbox","id":"sh/69k32xsn","slide":16,"name":"s16-body-1","text":"业务、设计、数据平台研发\n分别维护专业知识","textPreview":"业务、设计、数据平台研发 | 分别维护专业知识","textChars":21,"textLines":2,"bbox":[50,366,230,70]}
+{"kind":"shape","id":"sh/58bm9sr2","slide":16,"name":"s16-station-2-circle","bbox":[445,245,60,60]}
+{"kind":"textbox","id":"sh/47il0nah","slide":16,"name":"s16-station-2-text","text":"2","textPreview":"2","textChars":1,"textLines":1,"bbox":[445,245,60,60]}
+{"kind":"textbox","id":"sh/j6947i9w","slide":16,"name":"s16-title-2","text":"标准资产","textPreview":"标准资产","textChars":4,"textLines":1,"bbox":[375,321,200,40]}
+{"kind":"textbox","id":"sh/i503ydsr","slide":16,"name":"s16-body-2","text":"Report-skill\nDesign-skill、API / Tool","textPreview":"Report-skill | Design-skill、API / Tool","textChars":36,"textLines":2,"bbox":[360,366,230,70]}
+{"kind":"shape","id":"sh/p4vmlwrm","slide":16,"name":"s16-station-3-circle","bbox":[755,245,60,60]}
+{"kind":"textbox","id":"sh/o3m5crq1","slide":16,"name":"s16-station-3-text","text":"3","textPreview":"3","textChars":1,"textLines":1,"bbox":[755,245,60,60]}
+{"kind":"textbox","id":"sh/wnadcrqh","slide":16,"name":"s16-title-3","text":"Agent 组合","textPreview":"Agent 组合","textChars":8,"textLines":1,"bbox":[685,321,200,40]}
+{"kind":"textbox","id":"sh/xoju5wr2","slide":16,"name":"s16-body-3","text":"按场景匹配模板和数据能力\n执行生成、验证与运行","textPreview":"按场景匹配模板和数据能力 | 执行生成、验证与运行","textChars":23,"textLines":2,"bbox":[670,366,230,70]}
+{"kind":"shape","id":"sh/alsbahsb","slide":16,"name":"s16-station-4-circle","bbox":[1065,245,60,60]}
+{"kind":"textbox","id":"sh/vm1c3m9w","slide":16,"name":"s16-station-4-text","text":"4","textPreview":"4","textChars":1,"textLines":1,"bbox":[1065,245,60,60]}
+{"kind":"textbox","id":"sh/kbudgrqt","slide":16,"name":"s16-title-4","text":"多场景复用","textPreview":"多场景复用","textChars":5,"textLines":1,"bbox":[995,321,200,40]}
+{"kind":"textbox","id":"sh/5c3u9wry","slide":16,"name":"s16-body-4","text":"跨产品、部门和客户复用\n新场景只补充差异部分","textPreview":"跨产品、部门和客户复用 | 新场景只补充差异部分","textChars":22,"textLines":2,"bbox":[980,366,230,70]}
+{"kind":"textbox","id":"sh/i9sve18n","slide":16,"name":"s16-ownership","text":"职责沉淀","textPreview":"职责沉淀","textChars":4,"textLines":1,"bbox":[114,467.6,150,30]}
+{"kind":"shape","id":"sh/ja1c7m98","slide":16,"name":"s16-owner-baseline","bbox":[114,522.6,1011,3.78]}
+{"kind":"shape","id":"sh/sfudkbqp","slide":16,"name":"s16-owner-dot-1","bbox":[114,515.2,20,20]}
+{"kind":"textbox","id":"sh/tg3udgra","slide":16,"name":"s16-owner-team-1","text":"业务团队","textPreview":"业务团队","textChars":4,"textLines":1,"bbox":[114,545.6,240,32]}
+{"kind":"textbox","id":"sh/3apg3atc","slide":16,"name":"s16-owner-body-1","text":"分析方法与报告结构","textPreview":"分析方法与报告结构","textChars":9,"textLines":1,"bbox":[114,579.6,240,32]}
+{"kind":"shape","id":"sh/29wfa5sr","slide":16,"name":"s16-owner-dot-2","bbox":[386,515.2,20,20]}
+{"kind":"textbox","id":"sh/pc7y5kbi","slide":16,"name":"s16-owner-team-2","text":"设计团队","textPreview":"设计团队","textChars":4,"textLines":1,"bbox":[386,545.6,240,32]}
+{"kind":"textbox","id":"sh/obyxcfax","slide":16,"name":"s16-owner-body-2","text":"设计语言与视觉规范","textPreview":"设计语言与视觉规范","textChars":9,"textLines":1,"bbox":[386,579.6,240,32]}
+{"kind":"shape","id":"sh/f65wzqtg","slide":16,"name":"s16-owner-dot-3","bbox":[658,515.2,20,20]}
+{"kind":"textbox","id":"sh/u5wf6lcv","slide":16,"name":"s16-owner-team-3","text":"数据团队","textPreview":"数据团队","textChars":4,"textLines":1,"bbox":[658,545.6,240,32]}
+{"kind":"textbox","id":"sh/h8ne10b6","slide":16,"name":"s16-owner-body-3","text":"内部 API 与 Agent Tool","textPreview":"内部 API 与 Agent Tool","textChars":19,"textLines":1,"bbox":[658,579.6,240,32]}
+{"kind":"shape","id":"sh/g7ex8va1","slide":16,"name":"s16-owner-dot-4","bbox":[930,515.2,20,20]}
+{"kind":"textbox","id":"sh/z29gbutk","slide":16,"name":"s16-owner-team-4","text":"平台研发","textPreview":"平台研发","textChars":4,"textLines":1,"bbox":[930,545.6,240,32]}
+{"kind":"textbox","id":"sh/y10fipsz","slide":16,"name":"s16-owner-body-4","text":"Agent、校验与运行环境","textPreview":"Agent、校验与运行环境","textChars":13,"textLines":1,"bbox":[930,579.6,240,32]}
+{"kind":"notes","id":"nt/gny5sjyp","slide":16,"text":"业务、设计、数据和平台研发分别沉淀自己最专业的部分。Agent 负责组合这些资产，既减少重复建设，也降低关键经验只存在于个人或单一项目中的风险。\n[资料] 完整方案综合判断。"}
+{"kind":"slide","id":"sl/w7b8bb","slide":17,"title":"05 · 核心价值","textShapes":11}
+{"kind":"shape","id":"sh/sz2dcrm5","slide":17,"name":"圆角矩形 17","bbox":[50,45,7,82]}
+{"kind":"textbox","id":"sh/pcnup8fa","slide":17,"name":"矩形 1","text":"05 · 核心价值","textPreview":"05 · 核心价值","textChars":9,"textLines":1,"bbox":[72,42,310,28]}
+{"kind":"textbox","id":"sh/orutg3yp","slide":17,"name":"矩形 2","text":"面向用户与一线团队的个性化交付","textPreview":"面向用户与一线团队的个性化交付","textChars":15,"textLines":1,"bbox":[72,74,1040,62]}
+{"kind":"shape","id":"sh/be5crix0","slide":17,"name":"直接连接符 3","bbox":[74,674,1130,0]}
+{"kind":"textbox","id":"sh/adwbidgv","slide":17,"name":"矩形 4","text":"PROMPT 即模板","textPreview":"PROMPT 即模板","textChars":10,"textLines":1,"bbox":[74,684,330,18]}
+{"kind":"textbox","id":"sh/xgnutsf6","slide":17,"name":"矩形 5","text":"16","textPreview":"16","textChars":2,"textLines":1,"bbox":[1150,681,54,20]}
+{"kind":"shape","id":"sh/1g7upwfu","slide":17,"name":"s6-left-track-a","bbox":[163.27,324.33,330,66]}
+{"kind":"shape","id":"sh/0fydwre9","slide":17,"name":"s6-left-track-b","bbox":[163.27,337.33,330,66]}
+{"kind":"shape","id":"sh/zepcnmxo","slide":17,"name":"s6-right-track-a","bbox":[731.8,323.93,330,66]}
+{"kind":"shape","id":"sh/etgvuhw3","slide":17,"name":"s6-right-track-b","bbox":[731.8,336.93,330,66]}
+{"kind":"textbox","id":"sh/9krutwfq","slide":17,"name":"s6-left-kicker","text":"用户价值","textPreview":"用户价值","textChars":4,"textLines":1,"bbox":[160,240.2,270,30]}
+{"kind":"textbox","id":"sh/ojid0be5","slide":17,"name":"s6-left-title","text":"千人千面","textPreview":"千人千面","textChars":4,"textLines":1,"bbox":[160,272.2,350,60]}
+{"kind":"textbox","id":"sh/nipcr6x0","slide":17,"name":"s6-left-body","text":"用户可按角色和场景灵活调整\n报告章节、指标范围与表达方式\n同一模板输出不同侧重点","textPreview":"用户可按角色和场景灵活调整 | 报告章节、指标范围与表达方式 | 同一模板输出不同侧重点","textChars":40,"textLines":3,"bbox":[160,388,430,116]}
+{"kind":"textbox","id":"sh/ponuhcfm","slide":17,"name":"s6-right-kicker","text":"一线价值","textPreview":"一线价值","textChars":4,"textLines":1,"bbox":[725.27,232.4,290,30]}
+{"kind":"textbox","id":"sh/4neto7e1","slide":17,"name":"s6-right-title","text":"客户专属","textPreview":"客户专属","textChars":4,"textLines":1,"bbox":[725.27,264.4,350,60]}
+{"kind":"textbox","id":"sh/utcrydcz","slide":17,"name":"s6-right-body","text":"产品与销售无需从零编写\n基于模板融合公司独有数据\n报告类型随模板持续扩展","textPreview":"产品与销售无需从零编写 | 基于模板融合公司独有数据 | 报告类型随模板持续扩展","textChars":36,"textLines":3,"bbox":[725.27,388,416.33,116]}
+{"kind":"textbox","id":"sh/gvu90nu5","slide":17,"name":"s6-common","text":"模板约束专业边界，Agent 提升个性化报告的生成效率。","textPreview":"模板约束专业边界，Agent 提升个性化报告的生成效率。","textChars":28,"textLines":1,"bbox":[160,563,960,46]}
+{"kind":"notes","id":"nt/w7b8bb","slide":17,"text":""}
+{"kind":"slide","id":"sl/cyfaw0","slide":18,"title":"05 · 核心价值","textShapes":27}
+{"kind":"shape","id":"sh/nqd4b69k","slide":18,"name":"圆角矩形 27","bbox":[50,45,7,82]}
+{"kind":"textbox","id":"sh/7m1g3exw","slide":18,"name":"矩形 1","text":"05 · 核心价值","textPreview":"05 · 核心价值","textChars":9,"textLines":1,"bbox":[72,42,310,28]}
+{"kind":"textbox","id":"sh/6lsfu9wr","slide":18,"name":"矩形 2","text":"HTML 让交互能力随报告一起流转","textPreview":"HTML 让交互能力随报告一起流转","textChars":17,"textLines":1,"bbox":[72,74,1040,62]}
+{"kind":"shape","id":"sh/hc3y9ofe","slide":18,"name":"直接连接符 3","bbox":[74,674,1130,0]}
+{"kind":"textbox","id":"sh/gruh0jet","slide":18,"name":"矩形 4","text":"PROMPT 即模板","textPreview":"PROMPT 即模板","textChars":10,"textLines":1,"bbox":[74,684,330,18]}
+{"kind":"textbox","id":"sh/vqlg7ex8","slide":18,"name":"矩形 5","text":"17","textPreview":"17","textChars":2,"textLines":1,"bbox":[1150,681,54,20]}
+{"kind":"shape","id":"sh/mpk3218z","slide":18,"name":"s16-track","bbox":[165,275,950,0]}
+{"kind":"shape","id":"sh/kju9gz2l","slide":18,"name":"s16-station-1-circle","bbox":[135,245,60,60]}
+{"kind":"textbox","id":"sh/lk3q9436","slide":18,"name":"s16-station-1-text","text":"1","textPreview":"1","textChars":1,"textLines":1,"bbox":[135,245,60,60]}
+{"kind":"textbox","id":"sh/yxcrepkf","slide":18,"name":"s16-title-1","text":"打开业务页面","textPreview":"打开业务页面","textChars":6,"textLines":1,"bbox":[65,321,200,40]}
+{"kind":"textbox","id":"sh/jil87ul0","slide":18,"name":"s16-body-1","text":"用户进入指定页面","textPreview":"用户进入指定页面","textChars":8,"textLines":1,"bbox":[50,366,230,70]}
+{"kind":"shape","id":"sh/8ne9kz2h","slide":18,"name":"s16-station-2-circle","bbox":[445,245,60,60]}
+{"kind":"textbox","id":"sh/tonqd432","slide":18,"name":"s16-station-2-text","text":"2","textPreview":"2","textChars":1,"textLines":1,"bbox":[445,245,60,60]}
+{"kind":"textbox","id":"sh/6lcri9kb","slide":18,"name":"s16-title-2","text":"交互能力生效","textPreview":"交互能力生效","textChars":6,"textLines":1,"bbox":[375,321,200,40]}
+{"kind":"textbox","id":"sh/7m58belw","slide":18,"name":"s16-body-2","text":"组件在当前会话中运行","textPreview":"组件在当前会话中运行","textChars":10,"textLines":1,"bbox":[360,366,230,70]}
+{"kind":"shape","id":"sh/gre9oj2t","slide":18,"name":"s16-station-3-circle","bbox":[755,245,60,60]}
+{"kind":"textbox","id":"sh/hsnaho3y","slide":18,"name":"s16-station-3-text","text":"3","textPreview":"3","textChars":1,"textLines":1,"bbox":[755,245,60,60]}
+{"kind":"textbox","id":"sh/10fax47e","slide":18,"name":"s16-title-3","text":"用户离开页面","textPreview":"用户离开页面","textChars":6,"textLines":1,"bbox":[685,321,200,40]}
+{"kind":"textbox","id":"sh/0z694z6t","slide":18,"name":"s16-body-3","text":"页面访问会话结束","textPreview":"页面访问会话结束","textChars":8,"textLines":1,"bbox":[670,366,230,70]}
+{"kind":"shape","id":"sh/fyxsvep8","slide":18,"name":"s16-station-4-circle","bbox":[1065,245,60,60]}
+{"kind":"textbox","id":"sh/exor29on","slide":18,"name":"s16-station-4-text","text":"4","textPreview":"4","textChars":1,"textLines":1,"bbox":[1065,245,60,60]}
+{"kind":"textbox","id":"sh/twfqt472","slide":18,"name":"s16-title-4","text":"本次触达结束","textPreview":"本次触达结束","textChars":6,"textLines":1,"bbox":[995,321,200,40]}
+{"kind":"textbox","id":"sh/svm90z6x","slide":18,"name":"s16-body-4","text":"能力停留在单次访问","textPreview":"能力停留在单次访问","textChars":9,"textLines":1,"bbox":[980,366,230,70]}
+{"kind":"textbox","id":"sh/rud8rupc","slide":18,"name":"s16-ownership","text":"报告生命周期","textPreview":"报告生命周期","textChars":6,"textLines":1,"bbox":[114,467.6,150,30]}
+{"kind":"shape","id":"sh/6t4rypor","slide":18,"name":"s16-owner-baseline","bbox":[114,522.6,1011,3.78]}
+{"kind":"shape","id":"sh/xsza5o7m","slide":18,"name":"s16-owner-dot-1","bbox":[114,515.2,20,20]}
+{"kind":"textbox","id":"sh/crq9cj61","slide":18,"name":"s16-owner-team-1","text":"报告生成","textPreview":"报告生成","textChars":4,"textLines":1,"bbox":[114,545.6,240,32]}
+{"kind":"textbox","id":"sh/uxk76l4j","slide":18,"name":"s16-owner-body-1","text":"Agent 组合模板与组件","textPreview":"Agent 组合模板与组件","textChars":13,"textLines":1,"bbox":[114,579.6,240,32]}
+{"kind":"shape","id":"sh/vytozq54","slide":18,"name":"s16-owner-dot-2","bbox":[386,515.2,20,20]}
+{"kind":"textbox","id":"sh/wz2p8vmp","slide":18,"name":"s16-owner-team-2","text":"随报告保存","textPreview":"随报告保存","textChars":5,"textLines":1,"bbox":[386,545.6,240,32]}
+{"kind":"textbox","id":"sh/h0b610nu","slide":18,"name":"s16-owner-body-2","text":"交互能力随载体保留","textPreview":"交互能力随载体保留","textChars":9,"textLines":1,"bbox":[386,579.6,240,32]}
+{"kind":"shape","id":"sh/m90n2l47","slide":18,"name":"s16-owner-dot-3","bbox":[658,515.2,20,20]}
+{"kind":"textbox","id":"sh/7a9ovq5s","slide":18,"name":"s16-owner-team-3","text":"随分享传播","textPreview":"随分享传播","textChars":5,"textLines":1,"bbox":[658,545.6,240,32]}
+{"kind":"textbox","id":"sh/8vip4bmd","slide":18,"name":"s16-owner-body-3","text":"报告在组织内外流转","textPreview":"报告在组织内外流转","textChars":9,"textLines":1,"bbox":[658,579.6,240,32]}
+{"kind":"shape","id":"sh/9wr6xgny","slide":18,"name":"s16-owner-dot-4","bbox":[930,515.2,20,20]}
+{"kind":"textbox","id":"sh/6547e54r","slide":18,"name":"s16-owner-team-4","text":"持续触达","textPreview":"持续触达","textChars":4,"textLines":1,"bbox":[930,545.6,240,32]}
+{"kind":"textbox","id":"sh/r6do7a5c","slide":18,"name":"s16-owner-body-4","text":"再次访问仍可连接产品服务","textPreview":"再次访问仍可连接产品服务","textChars":12,"textLines":1,"bbox":[930,579.6,240,32]}
+{"kind":"textbox","id":"sh/3ylcjihc","slide":18,"name":"value-traditional-cycle-label","text":"页面访问周期","textPreview":"页面访问周期","textChars":6,"textLines":1,"bbox":[114,188,260,28]}
+{"kind":"textbox","id":"sh/2xcvadgr","slide":18,"name":"value-safety-boundary-note","text":"仅调用经过审核的组件，并继续遵循既有的数据权限与服务边界。","textPreview":"仅调用经过审核的组件，并继续遵循既有的数据权限与服务边界。","textChars":29,"textLines":1,"bbox":[160,626,960,30]}
+{"kind":"notes","id":"nt/cyfaw0","slide":18,"text":""}
+{"kind":"slide","id":"sl/14bup87q","slide":19,"title":"06 · 建设路线","textShapes":20}
+{"kind":"shape","id":"sh/oza547ed","slide":19,"name":"圆角矩形 31","bbox":[50,45,7,82]}
+{"kind":"textbox","id":"sh/1c7e50ni","slide":19,"name":"矩形 1","text":"06 · 建设路线","textPreview":"06 · 建设路线","textChars":9,"textLines":1,"bbox":[72,42,310,28]}
+{"kind":"textbox","id":"sh/gbedwfmx","slide":19,"name":"矩形 2","text":"从可行性验证走向组合式报告平台","textPreview":"从可行性验证走向组合式报告平台","textChars":15,"textLines":1,"bbox":[72,74,1040,62]}
+{"kind":"shape","id":"sh/rm5czq50","slide":19,"name":"直接连接符 3","bbox":[74,674,1130,0]}
+{"kind":"textbox","id":"sh/6lwvql4v","slide":19,"name":"矩形 4","text":"PROMPT 即模板","textPreview":"PROMPT 即模板","textChars":10,"textLines":1,"bbox":[74,684,330,18]}
+{"kind":"textbox","id":"sh/t8ne10n6","slide":19,"name":"矩形 5","text":"18","textPreview":"18","textChars":2,"textLines":1,"bbox":[1150,681,54,20]}
+{"kind":"shape","id":"sh/p0j6dcvy","slide":19,"name":"s17-road","bbox":[147.33,370.67,973.33,0.07]}
+{"kind":"shape","id":"sh/e98nydwb","slide":19,"name":"s17-node-1","bbox":[141.33,339.67,62,62]}
+{"kind":"textbox","id":"sh/fah47idw","slide":19,"name":"s17-label-1","text":"已完成","textPreview":"已完成","textChars":3,"textLines":1,"bbox":[141.33,339.67,62,62]}
+{"kind":"textbox","id":"sh/gbq50neh","slide":19,"name":"s17-title-1","text":"报告生成验证","textPreview":"报告生成验证","textChars":6,"textLines":1,"bbox":[60.07,436.67,224,48]}
+{"kind":"textbox","id":"sh/1cj69sv2","slide":19,"name":"s17-body-1","text":"招商智能体 POC\n模板驱动完整报告","textPreview":"招商智能体 POC | 模板驱动完整报告","textChars":18,"textLines":2,"bbox":[60.07,486.67,224,62]}
+{"kind":"shape","id":"sh/658nudwf","slide":19,"name":"s17-node-2","bbox":[356.33,339.67,62,62]}
+{"kind":"textbox","id":"sh/r6h43id0","slide":19,"name":"s17-label-2","text":"已完成","textPreview":"已完成","textChars":3,"textLines":1,"bbox":[356.33,339.67,62,62]}
+{"kind":"textbox","id":"sh/jy1kfehg","slide":19,"name":"s17-title-2","text":"模板生成验证","textPreview":"模板生成验证","textChars":6,"textLines":1,"bbox":[275.33,213,224,48]}
+{"kind":"textbox","id":"sh/ixsj690v","slide":19,"name":"s17-body-2","text":"Report-skill 管理\n模板 Agent","textPreview":"Report-skill 管理 | 模板 Agent","textChars":24,"textLines":2,"bbox":[275.33,263,224,62]}
+{"kind":"shape","id":"sh/50j2hozm","slide":19,"name":"s17-node-3","bbox":[594.33,332.67,76,76]}
+{"kind":"textbox","id":"sh/kza18ji1","slide":19,"name":"s17-label-3","text":"P1","textPreview":"P1","textChars":2,"textLines":1,"bbox":[594.33,332.67,76,76]}
+{"kind":"textbox","id":"sh/vuhkbehk","slide":19,"name":"s17-title-3","text":"Design-skill 标准与提取闭环","textPreview":"Design-skill 标准与提取闭环","textChars":20,"textLines":1,"bbox":[512.47,436.67,246.47,48]}
+{"kind":"textbox","id":"sh/at8j290z","slide":19,"name":"s17-body-3","text":"定义结构和 Token 规范，完成来源准入、人工审核与试生成验证。","textPreview":"定义结构和 Token 规范，完成来源准入、人工审核与试生成验证。","textChars":33,"textLines":1,"bbox":[523.13,486.67,224,92]}
+{"kind":"shape","id":"sh/xwz2dozq","slide":19,"name":"s17-node-4","bbox":[849.33,337.67,66,66]}
+{"kind":"textbox","id":"sh/wvq14ji5","slide":19,"name":"s17-label-4","text":"P2","textPreview":"P2","textChars":2,"textLines":1,"bbox":[849.33,337.67,66,66]}
+{"kind":"textbox","id":"sh/n6h07uh8","slide":19,"name":"s17-title-4","text":"数据工具与质量安全边界","textPreview":"数据工具与质量安全边界","textChars":11,"textLines":1,"bbox":[770.33,202.33,224,48]}
+{"kind":"textbox","id":"sh/m5ojyp03","slide":19,"name":"s17-body-4","text":"统一业务语义与 API / Tool 映射，补齐数据审计、HTML 安全和生成质量评测。","textPreview":"统一业务语义与 API / Tool 映射，补齐数据审计、HTML 安全和生成质量评测。","textChars":44,"textLines":1,"bbox":[770.33,252.33,224,92]}
+{"kind":"shape","id":"sh/cbmh8vyl","slide":19,"name":"s17-node-5","bbox":[1073.33,341.67,58,58]}
+{"kind":"textbox","id":"sh/dcvyh0f6","slide":19,"name":"s17-label-5","text":"P3","textPreview":"P3","textChars":2,"textLines":1,"bbox":[1073.33,341.67,58,58]}
+{"kind":"textbox","id":"sh/q94z6lgv","slide":19,"name":"s17-title-5","text":"高频场景试点与治理扩展","textPreview":"高频场景试点与治理扩展","textChars":11,"textLines":1,"bbox":[984.6,436.67,224,48]}
+{"kind":"textbox","id":"sh/radgfqx0","slide":19,"name":"s17-body-5","text":"选择一至两个口径清晰的场景，完善权限和审核，建立发布回滚机制与质量基准。","textPreview":"选择一至两个口径清晰的场景，完善权限和审核，建立发布回滚机制与质量基准。","textChars":36,"textLines":1,"bbox":[984.6,486.67,224,92]}
+{"kind":"textbox","id":"sh/0z6hcfyx","slide":19,"name":"s17-next-stage","text":"下一阶段","textPreview":"下一阶段","textChars":4,"textLines":1,"bbox":[524.33,408.67,220,28]}
+{"kind":"notes","id":"nt/14bup87q","slide":19,"text":"当前已经完成可行性验证和 Report-skill 管理，答辩前补齐 /chat 的生成与预览。下一阶段重点建设 Design-skill、数据工具和更多业务场景。\n[资料] 用户补充实施计划。"}
+{"kind":"slide","id":"sl/y5wne50z","slide":20,"title":"演示结束","textShapes":6}
+{"kind":"textbox","id":"sh/hsn2l4bu","slide":20,"name":"矩形 2","text":"演示结束","textPreview":"演示结束","textChars":4,"textLines":1,"bbox":[80,218,620,70]}
+{"kind":"textbox","id":"sh/itw3upcf","slide":20,"name":"矩形 3","text":"报告生成与模板资产化方案","textPreview":"报告生成与模板资产化方案","textChars":12,"textLines":1,"bbox":[80,477.07,700,50]}
+{"kind":"shape","id":"sh/je5knut0","slide":20,"name":"圆角矩形 4","bbox":[80,343.8,260,62]}
+{"kind":"textbox","id":"sh/4felwzu5","slide":20,"name":"矩形 5","text":"感谢聆听  ·  Q&A","textPreview":"感谢聆听  ·  Q&A","textChars":12,"textLines":1,"bbox":[98,353.8,224,42]}
+{"kind":"textbox","id":"sh/wrelszu9","slide":20,"name":"矩形 1","text":"—— 让报告模板从代码实现转变为可检索、可复用、可治理的组织资产","textPreview":"—— 让报告模板从代码实现转变为可检索、可复用、可治理的组织资产","textChars":32,"textLines":1,"bbox":[280.13,533.2,601.6,50]}
+{"kind":"textbox","id":"sh/upg3i18r","slide":20,"name":"Rounded Rectangle 9","text":"申报人：曲艺（研发三部）","textPreview":"申报人：曲艺（研发三部）","textChars":12,"textLines":1,"bbox":[81.6,627.53,320,34.8]}
+{"kind":"textbox","id":"sh/1cr2tg72","slide":20,"name":"Rounded Rectangle 10","text":"  2026-09-20","textPreview":"2026-09-20","textChars":12,"textLines":1,"bbox":[426.6,627.52,180,34.8]}
+{"kind":"image","id":"im/vmhknex4","slide":20,"name":"图片 7","bbox":[0,0,1280,720]}
+{"kind":"image","id":"im/4balkjyl","slide":20,"name":"图片 8","bbox":[81.61,52,110.77,58]}
+{"kind":"notes","id":"nt/y5wne50z","slide":20,"text":"结尾回到主题：Prompt 即模板的真正价值，是让报告结构、设计语言和数据能力成为可以持续积累和重新组合的组织资产。"}

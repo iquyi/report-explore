@@ -1,0 +1,2292 @@
+<!doctype html>
+<html lang="zh-CN" data-immersive-translate-page-theme="light">
+  <head>
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'none'; worker-src 'none'; style-src 'unsafe-inline'; img-src 'none'; font-src 'none'; media-src 'none'; object-src 'none'; frame-src 'none'; form-action 'none'; base-uri 'none'; connect-src 'none'"
+    />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>月之暗面企业画像报告</title>
+    <style>
+      :root {
+        --font-sans:
+          "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC",
+          "Helvetica Neue", Arial, sans-serif;
+
+        --blue-50: #eff6ff;
+        --blue-100: #dbeafe;
+        --blue-200: #bfdbfe;
+        --blue-400: #60a5fa;
+        --blue-500: #2f80ed;
+        --blue-600: #1769e0;
+        --blue-700: #1257b7;
+        --blue-800: #0e3f88;
+        --blue-900: #0a2b61;
+        --blue-950: #061a3d;
+        --cyan-100: #cff6ff;
+        --cyan-500: #06a9d9;
+
+        --neutral-0: #ffffff;
+        --neutral-50: #f7f9fc;
+        --neutral-100: #eef2f7;
+        --neutral-200: #dde4ee;
+        --neutral-300: #c7d0de;
+        --neutral-400: #94a3b8;
+        --neutral-500: #64748b;
+        --neutral-600: #475569;
+        --neutral-700: #334155;
+        --neutral-800: #1e293b;
+        --neutral-900: #0f172a;
+
+        --success-50: #edf9f4;
+        --success-600: #0f7655;
+        --warning-50: #fff8e8;
+        --warning-700: #9a640d;
+        --danger-50: #fff1f2;
+        --danger-600: #c83e4d;
+
+        --color-page: #f4f7fb;
+        --color-surface: var(--neutral-0);
+        --color-surface-subtle: #f7faff;
+        --color-surface-strong: var(--blue-950);
+        --color-brand: var(--blue-600);
+        --color-brand-strong: var(--blue-800);
+        --color-brand-soft: var(--blue-50);
+        --color-text: #162033;
+        --color-text-secondary: #52627a;
+        --color-text-muted: var(--neutral-500);
+        --color-text-on-strong: var(--neutral-0);
+        --color-border: #d8e2ef;
+        --color-border-strong: #b9c7d9;
+        --color-link: var(--blue-700);
+
+        --chart-1: #1769e0;
+        --chart-2: #06a9d9;
+        --chart-3: #6846d9;
+        --chart-4: #d84c9a;
+        --chart-5: #e67e22;
+        --chart-6: #0f9f8f;
+        --chart-7: #c49713;
+        --chart-8: #5b6b82;
+
+        --chart-seq-1: #eaf3ff;
+        --chart-seq-2: #cfe4ff;
+        --chart-seq-3: #9ec9ff;
+        --chart-seq-4: #65a8fa;
+        --chart-seq-5: #2f80ed;
+        --chart-seq-6: #1769e0;
+        --chart-seq-7: #0e3f88;
+
+        --chart-negative: #c83e4d;
+        --chart-negative-soft: #f7c9cd;
+        --chart-neutral: #eef2f7;
+        --chart-positive-soft: #cde9df;
+        --chart-positive: #14825e;
+
+        --space-1: 4px;
+        --space-2: 8px;
+        --space-3: 12px;
+        --space-4: 16px;
+        --space-5: 20px;
+        --space-6: 24px;
+        --space-8: 32px;
+        --space-10: 40px;
+        --space-12: 48px;
+        --space-16: 64px;
+        --space-20: 80px;
+
+        --text-caption: 12px;
+        --text-small: 14px;
+        --text-body: 16px;
+        --text-subtitle: 18px;
+        --text-h3: clamp(20px, 2vw, 22px);
+        --text-h2: clamp(26px, 3vw, 30px);
+        --text-h1: clamp(34px, 4vw, 42px);
+
+        --leading-tight: 1.12;
+        --leading-heading: 1.25;
+        --leading-body: 1.75;
+        --leading-compact: 1.5;
+
+        --radius-sm: 8px;
+        --radius-md: 12px;
+        --radius-lg: 18px;
+        --radius-pill: 999px;
+        --border-thin: 1px solid var(--color-border);
+        --shadow-sm: 0 2px 10px rgb(9 37 83 / 6%);
+
+        --content-max: 1180px;
+        --reading-max: 760px;
+        --grid-gap: 24px;
+        --section-gap: clamp(56px, 7vw, 88px);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        font-family: var(--font-sans);
+        font-size: var(--text-body);
+        line-height: var(--leading-body);
+        color: var(--color-text);
+        background: var(--color-page);
+      }
+      a {
+        color: var(--color-link);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+      a:focus-visible {
+        outline: 2px solid var(--color-brand);
+        outline-offset: 2px;
+        border-radius: 2px;
+      }
+      .container {
+        width: 100%;
+        max-width: var(--content-max);
+        margin: 0 auto;
+        padding: 0 clamp(20px, 4vw, 56px);
+      }
+      .page-header {
+        background: var(--color-surface);
+        border-bottom: 4px solid var(--color-brand);
+        padding: var(--space-10) 0 var(--space-8);
+      }
+      .eyebrow {
+        font-size: var(--text-small);
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        color: var(--color-brand);
+        margin: 0 0 var(--space-3);
+      }
+      h1 {
+        font-size: var(--text-h1);
+        line-height: var(--leading-tight);
+        font-weight: 800;
+        margin: 0 0 var(--space-6);
+        color: var(--blue-950);
+      }
+      .meta-bar {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: var(--space-4);
+        margin: 0;
+        padding: var(--space-4) 0 0;
+        border-top: var(--border-thin);
+      }
+      .meta-bar div {
+        min-width: 0;
+      }
+      .meta-bar dt {
+        font-size: var(--text-caption);
+        color: var(--color-text-muted);
+        font-weight: 600;
+        margin-bottom: var(--space-1);
+      }
+      .meta-bar dd {
+        margin: 0;
+        font-size: var(--text-small);
+        color: var(--color-text);
+        font-weight: 600;
+      }
+      .header-note {
+        margin: var(--space-5) 0 0;
+        max-width: var(--reading-max);
+        font-size: var(--text-small);
+        color: var(--color-text-secondary);
+      }
+      main {
+        padding-top: var(--space-12);
+        padding-bottom: var(--space-16);
+      }
+      section {
+        margin-bottom: var(--section-gap);
+        scroll-margin-top: var(--space-6);
+      }
+      h2 {
+        font-size: var(--text-h2);
+        line-height: var(--leading-heading);
+        font-weight: 700;
+        color: var(--blue-950);
+        margin: 0 0 var(--space-6);
+      }
+      h3 {
+        font-size: var(--text-h3);
+        line-height: var(--leading-heading);
+        font-weight: 700;
+        color: var(--blue-900);
+        margin: var(--space-8) 0 var(--space-4);
+      }
+      h4 {
+        font-size: var(--text-subtitle);
+        line-height: var(--leading-heading);
+        font-weight: 600;
+        color: var(--blue-900);
+        margin: var(--space-6) 0 var(--space-3);
+      }
+      p {
+        margin: 0 0 var(--space-4);
+        max-width: var(--reading-max);
+      }
+      ul,
+      ol {
+        margin: 0 0 var(--space-4);
+        padding-left: 1.4em;
+        max-width: var(--reading-max);
+      }
+      li {
+        margin-bottom: var(--space-2);
+      }
+      strong {
+        font-weight: 600;
+      }
+
+      .toc {
+        background: var(--color-surface);
+        border: var(--border-thin);
+        border-radius: var(--radius-md);
+        padding: var(--space-6);
+        margin-bottom: var(--section-gap);
+      }
+      .toc h2 {
+        font-size: var(--text-h3);
+        margin-bottom: var(--space-4);
+      }
+      .toc ol {
+        columns: 2;
+        column-gap: var(--space-8);
+        max-width: none;
+        list-style: decimal;
+      }
+      .toc li {
+        break-inside: avoid;
+        margin-bottom: var(--space-1);
+      }
+      .toc a {
+        text-decoration: none;
+      }
+      .toc a:hover {
+        text-decoration: underline;
+      }
+
+      .card,
+      .table-wrap {
+        background: var(--color-surface);
+        border: var(--border-thin);
+        border-radius: var(--radius-md);
+        box-shadow: var(--shadow-sm);
+      }
+      .card {
+        padding: var(--space-6);
+        margin-bottom: var(--space-5);
+      }
+      .card.subtle {
+        background: var(--color-surface-subtle);
+        box-shadow: none;
+      }
+      .callout {
+        background: var(--color-brand-soft);
+        border-left: 4px solid var(--color-brand);
+        border-radius: var(--radius-sm);
+        padding: var(--space-5);
+        margin: var(--space-5) 0;
+        max-width: var(--reading-max);
+      }
+      .callout-warning {
+        background: var(--warning-50);
+        border-left-color: var(--warning-700);
+        color: var(--warning-700);
+      }
+      .callout-danger {
+        background: var(--danger-50);
+        border-left-color: var(--danger-600);
+        color: var(--danger-600);
+      }
+      .callout-success {
+        background: var(--success-50);
+        border-left-color: var(--success-600);
+        color: var(--success-600);
+      }
+      .grade-line {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--space-2);
+        font-weight: 600;
+        margin: 0 0 var(--space-4);
+      }
+      .tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: var(--text-caption);
+        font-weight: 600;
+        padding: 4px 10px;
+        border-radius: var(--radius-pill);
+        background: var(--neutral-100);
+        color: var(--neutral-800);
+        line-height: 1.4;
+      }
+      .tag-brand {
+        background: var(--blue-100);
+        color: var(--blue-800);
+      }
+      .tag-success {
+        background: var(--success-50);
+        color: var(--success-600);
+      }
+      .tag-warning {
+        background: var(--warning-50);
+        color: var(--warning-700);
+      }
+      .tag-danger {
+        background: var(--danger-50);
+        color: var(--danger-600);
+      }
+      .tag-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin: var(--space-3) 0;
+      }
+
+      .table-wrap {
+        overflow-x: auto;
+        margin: var(--space-5) 0;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 720px;
+      }
+      caption {
+        text-align: left;
+        font-size: var(--text-small);
+        font-weight: 600;
+        color: var(--color-text-secondary);
+        padding: var(--space-4) var(--space-4) 0;
+      }
+      th,
+      td {
+        padding: 12px 16px;
+        border-bottom: 1px solid var(--color-border);
+        text-align: left;
+        vertical-align: top;
+        font-size: var(--text-small);
+        line-height: var(--leading-compact);
+      }
+      th {
+        background: var(--blue-50);
+        color: var(--blue-950);
+        font-weight: 600;
+        white-space: nowrap;
+      }
+      td.num,
+      th.num {
+        text-align: right;
+        font-variant-numeric: tabular-nums lining-nums;
+      }
+      tbody tr:nth-child(even) {
+        background: var(--neutral-50);
+      }
+      tbody tr:last-child td {
+        border-bottom: none;
+      }
+
+      .note {
+        font-size: var(--text-caption);
+        color: var(--color-text-secondary);
+        margin-top: var(--space-2);
+        max-width: var(--reading-max);
+      }
+      .source-note {
+        font-size: var(--text-small);
+        color: var(--color-text-secondary);
+        background: var(--neutral-50);
+        border-left: 3px solid var(--color-border-strong);
+        padding: var(--space-4);
+        border-radius: var(--radius-sm);
+        margin: var(--space-5) 0;
+        max-width: var(--reading-max);
+      }
+      .disclosure {
+        font-size: var(--text-small);
+        color: var(--color-text);
+        background: var(--warning-50);
+        border-left: 4px solid var(--warning-700);
+        padding: var(--space-4) var(--space-5);
+        border-radius: var(--radius-sm);
+        margin: var(--space-5) 0;
+        max-width: var(--reading-max);
+      }
+      .risk-list {
+        max-width: var(--reading-max);
+      }
+      .swot-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--grid-gap);
+      }
+      .swot-card {
+        background: var(--color-surface);
+        border: var(--border-thin);
+        border-radius: var(--radius-md);
+        padding: var(--space-6);
+      }
+      .swot-card h3 {
+        margin-top: 0;
+      }
+      .swot-card ul {
+        max-width: none;
+      }
+      .timeline {
+        list-style: none;
+        padding-left: 0;
+        max-width: var(--reading-max);
+      }
+      .timeline li {
+        position: relative;
+        padding-left: 24px;
+        margin-bottom: var(--space-4);
+      }
+      .timeline li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0.55em;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--color-brand);
+      }
+      .timeline li::after {
+        content: "";
+        position: absolute;
+        left: 4px;
+        top: 1.2em;
+        bottom: -1.1em;
+        width: 2px;
+        background: var(--blue-200);
+      }
+      .timeline li:last-child::after {
+        display: none;
+      }
+
+      .chart-figure {
+        background: var(--color-surface);
+        border: var(--border-thin);
+        border-radius: var(--radius-md);
+        padding: var(--space-5);
+        margin: var(--space-5) 0;
+      }
+      .chart-figure figcaption {
+        font-size: var(--text-small);
+        font-weight: 600;
+        color: var(--color-text-secondary);
+        margin-bottom: var(--space-3);
+      }
+      .chart-figure svg {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+      .chart-footnote {
+        font-size: var(--text-caption);
+        color: var(--color-text-secondary);
+        margin: var(--space-3) 0 0;
+        max-width: var(--reading-max);
+      }
+
+      footer {
+        background: var(--color-surface-strong);
+        color: var(--color-text-on-strong);
+        padding: var(--space-10) 0;
+      }
+      footer h2 {
+        color: var(--color-text-on-strong);
+        font-size: var(--text-h3);
+        margin-bottom: var(--space-4);
+      }
+      footer p,
+      footer li {
+        color: var(--blue-100);
+        max-width: var(--reading-max);
+      }
+      footer a {
+        color: var(--blue-100);
+      }
+      footer ul {
+        max-width: var(--reading-max);
+      }
+      .footer-meta {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--space-4);
+        margin-top: var(--space-6);
+      }
+      .footer-meta div {
+        border-top: 1px solid var(--blue-800);
+        padding-top: var(--space-3);
+      }
+      .footer-meta dt {
+        font-size: var(--text-caption);
+        color: var(--blue-200);
+      }
+      .footer-meta dd {
+        margin: var(--space-1) 0 0;
+        font-size: var(--text-small);
+        font-weight: 600;
+      }
+
+      @media (max-width: 1199px) {
+        .meta-bar {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+      @media (max-width: 767px) {
+        main {
+          padding-top: var(--space-8);
+        }
+        .toc ol {
+          columns: 1;
+        }
+        .meta-bar {
+          grid-template-columns: 1fr;
+        }
+        .swot-grid {
+          grid-template-columns: 1fr;
+        }
+        .footer-meta {
+          grid-template-columns: 1fr;
+        }
+        h2 {
+          margin-bottom: var(--space-4);
+        }
+        section {
+          margin-bottom: clamp(48px, 12vw, 64px);
+        }
+        table {
+          min-width: 640px;
+        }
+      }
+      @media (max-width: 480px) {
+        body {
+          font-size: 15px;
+        }
+        .card {
+          padding: var(--space-4);
+        }
+        th,
+        td {
+          padding: 10px 12px;
+        }
+        .swot-card {
+          padding: var(--space-4);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="page-header">
+      <div class="container">
+        <p class="eyebrow">企业深度分析</p>
+        <h1>月之暗面企业画像报告</h1>
+        <dl class="meta-bar">
+          <div>
+            <dt>生成日期</dt>
+            <dd>2026-09-20</dd>
+          </div>
+          <div>
+            <dt>报告生成机构</dt>
+            <dd>灵犀科技</dd>
+          </div>
+          <div>
+            <dt>评估基准期</dt>
+            <dd>2026-09-20（数据截止时点：2026年9月；个别数据时点单独标注）</dd>
+          </div>
+        </dl>
+        <p class="header-note">
+          主体核验标识：统一社会信用代码
+          91110108MACG2KBH8F。本报告依据事实台账与公开信息编写，未联网核验；数据缺失、数据冲突与口径映射统一在页尾报告生成说明中披露。
+        </p>
+      </div>
+    </header>
+
+    <main id="main" class="container">
+      <nav class="toc" aria-labelledby="toc-title">
+        <h2 id="toc-title">目录</h2>
+        <ol>
+          <li><a href="#executive-summary">执行摘要</a></li>
+          <li><a href="#s01">01 企业概况</a></li>
+          <li><a href="#s02">02 发展历程</a></li>
+          <li><a href="#s03">03 资质荣誉</a></li>
+          <li><a href="#s04">04 组织架构与管理团队</a></li>
+          <li><a href="#s05">05 主营业务</a></li>
+          <li><a href="#s06">06 市场地位</a></li>
+          <li><a href="#s07">07 财务状况</a></li>
+          <li><a href="#s08">08 企业文化</a></li>
+          <li><a href="#s09">09 媒体动态</a></li>
+          <li><a href="#s10">10 招投标动态</a></li>
+          <li><a href="#s11">11 融资投资</a></li>
+          <li><a href="#s12">12 股东背景</a></li>
+          <li><a href="#s13">13 客户与渠道</a></li>
+          <li><a href="#s14">14 合作伙伴</a></li>
+          <li><a href="#s15">15 法律与合规</a></li>
+          <li><a href="#s16">16 人力资源</a></li>
+          <li><a href="#s17">17 SWOT 分析</a></li>
+          <li><a href="#s18">18 招商适配性评估</a></li>
+          <li><a href="#s19">19 画像结论与招商建议</a></li>
+          <li><a href="#page-footer">页尾</a></li>
+        </ol>
+      </nav>
+
+      <section id="executive-summary">
+        <h2>执行摘要</h2>
+
+        <h3>核心评估</h3>
+        <p>
+          北京月之暗面科技股份有限公司（简称“月之暗面”，统一社会信用代码：91110108MACG2KBH8F）成立于2023年4月17日，注册于北京市海淀区，法定代表人杨植麟，企业类型为股份有限公司（非上市、自然人投资或控股），属于通用人工智能大模型赛道。公司主营业务为通用人工智能大模型的研发与应用，核心产品包括Kimi智能助手、Kimi系列大模型及API服务，收入以API调用为主（占比超七成）、C端个人订阅为辅。市场地位方面，2024年4月网页版访问量2004万、国内同类产品第一；2026年1月日活用户688万、国内第三。公司处于快速扩张与商业化验证阶段：2026年6月ARR超3亿美元，2026年3月ARR突破1亿美元；2026年7月完成股份制改造，同月完成超35亿美元F轮融资、投后估值350亿美元，并推进港股IPO筹备。总体判断：技术、人才与资本要素突出，尚未实现盈利，财务、资质与合规信息存在较大缺口，属于高成长、高估值、高风险并存的AI独角兽；招商合作宜以附带对赌、合规与履约前置条件的重点引进方式推进。
+        </p>
+
+        <h3>关键指标表</h3>
+        <div class="table-wrap">
+          <table>
+            <caption>
+              月之暗面企业画像核心指标
+            </caption>
+            <thead>
+              <tr>
+                <th>指标名称</th>
+                <th>指标数值/状态</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>成立时间</td>
+                <td>2023年4月17日</td>
+              </tr>
+              <tr>
+                <td>注册资本</td>
+                <td>约224万人民币（截至2026年8月）</td>
+              </tr>
+              <tr>
+                <td>员工规模</td>
+                <td>
+                  暂未获取（已披露2024年4月超100人；2026年“大幅扩张”为预计口径，非可核实数据）
+                </td>
+              </tr>
+              <tr>
+                <td>市场占有率</td>
+                <td>
+                  暂未获取（2024年4月网页版访问量2004万、国内同类产品第一；2026年1月日活688万、国内第三）
+                </td>
+              </tr>
+              <tr>
+                <td>核心营收</td>
+                <td>
+                  ARR超3亿美元（截至2026年6月，非审计口径）；API调用收入占比超七成
+                </td>
+              </tr>
+              <tr>
+                <td>产能情况</td>
+                <td>暂未获取（算力资源主要来自云服务商及自建算力中心）</td>
+              </tr>
+              <tr>
+                <td>布局区域</td>
+                <td>
+                  中国大陆为主（北京总部、海南子公司）；海外通过合作伙伴拓展中，营收占比暂未获取
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>综合风险评级</h3>
+        <p class="grade-line">
+          综合风险评级：<span class="tag tag-warning">中高</span>
+        </p>
+
+        <h3>主要风险点</h3>
+        <ul class="risk-list">
+          <li>
+            <strong>持续亏损风险：</strong
+            >公开资料称公司尚未实现盈利、处于亏损运营状态；净利润数值暂未获取，亏损规模无法用审计数据核实。
+          </li>
+          <li>
+            <strong>高研发投入风险：</strong
+            >大模型训练依赖大规模GPU集群和算力投入，公开资料提示高昂算力成本与研发投入使盈利时间表尚不明确。
+          </li>
+          <li>
+            <strong>收入结构单一风险：</strong
+            >收入以API调用为主（占比超七成），辅以C端订阅，对单一收入来源依赖较高。
+          </li>
+          <li>
+            <strong>历史仲裁与合规风险：</strong
+            >公司曾卷入与金沙江创投的仲裁事件，涉及创始人股权与资源使用问题，对合规性和创始人信用造成一定负面影响；仲裁结果、裁决时间、是否结案暂未获取。
+          </li>
+        </ul>
+
+        <h3>政府招商推荐度</h3>
+        <p class="grade-line">
+          推荐等级：<span class="tag tag-brand">A 重点引进</span
+          >（附带前置条件的重点引进）
+        </p>
+        <p>
+          企业处于通用人工智能赛道，技术、人才与资本要素突出：2026年6月ARR超3亿美元，2026年7月F轮融资超35亿美元、投后估值350亿美元，产业带动与品牌效应显著，且已披露的“登月计划”生态合作正在形成B端交付体系。但综合风险等级为“中高”，持续亏损、高研发投入、收入结构单一与历史仲裁争议均未消除，财务与合规数据存在缺口。因此本报告将“A
+          重点引进”界定为有条件引进：须在对赌条款、合规尽调、履约保障与退出机制等前置条件落实后方可推进；前置条件未落实时不启动资金与政策兑现。该界定与“中高”风险等级的逻辑关系，已在18.2综合价值表与19.1综合结论中同步说明。
+        </p>
+
+        <h3>招商建议</h3>
+        <ul>
+          <li>
+            <strong>引进条件：</strong
+            >要求企业在本地设立独立法人实体（总部或区域研发中心、算力中心），并约定3—5年营收、税收、就业及研发投入指标。
+          </li>
+          <li>
+            <strong>政策支持：</strong
+            >提供算力补贴、人才引进、研发费用加计扣除、办公场地租金减免；探索“算力入股”或“基金+项目”模式。
+          </li>
+          <li>
+            <strong>风险防控：</strong
+            >在投资协议中设置对赌条款，覆盖上市时间表、营收/ARR增长目标、本地纳税额和就业人数，并设置股权回购或现金补偿等退出机制。
+          </li>
+          <li>
+            <strong>合规尽调：</strong
+            >重点核查股权结构清晰性、历史法律纠纷、核心技术自主可控性、商业化模式可持续性；在仲裁事件结果未获取前，设置合规承诺与信息披露条款。
+          </li>
+          <li>
+            <strong>履约保障：</strong
+            >要求履约保证金或母公司担保，扶持资金分期拨付并挂钩里程碑。
+          </li>
+          <li>
+            <strong>动态评估：</strong
+            >建立年度动态评估机制，出现重大风险事件或未达里程碑时启动约谈、整改或退出程序。
+          </li>
+        </ul>
+      </section>
+
+      <section id="s01">
+        <h2>01 企业概况</h2>
+
+        <h3>1.1 基本信息表</h3>
+        <div class="table-wrap">
+          <table>
+            <caption>
+              企业基本信息
+            </caption>
+            <thead>
+              <tr>
+                <th>字段</th>
+                <th>内容</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>企业全称</td>
+                <td>北京月之暗面科技股份有限公司</td>
+              </tr>
+              <tr>
+                <td>企业简称</td>
+                <td>月之暗面</td>
+              </tr>
+              <tr>
+                <td>统一社会信用代码</td>
+                <td>91110108MACG2KBH8F</td>
+              </tr>
+              <tr>
+                <td>成立日期</td>
+                <td>2023年4月17日</td>
+              </tr>
+              <tr>
+                <td>注册资本</td>
+                <td>约224万人民币（截至2026年8月）</td>
+              </tr>
+              <tr>
+                <td>实缴资本</td>
+                <td>暂未获取</td>
+              </tr>
+              <tr>
+                <td>企业类型</td>
+                <td>股份有限公司（非上市、自然人投资或控股）</td>
+              </tr>
+              <tr>
+                <td>上市状态</td>
+                <td>非上市（计划赴港IPO）</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="note">
+          注册资本“约224万人民币”未说明历史变化过程及实缴情况；企业全称与简称在全文统一使用“北京月之暗面科技股份有限公司”与“月之暗面”。
+        </p>
+
+        <h3>1.2 注册与办公信息表</h3>
+        <div class="table-wrap">
+          <table>
+            <caption>
+              注册与办公信息
+            </caption>
+            <thead>
+              <tr>
+                <th>字段</th>
+                <th>内容</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>注册地址</td>
+                <td>北京市海淀区知春路27号6层608室</td>
+              </tr>
+              <tr>
+                <td>办公地址</td>
+                <td>北京市海淀区知春路76号京东科技大厦1栋13层</td>
+              </tr>
+              <tr>
+                <td>法定代表人</td>
+                <td>杨植麟</td>
+              </tr>
+              <tr>
+                <td>注册机关</td>
+                <td>暂未获取</td>
+              </tr>
+              <tr>
+                <td>经营期限</td>
+                <td>暂未获取</td>
+              </tr>
+              <tr>
+                <td>存续状态</td>
+                <td>存续</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="note">
+          注册地址与办公地址不一致，公开信息未说明原因；注册机关、经营期限暂未获取。
+        </p>
+
+        <h3>1.3 企业简介</h3>
+        <p>
+          月之暗面全称北京月之暗面科技股份有限公司，简称月之暗面，成立于2023年4月17日，注册于北京市海淀区，属于通用人工智能大模型赛道，以“致力于寻求将能源转化为智能的最优解，推动AGI发展”为使命，战略定位为通用人工智能大模型的研发与应用。核心产品线包括Kimi智能助手、Kimi系列大模型（含2026年7月发布的2.8万亿参数Kimi
+          K3开源模型）及API服务，主要服务个人用户、开发者与企业客户，覆盖长文本处理、信息检索、内容创作、代码生成、编程、知识工作、多模态理解等场景；下游客户类型覆盖互联网、金融、能源电力、软件信息服务等行业。已披露的标志性经营成果包括：2026年3月ARR突破1亿美元、2026年6月ARR超3亿美元；2026年7月完成股份制改造并发布Kimi
+          K3；同月完成超35亿美元F轮融资，投后估值350亿美元，并推进港股IPO筹备。
+        </p>
+
+        <h3>1.4 经营状态表</h3>
+        <div class="table-wrap">
+          <table>
+            <caption>
+              经营状态
+            </caption>
+            <thead>
+              <tr>
+                <th>字段</th>
+                <th>内容</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>经营状态</td>
+                <td>存续</td>
+              </tr>
+              <tr>
+                <td>异常记录</td>
+                <td>
+                  无（公开信息聚合页面口径，未经权威登记档案直接核验，与15.4口径关系见15.4）
+                </td>
+              </tr>
+              <tr>
+                <td>纳税信用等级</td>
+                <td>暂未获取</td>
+              </tr>
+              <tr>
+                <td>企业规模</td>
+                <td>中型（快速扩张期）</td>
+              </tr>
+              <tr>
+                <td>参保人数</td>
+                <td>暂未获取</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>1.5 数据来源与检索范围</h3>
+        <p>
+          1.1—1.4主要依据公开工商信息聚合页面（百度百科、36氪、泰伯网，检索时点2026年9月）、公开媒体报道及企业官方披露；统一社会信用代码取事实台账登记标识。本次未直接核验国家企业信用信息公示系统的原始登记档案，也未取得企业年报原件，因此实缴资本、注册机关、经营期限、纳税信用等级、参保人数等字段统一标注为“暂未获取”；参保人数、员工规模等无数据项不采用估算值或行业均值替代。注册地址与办公地址不一致，公开信息未说明原因。
+        </p>
+      </section>
+
+      <section id="s02">
+        <h2>02 发展历程</h2>
+
+        <h3>2.1 关键里程碑表</h3>
+        <div class="table-wrap">
+          <table>
+            <caption>
+              发展里程碑（按年份升序）
+            </caption>
+            <thead>
+              <tr>
+                <th>年份</th>
+                <th>里程碑事件</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>2023年</td>
+                <td>
+                  3月公司创立；4月17日正式注册成立；6月完成天使轮融资，金额超2亿美元，投后估值3亿美元；10月推出Kimi
+                  Chat。
+                </td>
+              </tr>
+              <tr>
+                <td>2024年</td>
+                <td>
+                  2月完成超10亿美元A+轮融资，阿里巴巴领投，投后估值25亿美元；3月启动200万字内测；4月网页版访问量2004万，国内同类产品第一；8月完成超3亿美元B轮融资；同年卷入与金沙江创投的仲裁事件。
+                </td>
+              </tr>
+              <tr>
+                <td>2025年</td>
+                <td>12月完成5亿美元C轮融资。</td>
+              </tr>
+              <tr>
+                <td>2026年</td>
+                <td>
+                  2月完成超7亿美元C+轮融资；5月完成20亿美元D轮融资；6月完成E轮融资（金额暂未获取，投前估值315亿美元），同月ARR超3亿美元；7月完成股份制改造，企业类型变更为股份有限公司，杨植麟任董事长兼经理；7月发布2.8万亿参数开源大模型Kimi
+                  K3；7月完成超35亿美元F轮融资，投后估值350亿美元；7月因Kimi
+                  K3发布后用户请求量激增，宣布暂停C端新用户订阅；8月亚信科技签署“登月计划”合作协议；9月启动Kimi企业合作伙伴“登月计划”，首批签约中软国际、金山云、华胜天成等；9月披露Pre-IPO轮计划（投前估值500亿美元，金额暂未获取）。
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>2.2 重大事件</h3>
+        <ul>
+          <li>
+            <strong>技术突破与产品迭代：</strong
+            >2026年7月发布2.8万亿参数开源大模型Kimi K3，登顶多项基准测试。
+          </li>
+          <li>
+            <strong>密集融资与估值上升：</strong
+            >2023年6月天使轮投后估值3亿美元，2026年7月F轮投后估值350亿美元；2026年9月披露Pre-IPO轮计划，投前估值500亿美元（计划，截至基准期未获取完成信息）。
+          </li>
+          <li>
+            <strong>股份制改造与IPO筹备：</strong
+            >2026年7月完成股改，企业类型变更为股份有限公司，杨植麟任董事长兼经理，并计划赴港IPO。
+          </li>
+          <li>
+            <strong>商业化推进：</strong
+            >2026年3月ARR突破1亿美元，2026年6月ARR超3亿美元；2026年9月启动“登月计划”企业合作伙伴体系。
+          </li>
+          <li>
+            <strong>合规争议：</strong
+            >2024年卷入与金沙江创投的仲裁事件，涉及创始人股权问题；仲裁结果、裁决时间、是否结案暂未获取。
+          </li>
+        </ul>
+
+        <h3>2.3 发展阶段</h3>
+        <ul class="timeline">
+          <li>
+            <strong>创业期（2023年）：</strong>公司创立并完成注册，推出Kimi
+            Chat，完成天使轮融资，投后估值3亿美元。
+          </li>
+          <li>
+            <strong>成长期（2024—2025年）：</strong
+            >完成A+轮、B轮、C轮融资，启动200万字上下文内测，网页版访问量进入国内同类第一，同时出现仲裁合规争议。
+          </li>
+          <li>
+            <strong>成熟期（2026年至今）：</strong
+            >完成C+轮、D轮、E轮、F轮融资，发布Kimi
+            K3，完成股改，ARR由1亿美元增至超3亿美元，推进港股IPO与“登月计划”商业化。
+          </li>
+        </ul>
+      </section>
+
+      <section id="s03">
+        <h2>03 资质荣誉</h2>
+
+        <h3>3.1 行业资质表</h3>
+        <div class="table-wrap">
+          <table>
+            <caption>
+              行业资质
+            </caption>
+            <thead>
+              <tr>
+                <th>资质名称</th>
+                <th>等级/类型</th>
+                <th>有效期</th>
+                <th>发证机关</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>暂未获取</td>
+                <td>暂未获取</td>
+                <td>暂未获取</td>
+                <td>暂未获取</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>3.2 认证证书表</h3>
+        <div class="table-wrap">
+          <table>
+            <caption>
+              认证证书
+            </caption>
+            <thead>
+              <tr>
+                <th>认证名称</th>
+                <th>认证范围</th>
+                <th>有效期</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>暂未获取</td>
+                <td>暂未获取</td>
+                <td>暂未获取</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>3.3 获奖情况表</h3>
+        <div class="table-wrap">
+          <table>
+            <caption>
+              获奖情况（按年份降序）
+            </caption>
+            <thead>
+              <tr>
+                <th>奖项名称</th>
+                <th>颁发机构</th>
+                <th>年份</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>暂未获取</td>
+                <td>暂未获取</td>
+                <td>暂未获取</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="note">
+          3.1—3.3保留字段与行结构，按统一缺失口径标注“暂未获取”，不删除行，以免读者误认为该维度不存在。
+        </p>
+
+        <h3>3.4 会员资格</h3>
+        <ul>
+          <li>暂未获取。</li>
+        </ul>
+
+        <h3>3.5 数据来源与检索范围</h3>
+        <p>
+          3.1—3.4的资质核验来源为公开企业信息聚合页面、企业官网及公开报道，检索时点2026年9月。检索范围内未获取可核验的行业资质、认证证书、获奖记录与协会或联盟会员资格；该维度暂无可获取的公开信息。未检索或未能覆盖的范围包括：发证机关原始公示名录、认证机构证书数据库、行业协会会员名录等权威渠道的直接核验结果；因此本模块各项“暂未获取”仅表示数据缺失，不表示不存在相应资质、认证、获奖或会员资格。
+        </p>
+      </section>
+
+      <section id="s04">
+        <h2>04 组织架构与管理团队</h2>
+
+        <h3>4.1 组织架构</h3>
+        <p>
+          公司采用扁平化组织架构，决策层以创始人杨植麟为核心；设有研发、产品、商业化、运营等核心部门；区域布局为北京总部与海南子公司，研发机构数量暂未获取。公司正在向股份有限公司转型，计划搭建符合港股上市要求的治理结构；治理主体方面，2026年7月完成股份制改造后，企业类型变更为股份有限公司，杨植麟任董事长兼经理。上述组织与治理安排来自公开报道与公开工商信息聚合页面，具体部门设置、人员编制与议事规则暂未获取。
+        </p>
+
+        <h3>4.2 股权结构表</h3>
+        <div class="table-wrap">
+          <table>
+            <caption>
+              股权结构（按已获取持股比例降序；不同时点分列）
+            </caption>
+            <thead>
+              <tr>
+                <th>股东名称</th>
+                <th>时点</th>
+                <th>持股比例</th>
+                <th>出资方式</th>
+                <th>质押/冻结</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>杨植麟</td>
+                <td>早期（股改前）</td>
+                <td>78.97%</td>
+                <td>暂未获取</td>
+                <td>暂未获取</td>
+              </tr>
+              <tr>
+                <td>杨植麟</td>
+                <td>股改后（2026年7月）</td>
+                <td>51.83%</td>
+                <td>暂未获取</td>
+                <td>暂未获取</td>
+              </tr>
+              <tr>
+                <td>周昕宇</td>
+                <td>早期（股改前）</td>
+                <td>10.00%</td>
+                <td>暂未获取</td>
+                <td>暂未获取</td>
+              </tr>
+              <tr>
+                <td>吴育昕</td>
+                <td>早期（股改前）</td>
+                <td>5.96%</td>
+                <td>暂未获取</td>
+                <td>暂未获取</td>
+              </tr>
+              <tr>
+                <td>张宇韬</td>
+                <td>早期（股改前）</td>
+                <td>5.00%</td>
+                <td>暂未获取</td>
+                <td>暂未获取</td>
+              </tr>
+              <tr>
+                <td>汪箴</td>
+                <td>早期（股改前）</td>
+                <td>0.075%</td>
+                <td>暂未获取</td>
+                <td>暂未获取</td>
+              </tr>
+              <tr>
+                <td>其他股东（含外部机构）</td>
+                <td>暂未获取</td>
+                <td>暂未获取</td>
+                <td>暂未获取</td>
+                <td>暂未获取</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="note">
+          数据冲突与口径说明：早期口径各自然人股东比例合计约100.005%（78.97%+10%+5.96%+5%+0.075%），与股改后口径不可直接合并；杨植麟持股由早期78.97%降至股改后51.83%，减少27.14个百分点。公开资料另称“创始团队自然人股权约65.63%（截至2026年7月）”，该数值既与早期各比例合计不符，也与“51.83%÷78.97%≈65.63%”的保留比例相同，口径存疑。出资方式与质押/冻结信息全部暂未获取，不得推定为无质押或无冻结。
+        </p>
+
+        <h3>4.3 实际控制人</h3>
+        <p>
+          实际控制人为杨植麟，逐级控制路径为：杨植麟 →
+          北京月之暗面科技股份有限公司。公开信息称其通过直接持股（股改后约51.83%）及一致行动协议（如有）实现控制；一致行动协议的具体安排暂未获取，“如有”属不确定表述，不能作为控制权比例的确认依据。同时，公开资料称“阿里巴巴为单一最大股东”，与杨植麟股改后直接持股51.83%的表述存在冲突；在无法依据权威登记来源判断优先级的情况下，本报告并列展示两种表述，并以工商登记档案为最终核验路径。
+        </p>
+
+        <h3>4.4 核心管理层表</h3>
+        <div class="table-wrap">
+          <table>
+            <caption>
+              核心管理层（按董事长/总经理、董事、其他高管排序）
+            </caption>
+            <thead>
+              <tr>
+                <th>姓名</th>
+                <th>职务</th>
+                <th>从业背景</th>
+                <th>在职时间</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>杨植麟</td>
+                <td>创始人、董事长、经理</td>
+                <td>
+                  清华大学本科，卡内基梅隆大学博士，曾任循环智能联合创始人，参与Google、盘古NLP等大模型研发
+                </td>
+                <td>2023年至今</td>
+              </tr>
+              <tr>
+                <td>周昕宇</td>
+                <td>联合创始人、董事</td>
+                <td>
+                  清华大学本科，前旷视科技算法量产负责人，ShuffleNet共同一作
+                </td>
+                <td>2023年至今</td>
+              </tr>
+              <tr>
+                <td>张宇韬</td>
+                <td>联合创始人、CTO、董事</td>
+                <td>清华大学计算机博士，师从唐杰教授，前AMiner核心开发者</td>
+                <td>2023年至今</td>
+              </tr>
+              <tr>
+                <td>吴育昕</td>
+                <td>联合创始人</td>
+                <td>
+                  清华大学、卡内基梅隆大学，前Meta AI研究员，Group
+                  Normalization共同提出者
+                </td>
+                <td>2023年至今</td>
+              </tr>
+              <tr>
+                <td>张予彤</td>
+                <td>总裁</td>
+                <td>
+                  清华大学毕业，前金沙江创投主管合伙人，主导投资小红书、深鉴科技等
+                </td>
+                <td>2024年至今</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>4.5 董事会、监事会</h3>
+        <p>
+          公司已设立董事会与监事会：董事会成员包括杨植麟、周昕宇、张宇韬等，监事会成员包括郑亚男等。管理层稳定性方面，可核查依据为：核心创始团队成员自2023年公司成立起持续在职，总裁张予彤自2024年加入并任职至今，未获取核心管理层离职记录。但董事会与监事会的完整名单、席位数量、任期安排及议事规则暂未获取，近三年治理结构随多轮融资和2026年7月股改发生较大变化，因此管理层与治理结构的稳定性只能作有限判断，不能给出完整评价。
+        </p>
+
+        <h3>4.6 数据来源与检索范围</h3>
+        <p>
+          4.2—4.5主要依据公开工商信息聚合页面、企业公示信息及公开报道（百度百科、36氪、澎湃新闻，检索时点2026年9月）。已获取字段为各股东早期持股比例、杨植麟股改后持股比例、核心管理层姓名与职务、董事会与监事会部分成员；未获取字段包括出资方式、股权质押/冻结、其他股东（含外部机构）持股比例、一致行动协议安排、董监事完整名单与任期。股权比例存在早期与股改后两种口径，本报告按不同时点分列展示，未合并为单一数值；未直接核验工商登记原始档案，也未将未获取字段推定为“无”。
+        </p>
+      </section>
+
+      <section id="s05">
+        <h2>05 主营业务</h2>
+
+        <h3>5.1 业务概述</h3>
+        <p>
+          公司主营业务为通用人工智能大模型的研发与应用，核心业务板块包括Kimi智能助手、Kimi系列大模型及API服务。收入结构以API调用收入为主（占比超七成），辅以C端个人订阅；上游为算力供应商（如阿里云）和数据服务商，下游为个人用户、开发者及企业客户，企业客户覆盖互联网、金融、能源电力、软件信息服务等行业。
+        </p>
+
+        <h3>5.2 主要产品/服务表</h3>
+        <div class="table-wrap">
+          <table>
+            <caption>
+              主要产品与服务（按业务权重排序）
+            </caption>
+            <thead>
+              <tr>
+                <th>产品/服务名称</th>
+                <th>类型</th>
+                <th>技术路线</th>
+                <th>应用场景</th>
+                <th>市场优势</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Kimi智能助手</td>
+                <td>AI聊天机器人</td>
+                <td>自研大模型（Kimi系列），超长上下文窗口100万tokens</td>
+                <td>长文本处理、信息检索、内容创作、代码生成</td>
+                <td>C端知名度高，已建立“长文本处理能力强”认知</td>
+              </tr>
+              <tr>
+                <td>Kimi K3大模型</td>
+                <td>开源大模型</td>
+                <td>2.8万亿参数MoE架构</td>
+                <td>编程、知识工作、多模态理解</td>
+                <td>
+                  公开资料称为全球参数规模最大的开源模型，登顶多项基准测试
+                </td>
+              </tr>
+              <tr>
+                <td>API服务</td>
+                <td>模型调用服务</td>
+                <td>提供Kimi系列模型API</td>
+                <td>企业级应用开发、智能体构建</td>
+                <td>公开资料称高性能、高性价比，支持Token分成合作模式</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>5.3 业务模式</h3>
+        <ul>
+          <li>
+            <strong>盈利模式：</strong
+            >主要依赖API调用收入（按Token消耗计费）和C端用户订阅费，并通过“登月计划”与合作伙伴进行Token分成。
+          </li>
+          <li>
+            <strong>生产模式：</strong
+            >自研大模型，依赖大规模GPU集群进行模型训练和推理。
+          </li>
+          <li>
+            <strong>销售模式：</strong>C端通过App
+            Store和应用商店分发；B端通过API开放平台和“登月计划”合作伙伴（如中软国际、亚信科技）进行销售和交付。
+          </li>
+          <li>
+            <strong>供应链模式：</strong
+            >算力资源主要来自云服务商（如阿里云）和自建算力中心。
+          </li>
+        </ul>
+
+        <h3>5.4 业务区域分布表</h3>
+        <div class="table-wrap">
+          <table>
+            <caption>
+              业务区域分布
+            </caption>
+            <thead>
+              <tr>
+                <th>区域</th>
+                <th>重点市场</th>
+                <th>营收占比</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>中国大陆</td>
+                <td>个人用户、企业客户</td>
+                <td>暂未获取（公开资料称预计为主要收入来源，属预计口径）</td>
+              </tr>
+              <tr>
+                <td>海外</td>
+                <td>开发者、企业客户（通过合作伙伴）</td>
+                <td>暂未获取（正在拓展中）</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>5.5 核心竞争力</h3>
+        <ul>
+          <li>
+            <strong>顶尖技术团队：</strong
+            >核心团队来自清华大学、卡内基梅隆大学及Google、Meta等机构，具备大模型研发与产业化背景。
+          </li>
+          <li>
+            <strong>技术领先性：</strong
+            >Kimi智能助手支持100万tokens超长上下文；Kimi
+            K3为2.8万亿参数MoE架构开源模型，登顶多项基准测试。
+          </li>
+          <li>
+            <strong>融资能力：</strong
+            >2023年6月天使轮至2026年7月F轮持续融资，F轮超35亿美元，投后估值350亿美元。
+          </li>
+          <li>
+            <strong>To C用户基础：</strong
+            >2024年4月网页版访问量2004万、国内同类产品第一；2026年1月日活688万、国内第三。
+          </li>
+          <li>
+            <strong>商业模式灵活性：</strong
+            >“登月计划”通过FDE合作伙伴交付行业解决方案并进行Token分成，属于轻资产扩张方式。
+          </li>
+        </ul>
+      </section>
+
+      <section id="s06">
+        <h2>06 市场地位</h2>
+
+        <h3>6.1 行业规模</h3>
+        <p>
+          行业层面，全球AI大模型市场处于高速增长期，中国政策大力支持，行业趋势向多模态、Agentic（智能体）和开源生态方向发展（来源：公开报道与事实台账，检索时点2026年9月；未获取具体第三方机构报告名称与发布年份，来源说明待核验，见6.5）。
+        </p>
+        <p>
+          外部环境与政策因素（用于支撑17
+          SWOT的O、T分区，依据为公开报道与事实台账中的行业环境条目，报告未获取独立第三方报告名称与发布年份，来源说明待核验）：一是大模型API存在“价格战”、调用价格持续下降的压力；二是美国对华芯片出口管制可能影响算力获取；三是AI监管政策存在不确定性；四是市场对AI公司高估值的泡沫化存在担忧；五是公司已披露港股IPO筹备计划，港股市场对AI企业的估值与融资渠道构成外部资本市场环境因素（该计划的公开信息见02、09、11模块，来源时点为2026年7月与2026年9月）。
+        </p>
+
+        <h3>6.2 市场份额表</h3>
+        <div class="table-wrap">
+          <table>
+            <caption>
+              市场份额与排名（按排名升序）
+            </caption>
+            <thead>
+              <tr>
+                <th>指标</th>
+                <th>数值</th>
+                <th>排名</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>2024年4月网页版访问量</td>
+                <td class="num">2004万</td>
+                <td>国内同类产品第一</td>
+              </tr>
+              <tr>
+                <td>2026年1月日活用户数</td>
+                <td class="num">688万</td>
+                <td>国内第三（次于DeepSeek、豆包）</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="note">
+          上述两项指标均为用户访问/活跃规模口径，不是营业收入口径的市场占有率；企业市场占有率数值暂未获取。
+        </p>
+
+        <h3>6.3 竞争格局</h3>
+        <p>
+          主要竞争对手包括DeepSeek、字节跳动（豆包）、阿里巴巴（通义千问）、百度（文心一言）、智谱AI。公司2024年4月网页版访问量曾居国内同类产品第一，但2026年1月日活688万、国内第三，次于DeepSeek和豆包，C端流量地位面临竞争压力。行业竞争还表现为大模型API“价格战”导致调用价格持续下降，而公司收入以API调用为主（占比超七成），价格下行对收入结构形成压力；同时公司通过Kimi
+          K3开源模型和“登月计划”企业合作伙伴体系参与B端与开源生态竞争（价格战与生态竞争条目来源：公开报道与事实台账行业环境条目，检索时点2026年9月；未获取独立第三方报告名称与发布年份，来源说明待核验，见6.5）。
+        </p>
+
+        <h3>6.4 竞争优势</h3>
+        <ul>
+          <li>
+            <strong>技术优势：</strong
+            >长文本处理（100万tokens上下文）和万亿参数模型训练（Kimi
+            K3，2.8万亿参数MoE）具备先发优势。
+          </li>
+          <li>
+            <strong>人才优势：</strong
+            >核心团队具备清华大学、卡内基梅隆大学及Google、Meta等机构学术和产业背景。
+          </li>
+          <li>
+            <strong>资本优势：</strong
+            >融资能力强，2026年7月F轮融资超35亿美元；公开资料称2026年初账面现金储备超100亿人民币（非审计数据）。
+          </li>
+          <li>
+            <strong>品牌优势：</strong
+            >Kimi在C端知名度高，2024年4月网页版访问量国内同类产品第一。
+          </li>
+        </ul>
+
+        <h3>6.5 数据来源与检索范围</h3>
+        <p>
+          6.2两项排名结论引用的第三方机构报告明细逐项列示如下：第一项“2024年4月网页版访问量2004万、国内同类产品第一”，以及第二项“2026年1月日活用户数688万、国内第三（次于DeepSeek、豆包）”，其第三方机构报告名称、发布机构与发布年份均暂未获取，来源待核验、无法逐项列示机构报告。可确认的仅有：两项指标来自公开媒体报道与事实台账，检索时点为2026年9月，未取得原始数据报告或完整统计口径说明；6.1、6.3中关于市场价格战、芯片出口管制、AI监管政策不确定性、高估值泡沫担忧及港股融资环境的外部环境条目，同样未获取独立第三方报告名称与发布年份，来源待核验。该降级情形已集中记入页尾报告生成说明。上述排名仅代表对应时点的公开信息，不构成持续市场地位保证。
+        </p>
+      </section>
+
+      <section id="s07">
+        <h2>07 财务状况</h2>
+
+        <h3>7.1 主要财务指标表</h3>
+        <div class="table-wrap">
+          <table>
+            <caption>
+              主要财务指标（按报告期倒序；“营业收入”与“ARR”分列，口径不可等同）
+            </caption>
+            <thead>
+              <tr>
+                <th>指标</th>
+                <th>2026年6月</th>
+                <th>2026年3月</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>营业收入（经审计口径）</td>
+                <td>暂未获取</td>
+                <td>暂未获取</td>
+              </tr>
+              <tr>
+                <td>年度经常性收入（ARR，非审计口径）</td>
+                <td>超3亿美元</td>
+                <td>突破1亿美元</td>
+              </tr>
+              <tr>
+                <td>净利润</td>
+                <td>
+                  暂未获取（公开资料称“推测处于亏损运营状态”，属推测口径）
+                </td>
+                <td>暂未获取</td>
+              </tr>
+              <tr>
+                <td>总资产</td>
+                <td>暂未获取</td>
+                <td>暂未获取</td>
+              </tr>
+              <tr>
+                <td>净资产</td>
+                <td>暂未获取</td>
+                <td>暂未获取</td>
+              </tr>
+              <tr>
+                <td>资产负债率</td>
+                <td>暂未获取</td>
+                <td>暂未获取</td>
+              </tr>
+              <tr>
+                <td>毛利率</td>
+                <td>暂未获取</td>
+                <td>暂未获取</td>
+              </tr>
+              <tr>
+                <td>净利率</td>
+                <td>暂未获取</td>
+                <td>暂未获取</td>
+              </tr>
+              <tr>
+                <td>经营活动现金流</td>
+                <td>暂未获取</td>
+                <td>暂未获取</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="note">
+          口径说明：ARR为年度经常性收入，不等同于经审计营业收入，二者不可直接对比或换算；本表将两者分列，避免口径混同。报告期仅有两个可比时点（2026年3月、2026年6月），不构成完整会计年度序列。
+        </p>
+
+        <h3>7.2 盈利能力</h3>
+        <p>
+          公开资料称公司尚未实现盈利、处于亏损运营状态，但净利润具体数值暂未获取，且该表述本身在原始资料中属“推测”口径，无法依据审计数据核实。可核实的方向性数据为：ARR从2026年3月的1亿美元增至2026年6月的超3亿美元，三个月增长约3倍；公开资料同时提示高昂算力成本和研发投入使盈利时间表尚不明确。由于未获取经审计利润表，毛利率、净利率均无法计算，盈利能力无法作出量化评价。
+        </p>
+
+        <h3>7.3 偿债能力</h3>
+        <p>
+          资产负债率、总资产、净资产、经营活动现金流均暂未获取，无法计算流动比率、速动比率等偿债能力指标。公开资料称公司主要通过股权融资获取资金，2026年初账面现金储备超100亿人民币，短期偿债风险较低；该现金数据来自公开报道，无审计报告佐证，且未披露有息负债规模，因此偿债能力仅能作定性描述，无法给出量化结论。
+        </p>
+
+        <h3>7.4 营运能力</h3>
+        <p>
+          营运能力相关指标（如应收账款周转率、存货周转率、总资产周转率等）暂未获取，无法评价。原因：公司未公开披露经审计财务报表或详细营运数据，报告期内也未获取可用于计算周转指标的分项科目数据。
+        </p>
+
+        <h3>7.5 财务风险提示</h3>
+        <ul class="risk-list">
+          <li>
+            <strong>持续亏损风险：</strong
+            >公开资料称尚未实现盈利、处于亏损运营状态；净利润数值暂未获取，亏损规模无法核实。
+          </li>
+          <li>
+            <strong>高研发投入风险：</strong
+            >大模型训练依赖大规模GPU集群和算力投入，公开资料提示高昂算力成本和研发投入使盈利时间表尚不明确。
+          </li>
+          <li>
+            <strong>收入结构单一风险：</strong
+            >收入以API调用收入为主（占比超七成），辅以C端订阅，对单一收入来源依赖较高。
+          </li>
+        </ul>
+
+        <h3>7.6 数据来源与检索范围</h3>
+        <p>
+          7.1—7.5财务数据来自公开报道（证券时报、格隆汇、IT之家，检索时点2026年9月）及事实台账，无审计报告、企业年报或关联交易公告来源。报告期对应口径为2026年3月与2026年6月的公开披露数据；ARR为年度经常性收入，与经审计营业收入口径不一致，本报告已在7.1分列并标注。未获取字段包括营业收入（审计口径）、净利润、总资产、净资产、资产负债率、毛利率、净利率、经营活动现金流；报告未以总资产、净资产等替代估算利润，也未以行业均值填补缺口。
+        </p>
+      </section>
+
+      <section id="s08">
+        <h2>08 企业文化</h2>
+
+        <h3>8.1 使命、愿景、价值观</h3>
+        <ul>
+          <li>
+            <strong>使命：</strong
+            >致力于寻求将能源转化为智能的最优解，推动AGI发展。
+          </li>
+          <li><strong>愿景：</strong>成为全球领先的通用人工智能公司。</li>
+          <li>
+            <strong>价值观：</strong
+            >技术驱动、长期主义、与用户共创；公司名称来源于平克·弗洛伊德的专辑《月之暗面》。
+          </li>
+        </ul>
+
+        <h3>8.2 社会责任</h3>
+        <p>
+          社会责任相关信息暂未获取，该维度暂无可获取的公开信息；公开检索范围内未获取公益投入、ESG披露、绿色算力或社会捐赠等具体记录，不作推测。
+        </p>
+
+        <h3>8.3 品牌形象</h3>
+        <p>
+          公司被市场视为中国AI“六小虎”之一，定位“技术极客”和“创新先锋”；Kimi在C端建立了“长文本处理能力强”的市场认知。市场认可事实包括：Kimi
+          K3发布后登顶多项基准测试；Kimi智能助手2024年4月网页版访问量2004万、国内同类产品第一。风险侧事实为：2024年与金沙江创投的仲裁事件对创始人信用造成一定负面影响，该事件对品牌的后续影响程度因仲裁结果暂未获取而无法评估。除上述内容外，未获取第三方机构出具的独立品牌价值评价报告。
+        </p>
+      </section>
+
+      <section id="s09">
+        <h2>09 媒体动态</h2>
+        <div class="table-wrap">
+          <table>
+            <caption>
+              公开媒体动态（按时间降序）
+            </caption>
+            <thead>
+              <tr>
+                <th>时间</th>
+                <th>事件类型</th>
+                <th>事件概述</th>
+                <th>来源</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>2026年9月</td>
+                <td>生态合作</td>
+                <td>
+                  启动Kimi企业合作伙伴“登月计划”，首批签约中软国际、金山云、华胜天成等
+                </td>
+                <td>钛媒体</td>
+              </tr>
+              <tr>
+                <td>2026年8月</td>
+                <td>生态合作</td>
+                <td>
+                  亚信科技与月之暗面签署“登月计划”合作协议，成为优选FDE合作伙伴
+                </td>
+                <td>证券时报</td>
+              </tr>
+              <tr>
+                <td>2026年7月</td>
+                <td>产品发布</td>
+                <td>发布2.8万亿参数开源大模型Kimi K3，登顶多项基准测试</td>
+                <td>多家媒体</td>
+              </tr>
+              <tr>
+                <td>2026年7月</td>
+                <td>融资</td>
+                <td>完成超35亿美元F轮融资，投后估值350亿美元</td>
+                <td>证券时报</td>
+              </tr>
+              <tr>
+                <td>2026年7月</td>
+                <td>公司治理</td>
+                <td>
+                  完成股改，企业类型变更为股份有限公司，杨植麟任董事长兼经理
+                </td>
+                <td>新浪财经</td>
+              </tr>
+              <tr>
+                <td>2026年7月</td>
+                <td>经营动态</td>
+                <td>因Kimi K3发布后用户请求量激增，宣布暂停C端新用户订阅</td>
+                <td>证券时报</td>
+              </tr>
+              <tr>
+                <td>2026年3月</td>
+                <td>经营数据</td>
+                <td>ARR突破1亿美元</td>
+                <td>格隆汇</td>
+              </tr>
+              <tr>
+                <td>2024年（年度，未披露至月）</td>
+                <td>法律合规</td>
+                <td>卷入与金沙江创投的仲裁事件，涉及创始人股权问题</td>
+                <td>财联社</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="note">
+          时间粒度口径：本表“时间”列统一采用“年+月”格式；其中2024年仲裁条目公开信息未披露至月，按年度口径单独标注为“2024年（年度，未披露至月）”，未推定具体月份。本模块共8条动态，来源与12、13、14、15模块中的同一事件表述保持一致。
+        </p>
+      </section>
+
+      <section id="s10">
+        <h2>10 招投标动态</h2>
+        <p class="note">
+          公开信息有限：检索范围内暂无一条可获取的招投标记录，本表如实保留字段结构，不补入无关事件。
+        </p>
+        <div class="table-wrap">
+          <table>
+            <caption>
+              招投标动态（按时间降序）
+            </caption>
+            <thead>
+              <tr>
+                <th>时间</th>
+                <th>项目名称</th>
+                <th>中标金额</th>
+                <th>客户类型</th>
+                <th>来源</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>暂未获取</td>
+                <td>暂未获取</td>
+                <td>暂未获取</td>
+                <td>暂未获取</td>
+                <td>暂未获取</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="source-note">
+          已检索的招标公告平台范围为公开招投标信息聚合平台及公开媒体报道，检索时点2026年9月；未获取具体招标公告、中标项目名称、中标金额与客户类型，因此“来源”字段一并标注为暂未获取。该结果仅表示本次检索未获取数据，不表示企业不存在招投标活动。
+        </p>
+      </section>
+
+      <section id="s11">
+        <h2>11 融资投资</h2>
+        <div class="table-wrap">
+          <table>
+            <caption>
+              融资投资明细（按时间降序；未披露金额的行不省略）
+            </caption>
+            <thead>
+              <tr>
+                <th>时间</th>
+                <th>融资/投资类型</th>
+                <th>金额</th>
+                <th>投资方/被投方</th>
+                <th>来源</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>2026年9月</td>
+                <td>Pre-IPO轮（计划，未完成）</td>
+                <td>未披露</td>
+                <td>投前估值500亿美元；投资方暂未获取</td>
+                <td>公开报道（36氪、观点网、投资界，2026年9月）</td>
+              </tr>
+              <tr>
+                <td>2026年7月</td>
+                <td>F轮</td>
+                <td>35亿美元</td>
+                <td>多家机构（超额认购）</td>
+                <td>公开报道（36氪、观点网、投资界，2026年9月）</td>
+              </tr>
+              <tr>
+                <td>2026年6月</td>
+                <td>E轮</td>
+                <td>未披露</td>
+                <td>投前估值315亿美元；投资方暂未获取</td>
+                <td>公开报道（36氪、观点网、投资界，2026年9月）</td>
+              </tr>
+              <tr>
+                <td>2026年5月</td>
+                <td>D轮</td>
+                <td>20亿美元</td>
+                <td>美团龙珠、中国移动、中信产业基金</td>
+                <td>公开报道（36氪、观点网、投资界，2026年9月）</td>
+              </tr>
+              <tr>
+                <td>2026年2月</td>
+                <td>C+轮</td>
+                <td>超7亿美元</td>
+                <td>阿里巴巴、腾讯投资、五源资本等</td>
+                <td>公开报道（36氪、观点网、投资界，2026年9月）</td>
+              </tr>
+              <tr>
+                <td>2025年12月</td>
+                <td>C轮</td>
+                <td>5亿美元</td>
+                <td>IDG资本、阿里巴巴、腾讯投资等</td>
+                <td>公开报道（36氪、观点网、投资界，2026年9月）</td>
+              </tr>
+              <tr>
+                <td>2024年8月</td>
+                <td>B轮</td>
+                <td>超3亿美元</td>
+                <td>腾讯投资、高榕创投、阿里巴巴等</td>
+                <td>公开报道（36氪、观点网、投资界，2026年9月）</td>
+              </tr>
+              <tr>
+                <td>2024年2月</td>
+                <td>A+轮</td>
+                <td>超10亿美元</td>
+                <td>阿里巴巴领投，投后估值25亿美元</td>
+                <td>公开报道（36氪、观点网、投资界，2026年9月）</td>
+              </tr>
+              <tr>
+                <td>2023年6月</td>
+                <td>天使轮</td>
+                <td>超2亿美元</td>
+                <td>红杉中国、真格基金等，投后估值3亿美元</td>
+                <td>公开报道（36氪、观点网、投资界，2026年9月）</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <figure class="chart-figure">
+          <figcaption>
+            各轮融资已披露金额对比（单位：亿美元，按时间升序）
+          </figcaption>
+          <svg
+            viewBox="0 0 720 360"
+            role="img"
+            aria-labelledby="fin-chart-title fin-chart-desc"
+            preserveAspectRatio="xMidYMid meet"
+          >
+            <title id="fin-chart-title">月之暗面各轮融资已披露金额对比</title>
+            <desc id="fin-chart-desc">
+              按时间升序：2023年6月天使轮超2亿美元，2024年2月A+轮超10亿美元，2024年8月B轮超3亿美元，2025年12月C轮5亿美元，2026年2月C+轮超7亿美元，2026年5月D轮20亿美元，2026年7月F轮35亿美元。2026年6月E轮与2026年9月计划中的Pre-IPO轮金额未披露，未在图中展示。
+            </desc>
+
+            <g stroke="var(--color-border)" stroke-width="1">
+              <line x1="120" y1="28" x2="120" y2="330"></line>
+              <line
+                x1="257"
+                y1="28"
+                x2="257"
+                y2="330"
+                stroke-dasharray="3 4"
+              ></line>
+              <line
+                x1="394"
+                y1="28"
+                x2="394"
+                y2="330"
+                stroke-dasharray="3 4"
+              ></line>
+              <line
+                x1="531"
+                y1="28"
+                x2="531"
+                y2="330"
+                stroke-dasharray="3 4"
+              ></line>
+            </g>
+            <g
+              font-size="11"
+              fill="var(--color-text-muted)"
+              text-anchor="middle"
+            >
+              <text x="120" y="346">0</text>
+              <text x="257" y="346">10</text>
+              <text x="394" y="346">20</text>
+              <text x="531" y="346">30</text>
+            </g>
+
+            <g
+              font-size="12"
+              fill="var(--color-text-secondary)"
+              text-anchor="end"
+            >
+              <text x="108" y="54">2023-06 天使轮</text>
+              <text x="108" y="98">2024-02 A+轮</text>
+              <text x="108" y="142">2024-08 B轮</text>
+              <text x="108" y="186">2025-12 C轮</text>
+              <text x="108" y="230">2026-02 C+轮</text>
+              <text x="108" y="274">2026-05 D轮</text>
+              <text x="108" y="318">2026-07 F轮</text>
+            </g>
+
+            <g fill="var(--chart-1)">
+              <rect x="120" y="36" width="27" height="18" rx="2"></rect>
+              <rect x="120" y="80" width="137" height="18" rx="2"></rect>
+              <rect x="120" y="124" width="41" height="18" rx="2"></rect>
+              <rect x="120" y="168" width="69" height="18" rx="2"></rect>
+              <rect x="120" y="212" width="96" height="18" rx="2"></rect>
+              <rect x="120" y="256" width="274" height="18" rx="2"></rect>
+              <rect x="120" y="300" width="480" height="18" rx="2"></rect>
+            </g>
+
+            <g font-size="12" font-weight="600" fill="var(--color-text)">
+              <text x="155" y="54">超2亿美元</text>
+              <text x="265" y="98">超10亿美元</text>
+              <text x="169" y="142">超3亿美元</text>
+              <text x="197" y="186">5亿美元</text>
+              <text x="224" y="230">超7亿美元</text>
+              <text x="402" y="274">20亿美元</text>
+              <text x="608" y="318">35亿美元</text>
+            </g>
+          </svg>
+          <p class="chart-footnote">
+            本图仅对上一表格中已披露的融资金额做可视化，不改变数值口径；标注“超”者为公开报道中的下限表述。E轮（2026年6月）与Pre-IPO轮（2026年9月，计划）金额未披露，图中不展示，亦不以任何估算值替代。
+          </p>
+        </figure>
+
+        <p class="source-note">
+          来源范围与检索时点：已检索公开工商变更登记信息聚合页面、企业公告转载与公开报道（36氪、观点网、投资界等，检索时点2026年9月），未直接核验工商登记变更原始文件或企业公告原件。计算与冲突说明：按F轮投后估值350亿美元与公开资料提及的43亿美元基数计算，增长约8.14倍，而原始资料表述为“超过7倍”，两者存在差异，且“43亿美元”未给出具体时点；按F轮投后估值350亿美元减去本轮融资35亿美元计算，投前估值约315亿美元，与E轮投前估值315亿美元一致；按Pre-IPO投前估值500亿美元对F轮投后估值350亿美元计算，增幅约42.86%；天使轮投后估值3亿美元至A+轮投后估值25亿美元，增幅约733.33%（约7.33倍）。Pre-IPO轮为计划而非已发生事件，截至评估基准期未获取完成信息。
+        </p>
+      </section>
+
+      <section id="s12">
+        <h2>12 股东背景</h2>
+        <p>
+          公开资料称公司股东结构多元，涵盖创始人团队、互联网巨头、顶级创投机构、产业资本与“国家队”资金；已披露的外部投资方包括阿里巴巴、腾讯投资、IDG资本、五源资本、红杉中国、真格基金、美团龙珠、中国移动、中信产业基金、高榕创投等。控股股东性质与股权稳定性方面，公开资料称阿里巴巴为单一最大股东，但4.2股权结构表显示杨植麟股改后直接持股约51.83%，两种表述存在冲突，在未取得工商登记档案前不能确认单一最大股东身份，本报告并列展示该冲突。实际控制人杨植麟通过直接持股及一致行动协议（如有）实现控制，一致行动安排暂未获取。股权稳定性方面，多轮融资使创始团队持股被稀释（杨植麟持股减少27.14个百分点），早期股东退出压力与Pre-IPO轮融资安排需持续关注；2024年与金沙江创投的仲裁事件暴露了股权历史遗留问题，仲裁结果与结案情况暂未获取，构成股权清晰性方面的待核验事项。
+        </p>
+      </section>
+
+      <section id="s13">
+        <h2>13 客户与渠道</h2>
+        <p>
+          核心客户结构为C端个人用户、B端企业开发者及企业客户：C端用户基数较大，但公开资料称付费转化率有待提升，具体付费用户数与转化率暂未获取；B端客户以互联网、金融、能源电力、软件信息服务行业为主，客户数量、客单价与集中度暂未获取。销售渠道构成方面，C端通过App
+          Store、官方网站等线上渠道分发；B端通过API开放平台和“登月计划”生态合作伙伴（如中软国际、亚信科技）进行销售与交付。渠道合作伙伴体系以FDE（交付工程师）合作伙伴为主体，承担行业解决方案交付并参与Token分成。海外拓展方面，主要市场在中国大陆，正通过合作伙伴拓展海外企业级AI市场，海外营收占比与海外客户数量暂未获取。
+        </p>
+      </section>
+
+      <section id="s14">
+        <h2>14 合作伙伴</h2>
+        <div class="table-wrap">
+          <table>
+            <caption>
+              合作伙伴（按合作方类型统一粒度）
+            </caption>
+            <thead>
+              <tr>
+                <th>合作方类型</th>
+                <th>代表企业/机构</th>
+                <th>合作内容</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>IT服务商</td>
+                <td>中软国际、亚信科技、华胜天成、金山云、亚康股份</td>
+                <td>“登月计划”FDE合作伙伴，负责行业解决方案交付和Token分成</td>
+              </tr>
+              <tr>
+                <td>云服务商</td>
+                <td>阿里巴巴/阿里云</td>
+                <td>提供算力支持，同时也是重要股东</td>
+              </tr>
+              <tr>
+                <td>内容/数据合作</td>
+                <td>华策影视、掌阅科技、中广天择</td>
+                <td>模型接入、数据支持和交易平台合作</td>
+              </tr>
+              <tr>
+                <td>投资机构</td>
+                <td>红杉中国、IDG资本、真格基金</td>
+                <td>提供资金支持和战略资源</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="note">
+          上述合作方来自公开报道（检索时点2026年9月），未获取合作协议原件；合作期限、分成比例、排他性条款及是否具备约束性承诺均暂未获取。
+        </p>
+      </section>
+
+      <section id="s15">
+        <h2>15 法律与合规</h2>
+
+        <h3>15.1 行政处罚</h3>
+        <p>
+          结论：数据缺失（暂未获取），无法认定是否存在行政处罚。检索范围内未获取行政处罚的公开记录，但本次检索未覆盖国家企业信用信息公示系统、信用中国等权威渠道的原始行政处罚公示，仅凭现有检索范围不能表述为“暂未发现行政处罚”，也不得据此认定不存在行政处罚。后续核验建议：以统一社会信用代码91110108MACG2KBH8F在信用中国及登记机关公示渠道直接检索。
+        </p>
+
+        <h3>15.2 诉讼仲裁</h3>
+        <p>
+          结论：存在。公司曾卷入与金沙江创投的仲裁事件，涉及创始人杨植麟和前金沙江合伙人张予彤，争议要点为未获循环智能股东同意将公司资源用于创立月之暗面，以及涉嫌向张予彤提供不当股权激励；该事件对合规性和创始人信用造成一定负面影响。关键信息缺口：仲裁结果、裁决时间、涉案金额、是否结案及是否执行完毕均暂未获取，因此无法评估该事件的最终责任与影响范围。来源：公开报道（财联社，2024年，未披露至月）。
+        </p>
+
+        <h3>15.3 失信、被执行、限消</h3>
+        <p>
+          结论：数据缺失（暂未获取），无法认定是否存在失信被执行、被执行或限制高消费记录。检索范围内未获取相关公开记录，但本次检索未直接覆盖中国执行信息公开网、失信被执行人名单库等权威渠道，不能表述为“暂未发现”，也不得推定为无相关记录。
+        </p>
+
+        <h3>15.4 经营异常</h3>
+        <p>
+          结论：数据缺失（暂未获取），无法认定是否存在经营异常。与1.4“异常记录：无”的关系说明：1.4的“无”是公开信息聚合页面的登记口径表述，未经权威登记档案直接核验；本条的“数据缺失（暂未获取）”是司法与信用公示渠道的检索结果。两者口径不同，不可合并解读为“不存在经营异常”，也不可将1.4的“无”升级为“暂未发现经营异常”的结论。
+        </p>
+
+        <h3>15.5 数据来源与检索范围</h3>
+        <p>
+          已检索的司法与信用公示渠道范围为公开司法与信用信息聚合页面及公开媒体报道，检索时点2026年9月；未获取中国裁判文书网、中国执行信息公开网、信用中国、国家企业信用信息公示系统等权威渠道的直接检索结果，也未取得仲裁机构的裁决文书或结案证明。因此15.1、15.3、15.4统一采用“数据缺失（暂未获取），无法认定是否存在”的表述，用于界定“暂未发现”的覆盖边界：本报告未对行政处罚、失信被执行、限制高消费与经营异常作出“暂未发现”的结论。15.2的仲裁事实来自公开报道，其结论成立，但结果与结案状态不在已检索覆盖范围内。
+        </p>
+      </section>
+
+      <section id="s16">
+        <h2>16 人力资源</h2>
+        <div class="table-wrap">
+          <table>
+            <caption>
+              人力资源指标
+            </caption>
+            <thead>
+              <tr>
+                <th>指标</th>
+                <th>数值</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>员工总规模</td>
+                <td>
+                  暂未获取（已披露2024年4月超100人；2026年“大幅扩张”为预计口径，非可核实数据）
+                </td>
+              </tr>
+              <tr>
+                <td>研发人员占比</td>
+                <td>暂未获取（公开资料称“预计占比极高”，属预计口径）</td>
+              </tr>
+              <tr>
+                <td>本科及以上占比</td>
+                <td>暂未获取（公开资料称“预计极高”，属预计口径）</td>
+              </tr>
+              <tr>
+                <td>核心人才流失率</td>
+                <td>暂未获取</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          人才结构与培养体系方面，公开资料称公司人才密度较高，核心团队来自清华大学、卡内基梅隆大学等高校及Google、Meta等科技公司，并通过BOSS直聘等渠道持续招聘。可核查的事实为：核心管理层披露的学历与从业背景（见4.4），以及2024年4月员工总数超100人。除此之外，研发人员占比、学历结构、流失率均无确切数值，培训投入、晋升机制与培养体系的具体内容暂未获取，因此无法对人力资源状况作出量化评价；上一表格中的“预计”“极高”等表述均非可核实数据，本文不作采信为事实。
+        </p>
+      </section>
+
+      <section id="s17">
+        <h2>17 SWOT 分析</h2>
+        <div class="swot-grid">
+          <div class="swot-card">
+            <h3>S-优势</h3>
+            <ul>
+              <li>
+                顶尖技术团队和人才密度：核心团队来自清华、卡内基梅隆及Google、Meta（依据4.4、5.5）。
+              </li>
+              <li>
+                长文本与万亿参数模型技术领先性：Kimi支持100万tokens上下文，Kimi
+                K3为2.8万亿参数MoE架构并登顶多项基准测试（依据5.2）。
+              </li>
+              <li>
+                融资能力与现金储备：F轮融资超35亿美元、投后估值350亿美元，公开资料称2026年初账面现金储备超100亿人民币（依据11、6.4）。
+              </li>
+              <li>
+                高知名度C端品牌（Kimi）：2024年4月网页版访问量2004万、国内同类产品第一（依据6.2）。
+              </li>
+              <li>
+                “登月计划”轻资产商业模式：通过FDE合作伙伴交付并Token分成（依据5.3、14）。
+              </li>
+            </ul>
+          </div>
+          <div class="swot-card">
+            <h3>W-劣势</h3>
+            <ul>
+              <li>
+                尚未实现盈利，商业化模式仍在验证中：公开资料称处于亏损运营状态，净利润数值暂未获取（依据7.2、7.5）。
+              </li>
+              <li>
+                C端流量地位承压：2026年1月日活688万、国内第三，次于DeepSeek、豆包（依据6.2、6.3）。
+              </li>
+              <li>
+                收入结构相对单一，高度依赖API调用：API收入占比超七成（依据5.1、7.5）。
+              </li>
+              <li>
+                早期合规争议影响创始人信用：2024年与金沙江创投的仲裁事件，结果与结案情况暂未获取（依据15.2、8.3）。
+              </li>
+              <li>
+                算力资源依赖外部供应商：算力主要来自云服务商（如阿里云）和自建算力中心，自给比例暂未获取（依据5.3）。
+              </li>
+              <li>
+                人力与财务基础数据缺失：员工规模、研发人员占比、多项财务科目均暂未获取（依据7.1、16）。
+              </li>
+            </ul>
+          </div>
+          <div class="swot-card">
+            <h3>O-机会</h3>
+            <ul>
+              <li>
+                全球AI大模型市场持续高速增长，行业趋势向多模态、Agentic与开源生态发展（依据6.1）。
+              </li>
+              <li>
+                企业级AI应用需求带来的B端空间：公司以API服务和“登月计划”面向企业客户（依据6.1、5.3）。
+              </li>
+              <li>
+                开源生态建设有助于吸引开发者：Kimi
+                K3为开源大模型，登顶多项基准测试（依据6.1、5.2）。
+              </li>
+              <li>
+                港股资本市场环境：公司已披露港股IPO筹备计划，港股对AI企业的估值与融资渠道构成外部机会（依据6.1、02、11；来源待核验）。
+              </li>
+              <li>
+                产业资本与“国家队”合作环境：股东结构涵盖产业资本与“国家队”资金，可获取政策与资源支持（依据6.1、12）。
+              </li>
+            </ul>
+          </div>
+          <div class="swot-card">
+            <h3>T-威胁</h3>
+            <ul>
+              <li>
+                竞争对手激烈竞争：DeepSeek、字节跳动等直接竞争，2026年1月日活排名国内第三（依据6.3、6.2）。
+              </li>
+              <li>
+                大模型“价格战”导致API价格持续下降，而收入高度依赖API调用（依据6.1、6.3）。
+              </li>
+              <li>
+                美国对华芯片出口管制可能影响算力获取，公司算力依赖外部供应商（依据6.1、5.3）。
+              </li>
+              <li>
+                AI监管政策的不确定性，且公司存在仲裁合规争议待结案（依据6.1、15.2）。
+              </li>
+              <li>
+                市场对AI公司高估值的泡沫化担忧：F轮投后估值350亿美元，并披露Pre-IPO轮投前估值500亿美元计划（依据6.1、11）。
+              </li>
+            </ul>
+          </div>
+        </div>
+        <p class="source-note">
+          溯源说明：本分区S、W条目分别可回溯至05（5.1、5.2、5.3、5.5）、06（6.2、6.3、6.4）、07（7.1、7.2、7.5）、16模块；O、T条目可回溯至6.1行业规模与外部环境段、6.3竞争格局段。其中“价格战导致API价格下降”“美国对华芯片出口管制”“AI监管政策不确定性”“市场对高估值泡沫化的担忧”“港股资本市场环境”等外部环境条目，依据为公开报道与事实台账中的行业环境条目，报告未获取独立第三方报告名称与发布年份，来源说明待核验（6.5已同步披露该限制）。本次未识别出上述四个分区之外的其他条目；O、T全部来自外部环境，未将外部机会或威胁写为企业自身优势或劣势。
+        </p>
+      </section>
+
+      <section id="s18">
+        <h2>18 招商适配性评估</h2>
+
+        <h3>18.1 产业适配</h3>
+        <p>
+          公司业务与地方发展数字经济、人工智能产业战略方向契合：主营业务为通用人工智能大模型的研发与应用（5.1），核心产品覆盖C端与B端，可带动当地算力基础设施、软件信息服务、数据标注等相关产业链发展，并可通过“登月计划”FDE合作伙伴体系形成本地交付与集成能力，具有强链补链价值。适配依据与5.4业务区域分布、6.2市场地位不矛盾：公司主要市场在中国大陆，北京设有总部、海南设有子公司，海外业务通过合作伙伴拓展且营收占比暂未获取；2026年1月日活用户688万、国内第三，具备一定用户基础与产业带动潜力，但市场份额数据缺少第三方机构报告核验（6.5），适配结论仅基于上述已披露事实。
+        </p>
+
+        <h3>18.2 综合价值表</h3>
+        <div class="table-wrap">
+          <table>
+            <caption>
+              综合价值评估（评估词表：高、中高、中、低）
+            </caption>
+            <thead>
+              <tr>
+                <th>价值维度</th>
+                <th>评估</th>
+                <th>说明</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>税收贡献</td>
+                <td>中</td>
+                <td>
+                  亏损期短期税收有限，净利润暂未获取（7.1）；公开资料认为上市盈利后潜力较大，属预期口径。原始资料表述为“中等”，映射为“中”（映射记录见页尾）。
+                </td>
+              </tr>
+              <tr>
+                <td>就业带动</td>
+                <td>高</td>
+                <td>
+                  吸引高端AI人才，公开资料称可创造数百至数千高薪岗位；员工总规模暂未获取（16），已披露2024年4月超100人。
+                </td>
+              </tr>
+              <tr>
+                <td>产业带动</td>
+                <td>高</td>
+                <td>
+                  可吸引上下游集聚形成AI产业生态；“登月计划”已签约中软国际、亚信科技、华胜天成、金山云、亚康股份等，云服务商提供算力支持（14）。
+                </td>
+              </tr>
+              <tr>
+                <td>科技含量</td>
+                <td>高</td>
+                <td>
+                  2.8万亿参数MoE开源模型、100万tokens长上下文（5.2）。原始资料表述为“极高”，映射为“高”（映射记录见页尾）。
+                </td>
+              </tr>
+              <tr>
+                <td>品牌效应</td>
+                <td>高</td>
+                <td>
+                  Kimi在C端知名度高，被市场视为中国AI“六小虎”之一；2024年4月网页版访问量国内同类第一（6.2、8.3）。原始资料表述为“极高”，映射为“高”。
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="note">
+          本表评估取值统一取自“高、中高、中、低”词表，与[综合风险等级]词表不混用；18.1产业适配结论与5.4、06模块事实一致，未新增独立判断维度。
+        </p>
+      </section>
+
+      <section id="s19">
+        <h2>19 画像结论与招商建议</h2>
+
+        <h3>19.1 综合结论</h3>
+        <p>
+          月之暗面在技术、人才与资本三方面具备突出要素：核心团队来自清华大学、卡内基梅隆大学及Google、Meta（4.4、5.5）；Kimi智能助手支持100万tokens超长上下文，Kimi
+          K3为2.8万亿参数MoE开源模型（5.2）；2026年7月完成超35亿美元F轮融资、投后估值350亿美元，2026年6月ARR超3亿美元（11、7.1）。公司正处于从“以融资换增长”向“商业化变现”转型的验证阶段：已启动股份制改造并推进港股IPO筹备（02、11），但尚未实现盈利（7.2），面临持续亏损、高研发投入、收入结构单一（API收入占比超七成）三项财务风险（7.5），以及2024年与金沙江创投仲裁事件尚未获取结果与结案状态的合规风险（15.2）；同时C端日活排名由第一降至国内第三（6.2、6.3），市场地位承压。综合而言，公司属高成长、高估值、高风险并存的AI独角兽，对招商的整体含义是：具备产业带动、就业带动与品牌效应价值（18.2），但必须以“附带前置条件的重点引进”方式推进，前置条件即对赌条款、合规尽调、履约保障与退出机制的落实（见19.3）。
+        </p>
+        <p class="source-note">
+          风险等级判定依据说明：本报告“中高”综合风险等级的判定证据仅来自三处——07财务状况（7.5三项财务风险）、15法律与合规（15.2仲裁事件及15.1、15.3、15.4数据缺失）、17
+          SWOT的W分区（六项劣势，可回溯至05、06、07、16）。未引入财务、法律合规、经营与市场竞争三类风险之外的其他维度作为等级判定依据。
+        </p>
+
+        <h3>19.2 招商等级</h3>
+        <p class="grade-line">
+          招商等级：<span class="tag tag-brand">A 重点引进</span>
+        </p>
+        <p>
+          等级语义界定：本报告采用的“A
+          重点引进”指“附带前置条件的重点引进”，即在满足19.3所列对赌条款、合规尽调、履约保障与退出机制条件的前提下按最高优先级推进；前置条件未落实前不启动资金拨付与政策兑现。该界定用于与“中高”综合风险等级保持逻辑一致，并与执行摘要“政府招商推荐度”的等级与措辞完全一致。
+        </p>
+
+        <h3>19.3 风险防控建议</h3>
+        <ul class="risk-list">
+          <li>
+            <strong>持续亏损风险防控（对应7.5第1项）：</strong
+            >在投资协议中约定上市时间表与营收/ARR增长目标，挂钩本地纳税额与就业人数指标；设置股权回购或现金补偿等退出机制；扶持资金分期拨付并挂钩里程碑。
+          </li>
+          <li>
+            <strong>高研发投入风险防控（对应7.5第2项）：</strong
+            >约定研发投入强度与算力补贴使用范围，要求企业按年度提交研发投入与算力成本专项报告；可采用“算力入股”或“基金+项目”模式替代直接补贴，降低财政资金风险。
+          </li>
+          <li>
+            <strong>收入结构单一风险防控（对应7.5第3项）：</strong
+            >在协议中约定客户集中度与收入来源披露义务，设定B端与C端收入结构优化里程碑；未达标时相应调整后续扶持力度。
+          </li>
+          <li>
+            <strong
+              >历史仲裁与合规风险防控（对应15.2，并覆盖15.1、15.3、15.4数据缺失）：</strong
+            >将股权结构清晰性、历史法律纠纷及仲裁结果、核心技术自主可控性、商业化模式可持续性列为尽调重点；在仲裁结果未获取前设置合规承诺与信息披露条款；约定以统一社会信用代码在信用中国、执行信息公开网、登记机关公示渠道完成专项核验，出现重大合规事件时触发约谈、整改或退出程序。
+          </li>
+        </ul>
+      </section>
+    </main>
+
+    <footer id="page-footer">
+      <div class="container">
+        <h2>页尾</h2>
+
+        <p>
+          报告生成说明：本报告由灵犀科技生成，报告生成日期2026-09-20，评估基准期2026-09-20（数据截止时点：2026年9月；个别数据时点单独标注）。报告依据事实台账与公开信息编写，未联网核验；所有对外可核查事实（登记信息、股权、财务、诉讼、招投标、融资、合作伙伴）均取自公开来源或已知资料，未使用估算值、行业均值或行业惯例推演填补缺口；本报告不含个人隐私信息。
+        </p>
+
+        <p>
+          数据可得性口径（全文统一）：无数据来源统一写作“暂未获取”；仅在权威渠道检索且确无记录时写作“暂未发现”；存在数据缺口而无法认定时写作“数据缺失（暂未获取），无法认定是否存在”。“暂未获取”不得推定为“暂未发现”，亦不得推定为无风险；公开资料中的“推测”“预计”等表述已单独标注，不作为可核实事实采信。
+        </p>
+
+        <p>
+          等级词表与映射说明：（1）综合风险等级采用词表“高、中高、中、中低、低”，本报告取“中高”，判定证据仅来自07财务状况、15法律与合规、17
+          SWOT三处。（2）招商推荐等级采用词表“A 重点引进、B 推荐、C 观察、D
+          不引进”，本报告取“A
+          重点引进”，语义界定为“附带前置条件的重点引进”；原始资料执行摘要曾出现“谨慎推荐”，该表述不在词表内，本报告按一致性规则统一以19.2输出的“A
+          重点引进”为准，并在执行摘要推荐度、19.1综合结论、19.2招商等级中同步给出“中高”风险与“A
+          重点引进”一致性的条件性论证（前置条件见19.3）。（3）18.2综合价值表评估采用词表“高、中高、中、低”，原始资料使用的“中等”“极高”已分别映射为“中”“高”，映射记录已写入该表各行说明；三套词表未混用。
+        </p>
+
+        <p>本报告集中披露的非阻塞限制：</p>
+        <ul>
+          <li>
+            财务数据缺口：营业收入（审计口径）、净利润、总资产、净资产、资产负债率、毛利率、净利率、经营活动现金流均暂未获取，7.2—7.4相关评价已说明无法量化；财务数据均来自公开报道，无审计报告或企业年报来源。
+          </li>
+          <li>
+            资质荣誉全维度缺失：3.1—3.4的行业资质、认证证书、获奖情况、会员资格均暂未获取。
+          </li>
+          <li>
+            招投标动态：检索范围内无一条可获取记录，10模块保留字段结构并说明检索范围；该结果不表示不存在招投标活动。
+          </li>
+          <li>
+            法律合规数据缺失：15.1、15.3、15.4统一采用“数据缺失（暂未获取），无法认定是否存在”，未覆盖裁判文书、执行信息、信用中国、企业信用信息公示系统等权威渠道；15.2仲裁结果、裁决时间、是否结案暂未获取。
+          </li>
+          <li>
+            来源待核验降级：6.2两项排名的第三方机构报告名称、发布机构与发布年份无法逐项列示（6.5已标注“来源待核验、无法逐项列示机构报告”）；6.1、6.3中价格战、芯片出口管制、AI监管不确定性、高估值泡沫担忧、港股资本市场环境等外部环境条目同样未获取独立第三方报告名称与发布年份。上述降级不影响17
+            SWOT中O、T条目对6.1、6.3的可回溯性，但影响其独立第三方证据强度。
+          </li>
+          <li>
+            工商信息来源层级：1.1、1.2、1.4及4.2、4.3的登记类信息主要来自公开工商信息聚合页面（百度百科、36氪、泰伯网，检索时点2026年9月），未直接核验国家企业信用信息公示系统原始档案，统一社会信用代码来自事实台账。
+          </li>
+          <li>
+            数据冲突：公开资料称“阿里巴巴为单一最大股东”，与杨植麟股改后直接持股约51.83%的表述冲突，本报告并列展示并以工商登记为准；公开资料称“创始团队自然人股权约65.63%（截至2026年7月）”，与早期各股东比例合计及股改后已知比例均不一致，且与“51.83%÷78.97%≈65.63%”的比值相同，口径存疑；估值增长描述存在差异（按350亿美元÷43亿美元计算约8.14倍，原始资料表述为“超过7倍”，且43亿美元未给出具体时点）。
+          </li>
+          <li>
+            预计与推测口径：员工规模“2026年大幅扩张”、研发人员占比与本科及以上占比“预计极高”、净利润“推测处于亏损运营状态”等均为原始资料中的预计或推测，非可核实数据。
+          </li>
+          <li>
+            其他未说明事项：注册地址与办公地址不一致，公开信息未说明原因；一致行动协议安排、股权质押/冻结、出资方式、注册机关、经营期限、纳税信用等级、参保人数均暂未获取。
+          </li>
+        </ul>
+
+        <p>
+          本报告不用于企业信用评级、证券投资建议，亦不构成对企业未公开信息的实质判断；涉及上市进程、股权与控制权、仲裁等敏感事项，本报告仅陈述已公开披露的事实，不作推测性延伸。
+        </p>
+
+        <dl class="footer-meta">
+          <div>
+            <dt>报告生成机构</dt>
+            <dd>灵犀科技</dd>
+          </div>
+          <div>
+            <dt>报告生成日期</dt>
+            <dd>2026-09-20</dd>
+          </div>
+          <div>
+            <dt>评估基准期</dt>
+            <dd>2026-09-20（数据截止时点：2026年9月）</dd>
+          </div>
+          <div>
+            <dt>主体核验标识</dt>
+            <dd>统一社会信用代码 91110108MACG2KBH8F</dd>
+          </div>
+        </dl>
+      </div>
+    </footer>
+  </body>
+  <div id="immersive-translate-popup" style="all: initial"></div>
+</html>

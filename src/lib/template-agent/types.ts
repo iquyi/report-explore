@@ -1,5 +1,6 @@
 import type { UIMessage } from "ai";
 import type { TemplateVariable } from "@/app/templates/types";
+import type { TemplateQualityEvaluation } from "./quality-evaluation";
 
 export type TemplateAgentRoute = "generate" | "adjust" | "clarify";
 export type TemplateContentState = "empty" | "partial" | "substantive";
@@ -62,18 +63,21 @@ export type TemplateAgentResult =
       message: string;
       revision: number;
       changedFields: TemplateAgentField[];
+      qualityEvaluation?: TemplateQualityEvaluation;
     }
   | {
       outcome: "validated";
       databaseUpdated: false;
       message: string;
       valid: boolean;
+      revision: number;
       issues: TemplateValidationIssue[];
     }
   | {
       outcome: "unchanged";
       databaseUpdated: false;
       message: string;
+      qualityEvaluation?: TemplateQualityEvaluation;
     }
   | {
       outcome: "error";

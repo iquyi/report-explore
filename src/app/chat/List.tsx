@@ -19,27 +19,13 @@ type TemplateGroup = {
 const templateGroups: TemplateGroup[] = [
   {
     id: "group-a",
-    title: "分组 A",
+    title: "设计风格",
     templates: Array.from({ length: 6 }, (_, index) => ({
       id: `template-a-${index + 1}`,
-      name: `模板 A${index + 1}`,
-    })),
-  },
-  {
-    id: "group-b",
-    title: "分组 B",
-    templates: Array.from({ length: 3 }, (_, index) => ({
-      id: `template-b-${index + 1}`,
-      name: `模板 B${index + 1}`,
+      name: `A${index + 1} 风格`,
     })),
   },
 ];
-
-const cardActions = [
-  { label: "预览", icon: "tabler:eye" },
-  { label: "修改", icon: "tabler:pencil" },
-  { label: "Fork", icon: "tabler:git-fork" },
-] as const;
 
 const List = () => {
   // 保存待确认的模板；有值时展示删除确认弹窗。
@@ -89,21 +75,6 @@ const List = () => {
                       aria-hidden="true"
                     />
                   </button>
-
-                  {/* 当前阶段仅提供操作入口的视觉与交互反馈，不接入业务行为。 */}
-                  <div className={styles.cardActions}>
-                    {cardActions.map((action) => (
-                      <button type="button" key={action.label}>
-                        <Icon
-                          icon={action.icon}
-                          width={15}
-                          height={15}
-                          aria-hidden="true"
-                        />
-                        {action.label}
-                      </button>
-                    ))}
-                  </div>
                 </div>
 
                 <h3 className={styles.templateName}>{template.name}</h3>

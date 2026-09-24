@@ -1,0 +1,258 @@
+{
+  "sourcePptx": "/Users/quyi/Desktop/9月微创新申报材料-曲艺.pptx",
+  "workspace": "/Users/quyi/Desktop/link-x/report-explore",
+  "outDir": "/Users/quyi/Desktop/link-x/report-explore/.codex-ppt-work/template-inspect",
+  "generatedAt": "2026-09-23T15:58:45.091Z",
+  "slideCount": 18,
+  "slideArtifacts": [
+    {
+      "slide": 1,
+      "previewPath": "/Users/quyi/Desktop/link-x/report-explore/.codex-ppt-work/template-inspect/source-slides/source-slide-01.png",
+      "previewRelativePath": ".codex-ppt-work/template-inspect/source-slides/source-slide-01.png",
+      "layoutPath": "/Users/quyi/Desktop/link-x/report-explore/.codex-ppt-work/template-inspect/layouts/source-slide-01.layout.json",
+      "layoutRelativePath": ".codex-ppt-work/template-inspect/layouts/source-slide-01.layout.json"
+    },
+    {
+      "slide": 2,
+      "previewPath": "/Users/quyi/Desktop/link-x/report-explore/.codex-ppt-work/template-inspect/source-slides/source-slide-02.png",
+      "previewRelativePath": ".codex-ppt-work/template-inspect/source-slides/source-slide-02.png",
+      "layoutPath": "/Users/quyi/Desktop/link-x/report-explore/.codex-ppt-work/template-inspect/layouts/source-slide-02.layout.json",
+      "layoutRelativePath": ".codex-ppt-work/template-inspect/layouts/source-slide-02.layout.json"
+    },
+    {
+      "slide": 3,
+      "previewPath": "/Users/quyi/Desktop/link-x/report-explore/.codex-ppt-work/template-inspect/source-slides/source-slide-03.png",
+      "previewRelativePath": ".codex-ppt-work/template-inspect/source-slides/source-slide-03.png",
+      "layoutPath": "/Users/quyi/Desktop/link-x/report-explore/.codex-ppt-work/template-inspect/layouts/source-slide-03.layout.json",
+      "layoutRelativePath": ".codex-ppt-work/template-inspect/layouts/source-slide-03.layout.json"
+    },
+    {
+      "slide": 4,
+      "previewPath": "/Users/quyi/Desktop/link-x/report-explore/.codex-ppt-work/template-inspect/source-slides/source-slide-04.png",
+      "previewRelativePath": ".codex-ppt-work/template-inspect/source-slides/source-slide-04.png",
+      "layoutPath": "/Users/quyi/Desktop/link-x/report-explore/.codex-ppt-work/template-inspect/layouts/source-slide-04.layout.json",
+      "layoutRelativePath": ".codex-ppt-work/template-inspect/layouts/source-slide-04.layout.json"
+    },
+    {
+      "slide": 5,
+      "previewPath": "/Users/quyi/Desktop/link-x/report-explore/.codex-ppt-work/template-inspect/source-slides/source-slide-05.png",
+      "previewRelativePath": ".codex-ppt-work/template-inspect/source-slides/source-slide-05.png",
+      "layoutPath": "/Users/quyi/Desktop/link-x/report-explore/.codex-ppt-work/template-inspect/layouts/source-slide-05.layout.json",
+      "layoutRelativePath": ".codex-ppt-work/template-inspect/layouts/source-slide-05.layout.json"
+    },
+    {
+      "slide": 6,
+      "previewPath": "/Users/quyi/Desktop/link-x/report-explore/.codex-ppt-work/template-inspect/source-slides/source-slide-06.png",
+      "previewRelativePath": ".codex-ppt-work/template-inspect/source-slides/source-slide-06.png",
+      "layoutPath": "/Users/quyi/Desktop/link-x/report-explore/.codex-ppt-work/template-inspect/layouts/source-slide-06.layout.json",
+      "layoutRelativePath": ".codex-ppt-work/template-inspect/layouts/source-slide-06.layout.json"
+    },
+    {
+      "slide": 7,
+      "previewPath": "/Users/quyi/Desktop/link-x/report-explore/.codex-ppt-work/template-inspect/source-slides/source-slide-07.png",
+      "previewRelativePath": ".codex-ppt-work/template-inspect/source-slides/source-slide-07.png",
+      "layoutPath": "/Users/quyi/Desktop/link-x/report-explore/.codex-ppt-work/template-inspect/layouts/source-slide-07.layout.json",
+      "layoutRelativePath": ".codex-ppt-work/template-inspect/layouts/source-slide-07.layout.json"
+    },
+    {
+      "slide": 8,
+      "previewPath": "/Users/quyi/Desktop/link-x/report-explore/.codex-ppt-work/template-inspect/source-slides/source-slide-08.png",
+      "previewRelativePath": ".codex-ppt-work/template-inspect/source-slides/source-slide-08.png",
+      "layoutPath": "/Users/quyi/Desktop/link-x/report-explore/.codex-ppt-work/template-inspect/layouts/source-slide-08.layout.json",
+      "layoutRelativePath": ".codex-ppt-work/template-inspect/layouts/source-slide-08.layout.json"
+    },
+    {
+      "slide": 9,
+      "previewPath": "/Users/quyi/Desktop/link-x/report-explore/.codex-ppt-work/template-inspect/source-slides/source-slide-09.png",
+      "previewRelativePath": ".codex-ppt-work/template-inspect/source-slides/source-slide-09.png",
+      "layoutPath": "/Users/quyi/Desktop/link-x/report-explore/.codex-ppt-work/template-inspect/layouts/source-slide-09.layout.json",
+      "layoutRelativePath": ".codex-ppt-work/template-inspect/layouts/source-slide-09.layout.json"
+    },
+    {
+      "slide": 10,
+      "previewPath": "/Users/quyi/Desktop/link-x/report-explore/.codex-ppt-work/template-inspect/source-slides/source-slide-10.png",
+      "previewRelativePath": ".codex-ppt-work/template-inspect/source-slides/source-slide-10.png",
+      "layoutPath": "/Users/quyi/Desktop/link-x/report-explore/.codex-ppt-work/template-inspect/layouts/source-slide-10.layout.json",
+      "layoutRelativePath": ".codex-ppt-work/template-inspect/layouts/source-slide-10.layout.json"
+    },
+    {
+      "slide": 11,
+      "previewPath": "/Users/quyi/Desktop/link-x/report-explore/.codex-ppt-work/template-inspect/source-slides/source-slide-11.png",
+      "previewRelativePath": ".codex-ppt-work/template-inspect/source-slides/source-slide-11.png",
+      "layoutPath": "/Users/quyi/Desktop/link-x/report-explore/.codex-ppt-work/template-inspect/layouts/source-slide-11.layout.json",
+      "layoutRelativePath": ".codex-ppt-work/template-inspect/layouts/source-slide-11.layout.json"
+    },
+    {
+      "slide": 12,
+      "previewPath": "/Users/quyi/Desktop/link-x/report-explore/.codex-ppt-work/template-inspect/source-slides/source-slide-12.png",
+      "previewRelativePath": ".codex-ppt-work/template-inspect/source-slides/source-slide-12.png",
+      "layoutPath": "/Users/quyi/Desktop/link-x/report-explore/.codex-ppt-work/template-inspect/layouts/source-slide-12.layout.json",
+      "layoutRelativePath": ".codex-ppt-work/template-inspect/layouts/source-slide-12.layout.json"
+    },
+    {
+      "slide": 13,
+      "previewPath": "/Users/quyi/Desktop/link-x/report-explore/.codex-ppt-work/template-inspect/source-slides/source-slide-13.png",
+      "previewRelativePath": ".codex-ppt-work/template-inspect/source-slides/source-slide-13.png",
+      "layoutPath": "/Users/quyi/Desktop/link-x/report-explore/.codex-ppt-work/template-inspect/layouts/source-slide-13.layout.json",
+      "layoutRelativePath": ".codex-ppt-work/template-inspect/layouts/source-slide-13.layout.json"
+    },
+    {
+      "slide": 14,
+      "previewPath": "/Users/quyi/Desktop/link-x/report-explore/.codex-ppt-work/template-inspect/source-slides/source-slide-14.png",
+      "previewRelativePath": ".codex-ppt-work/template-inspect/source-slides/source-slide-14.png",
+      "layoutPath": "/Users/quyi/Desktop/link-x/report-explore/.codex-ppt-work/template-inspect/layouts/source-slide-14.layout.json",
+      "layoutRelativePath": ".codex-ppt-work/template-inspect/layouts/source-slide-14.layout.json"
+    },
+    {
+      "slide": 15,
+      "previewPath": "/Users/quyi/Desktop/link-x/report-explore/.codex-ppt-work/template-inspect/source-slides/source-slide-15.png",
+      "previewRelativePath": ".codex-ppt-work/template-inspect/source-slides/source-slide-15.png",
+      "layoutPath": "/Users/quyi/Desktop/link-x/report-explore/.codex-ppt-work/template-inspect/layouts/source-slide-15.layout.json",
+      "layoutRelativePath": ".codex-ppt-work/template-inspect/layouts/source-slide-15.layout.json"
+    },
+    {
+      "slide": 16,
+      "previewPath": "/Users/quyi/Desktop/link-x/report-explore/.codex-ppt-work/template-inspect/source-slides/source-slide-16.png",
+      "previewRelativePath": ".codex-ppt-work/template-inspect/source-slides/source-slide-16.png",
+      "layoutPath": "/Users/quyi/Desktop/link-x/report-explore/.codex-ppt-work/template-inspect/layouts/source-slide-16.layout.json",
+      "layoutRelativePath": ".codex-ppt-work/template-inspect/layouts/source-slide-16.layout.json"
+    },
+    {
+      "slide": 17,
+      "previewPath": "/Users/quyi/Desktop/link-x/report-explore/.codex-ppt-work/template-inspect/source-slides/source-slide-17.png",
+      "previewRelativePath": ".codex-ppt-work/template-inspect/source-slides/source-slide-17.png",
+      "layoutPath": "/Users/quyi/Desktop/link-x/report-explore/.codex-ppt-work/template-inspect/layouts/source-slide-17.layout.json",
+      "layoutRelativePath": ".codex-ppt-work/template-inspect/layouts/source-slide-17.layout.json"
+    },
+    {
+      "slide": 18,
+      "previewPath": "/Users/quyi/Desktop/link-x/report-explore/.codex-ppt-work/template-inspect/source-slides/source-slide-18.png",
+      "previewRelativePath": ".codex-ppt-work/template-inspect/source-slides/source-slide-18.png",
+      "layoutPath": "/Users/quyi/Desktop/link-x/report-explore/.codex-ppt-work/template-inspect/layouts/source-slide-18.layout.json",
+      "layoutRelativePath": ".codex-ppt-work/template-inspect/layouts/source-slide-18.layout.json"
+    }
+  ],
+  "inspectPath": "/Users/quyi/Desktop/link-x/report-explore/.codex-ppt-work/template-inspect/template-inspect.ndjson",
+  "inspectRelativePath": ".codex-ppt-work/template-inspect/template-inspect.ndjson",
+  "inspectTruncated": true,
+  "inspectMetadata": {
+    "revision": "4cw5qz",
+    "target": {
+      "id": "pr/qxrcwv"
+    },
+    "kind": {
+      "requested": "slide,textbox,shape,image,table,chart",
+      "tokens": [
+        "slide",
+        "textbox",
+        "shape",
+        "image",
+        "table",
+        "chart"
+      ]
+    },
+    "include": {
+      "tokens": []
+    },
+    "exclude": {
+      "tokens": []
+    },
+    "notices": []
+  },
+  "extractedMedia": [
+    {
+      "entry": "ppt/media/",
+      "path": "/Users/quyi/Desktop/link-x/report-explore/.codex-ppt-work/template-inspect/assets/ppt/media/media",
+      "relativePath": ".codex-ppt-work/template-inspect/assets/ppt/media/media",
+      "bytes": 0
+    },
+    {
+      "entry": "ppt/media/image1.jpeg",
+      "path": "/Users/quyi/Desktop/link-x/report-explore/.codex-ppt-work/template-inspect/assets/ppt/media/image1.jpeg",
+      "relativePath": ".codex-ppt-work/template-inspect/assets/ppt/media/image1.jpeg",
+      "bytes": 764980
+    },
+    {
+      "entry": "ppt/media/image2.png",
+      "path": "/Users/quyi/Desktop/link-x/report-explore/.codex-ppt-work/template-inspect/assets/ppt/media/image2.png",
+      "relativePath": ".codex-ppt-work/template-inspect/assets/ppt/media/image2.png",
+      "bytes": 75500
+    },
+    {
+      "entry": "ppt/media/image3.jpeg",
+      "path": "/Users/quyi/Desktop/link-x/report-explore/.codex-ppt-work/template-inspect/assets/ppt/media/image3.jpeg",
+      "relativePath": ".codex-ppt-work/template-inspect/assets/ppt/media/image3.jpeg",
+      "bytes": 267680
+    },
+    {
+      "entry": "ppt/media/image4.png",
+      "path": "/Users/quyi/Desktop/link-x/report-explore/.codex-ppt-work/template-inspect/assets/ppt/media/image4.png",
+      "relativePath": ".codex-ppt-work/template-inspect/assets/ppt/media/image4.png",
+      "bytes": 24851
+    },
+    {
+      "entry": "ppt/media/image5.jpeg",
+      "path": "/Users/quyi/Desktop/link-x/report-explore/.codex-ppt-work/template-inspect/assets/ppt/media/image5.jpeg",
+      "relativePath": ".codex-ppt-work/template-inspect/assets/ppt/media/image5.jpeg",
+      "bytes": 2290874
+    },
+    {
+      "entry": "ppt/media/image6.jpeg",
+      "path": "/Users/quyi/Desktop/link-x/report-explore/.codex-ppt-work/template-inspect/assets/ppt/media/image6.jpeg",
+      "relativePath": ".codex-ppt-work/template-inspect/assets/ppt/media/image6.jpeg",
+      "bytes": 1414409
+    },
+    {
+      "entry": "ppt/media/image7.jpeg",
+      "path": "/Users/quyi/Desktop/link-x/report-explore/.codex-ppt-work/template-inspect/assets/ppt/media/image7.jpeg",
+      "relativePath": ".codex-ppt-work/template-inspect/assets/ppt/media/image7.jpeg",
+      "bytes": 242434
+    }
+  ],
+  "fonts": [
+    "+mn-ea",
+    "+mn-lt",
+    "Angsana New",
+    "Arial",
+    "Cordia New",
+    "DaunPenh",
+    "DokChampa",
+    "Estrangelo Edessa",
+    "Euphemia",
+    "Gautami",
+    "Hiragino Sans GB",
+    "Hiragino Sans GB W6",
+    "Iskoola Pota",
+    "Kalinga",
+    "Kartika",
+    "Latha",
+    "MV Boli",
+    "Mangal",
+    "Microsoft Himalaya",
+    "Microsoft Uighur",
+    "Microsoft Yi Baiti",
+    "Mongolian Baiti",
+    "MoolBoran",
+    "Nyala",
+    "Plantagenet Cherokee",
+    "Raavi",
+    "Shruti",
+    "Sylfaen",
+    "Times New Roman",
+    "Tunga",
+    "Vrinda",
+    "微软雅黑",
+    "新細明體",
+    "游ゴシック",
+    "游ゴシック Light",
+    "等线",
+    "等线 Light",
+    "맑은 고딕"
+  ],
+  "packageParts": {
+    "mediaCount": 8,
+    "slideXmlCount": 18,
+    "chartCount": 0,
+    "tableSlideCount": 0
+  }
+}

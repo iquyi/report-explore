@@ -4,7 +4,12 @@ const nextConfig: NextConfig = {
   reactCompiler: true,
   // 两类模板工作流都会在 Node.js Route Handler 中读取根目录提示词，必须显式加入部署产物。
   outputFileTracingIncludes: {
-    "/*": ["./generate-report-v2.md", "./adjust-report-v1.md"],
+    "/*": [
+      "./generate-report-v2.md",
+      "./adjust-report-v1.md",
+      "./design-skill.md",
+      "./src/lib/data-source-mock/**/*",
+    ],
   },
   async redirects() {
     return [

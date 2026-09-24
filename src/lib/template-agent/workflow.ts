@@ -32,6 +32,15 @@ import {
   updateTemplateAgentSnapshot,
 } from "./repository";
 import {
+  getTemplateEvaluationAttempts,
+  localizeQualityEvaluation,
+  localizeTemplateFieldNames,
+  MAX_OPTIMIZATION_ROUNDS,
+  resolveTemplateEvaluation,
+  runEvaluationWithStructuredOutputRetry,
+  type TemplateQualityEvaluation,
+} from "./quality-evaluation";
+import {
   buildAdjustmentOptimizationPrompt,
   buildEvaluationPrompt,
   buildGenerationOptimizationPrompt,
@@ -50,13 +59,18 @@ import type {
 } from "./types";
 
 const MAX_ATTACHMENT_BYTES = 1024 * 1024;
-const MAX_OPTIMIZATION_ROUNDS = 2;
-const MODEL_TIMEOUT_MS = 90_000;
+const MODEL_TIMEOUT_MS = 180_000;
 const MAX_OUTPUT_TOKENS = 393_216;
 const SUPPORTED_ATTACHMENT_PATTERN = /\.(md|html)$/i;
 const MODEL_DIAGNOSTICS_ENABLED = process.env.NODE_ENV === "development";
 
 type ConversationItem = { role: "user" | "assistant"; content: string };
+
+/** 候选内容进入确定性校验和保存链路；跳过或末轮优化后不携带评价。 */
+type EvaluatedTemplateCandidate = {
+  content: TemplateAgentContent;
+  qualityEvaluation?: TemplateQualityEvaluation;
+};
 
 /** 路由层传入 Workflow 的完整上下文；onStage 仅用于向前端报告进度。 */
 export type RunTemplateAgentInput = {
@@ -278,6 +292,7 @@ async function evaluateCandidate({
   generationGuide,
   adjustmentGuide,
   abortSignal,
+  onStage,
 }: {
   operation: "generate" | "adjust";
   userMessage: string;
@@ -287,6 +302,7 @@ async function evaluateCandidate({
   generationGuide?: string;
   adjustmentGuide?: string;
   abortSignal?: AbortSignal;
+  onStage?: RunTemplateAgentInput["onStage"];
 }) {
   const messages = buildEvaluationPrompt({
     operation,
@@ -297,14 +313,38 @@ async function evaluateCandidate({
     generationGuide,
     adjustmentGuide,
   });
-  const { output } = await runModelCall(`evaluate-${operation}`, () =>
-    generateText({
-      ...callOptions(abortSignal, "enabled"),
-      output: Output.object({ schema: evaluationSchema }),
-      ...messages,
-    }),
-  );
-  return output;
+
+  return runEvaluationWithStructuredOutputRetry({
+    abortSignal,
+    onRetry(retryAttempt) {
+      onStage?.(
+        "evaluating",
+        `质量检查输出格式异常，正在重试（${retryAttempt}/1）…`,
+      );
+    },
+    async execute(retryAttempt) {
+      // 重试不携带可能残缺且体积较大的原始输出，只强化结构化响应约束。
+      const retryInstruction = retryAttempt === 0
+        ? ""
+        : `
+
+<structured_output_retry>
+上一轮结构化输出无法解析或不符合评价 Schema。只返回完整、合法且严格符合评价 Schema 的 JSON，不得输出额外文本。
+</structured_output_retry>`;
+      const stage = retryAttempt === 0
+        ? `evaluate-${operation}`
+        : `evaluate-${operation}-retry-${retryAttempt}`;
+      const { output } = await runModelCall(stage, () =>
+        generateText({
+          ...callOptions(abortSignal, "enabled"),
+          output: Output.object({ schema: evaluationSchema }),
+          system: `${messages.system}${retryInstruction}`,
+          prompt: messages.prompt,
+        }),
+      );
+      return output;
+    },
+  });
 }
 
 /** 根据上一轮评价反馈修正完整生成结果，并统一规范所有 Markdown 换行。 */
@@ -332,7 +372,7 @@ async function optimizeGeneratedCandidate({
   });
   const { output } = await runModelCall("optimize-generation", () =>
     generateText({
-      ...callOptions(abortSignal, "disabled"),
+      ...callOptions(abortSignal, "enabled"),
       output: Output.object({ schema: completeTemplateContentSchema }),
       ...messages,
     }),
@@ -342,7 +382,7 @@ async function optimizeGeneratedCandidate({
 
 /**
  * 完整生成流程：先判断资料是否充分，再生成八字段模板，最后通过评价—修正循环收敛质量。
- * 返回 TemplateAgentContent 表示可以进入最终校验；返回 TemplateAgentResult 表示需要提前结束。
+ * 返回带评价的候选表示可以进入最终校验；返回 TemplateAgentResult 表示需要提前结束。
  */
 async function runGenerateWorkflow({
   userMessage,
@@ -358,7 +398,7 @@ async function runGenerateWorkflow({
   renameRequested: boolean;
   abortSignal?: AbortSignal;
   onStage?: RunTemplateAgentInput["onStage"];
-}): Promise<TemplateAgentContent | TemplateAgentResult> {
+}): Promise<EvaluatedTemplateCandidate | TemplateAgentResult> {
   onStage?.("readiness", "正在检查资料完整性…");
   // 先让模型识别关键信息缺口，避免在输入不足时直接生成并虚构业务规则。
   const readinessMessages = buildGenerationReadinessPrompt({
@@ -407,7 +447,7 @@ async function runGenerateWorkflow({
   });
   const { output } = await runModelCall("generate-template", () =>
     generateText({
-      ...callOptions(abortSignal, "disabled"),
+      ...callOptions(abortSignal, "enabled"),
       output: Output.object({ schema: completeTemplateContentSchema }),
       ...generationMessages,
     }),
@@ -420,9 +460,15 @@ async function runGenerateWorkflow({
     name: current.name.trim() && !renameRequested ? current.name : output.name,
   };
 
-  // round=0 评价初稿，后续轮次评价修正稿；达到上限后不再把不可靠结果交给写库流程。
-  for (let round = 0; round <= MAX_OPTIMIZATION_ROUNDS; round += 1) {
-    onStage?.("evaluating", `正在进行第 ${round + 1} 轮质量检查…`);
+  // 0 轮完全跳过模型评价；确定性字段校验仍会在公共保存链路中执行。
+  const evaluationAttempts = getTemplateEvaluationAttempts(
+    MAX_OPTIMIZATION_ROUNDS,
+  );
+  if (evaluationAttempts.length === 0) return { content: candidate };
+
+  // 每轮先评价，未通过则优化；末轮优化后直接交付，不再追加一次评价。
+  for (const evaluationAttempt of evaluationAttempts) {
+    onStage?.("evaluating", `正在进行第 ${evaluationAttempt} 轮质量检查…`);
     const evaluation = await evaluateCandidate({
       operation: "generate",
       userMessage,
@@ -431,17 +477,17 @@ async function runGenerateWorkflow({
       candidate,
       generationGuide,
       abortSignal,
+      onStage,
     });
-    if (evaluation.passed && evaluation.blockingIssues.length === 0) {
-      return candidate;
-    }
-
-    if (round === MAX_OPTIMIZATION_ROUNDS) {
+    const decision = resolveTemplateEvaluation({
+      evaluation,
+      evaluationAttempt,
+      maxRounds: MAX_OPTIMIZATION_ROUNDS,
+    });
+    if (decision.action === "accept") {
       return {
-        outcome: "needs_input",
-        databaseUpdated: false,
-        message: "候选模板经过两轮修正后仍未达到可交付标准，请补充或收紧要求。",
-        missingItems: getEvaluationFeedback(evaluation),
+        content: candidate,
+        qualityEvaluation: decision.qualityEvaluation,
       };
     }
 
@@ -455,9 +501,12 @@ async function runGenerateWorkflow({
       abortSignal,
     });
     if (current.name.trim() && !renameRequested) candidate.name = current.name;
+
+    // 末轮优化结果未经再次评价，因此不携带上一版候选的未通过评价。
+    if (decision.action === "optimize_and_accept") return { content: candidate };
   }
 
-  return candidate;
+  throw new Error("完整生成评价循环意外结束。");
 }
 
 /**
@@ -476,7 +525,7 @@ async function runAdjustWorkflow({
   renameRequested: boolean;
   abortSignal?: AbortSignal;
   onStage?: RunTemplateAgentInput["onStage"];
-}): Promise<TemplateAgentContent | TemplateAgentResult> {
+}): Promise<EvaluatedTemplateCandidate | TemplateAgentResult> {
   onStage?.("loading-guide", "正在加载局部调整规范…");
   let adjustmentGuide: string;
   try {
@@ -503,7 +552,7 @@ async function runAdjustWorkflow({
     "adjust-template",
     () =>
       generateText({
-        ...callOptions(abortSignal, "disabled"),
+        ...callOptions(abortSignal, "enabled"),
         output: Output.object({ schema: adjustmentDraftResultSchema }),
         ...adjustmentMessages,
       }),
@@ -535,8 +584,14 @@ async function runAdjustWorkflow({
   };
   let candidate = mergePatch(current, patch);
 
-  for (let round = 0; round <= MAX_OPTIMIZATION_ROUNDS; round += 1) {
-    onStage?.("evaluating", `正在进行第 ${round + 1} 轮调整检查…`);
+  // 0 轮时直接交付初始补丁；公共保存链路仍会执行确定性字段校验。
+  const evaluationAttempts = getTemplateEvaluationAttempts(
+    MAX_OPTIMIZATION_ROUNDS,
+  );
+  if (evaluationAttempts.length === 0) return { content: candidate };
+
+  for (const evaluationAttempt of evaluationAttempts) {
+    onStage?.("evaluating", `正在进行第 ${evaluationAttempt} 轮调整检查…`);
     const evaluation = await evaluateCandidate({
       operation: "adjust",
       userMessage,
@@ -544,17 +599,17 @@ async function runAdjustWorkflow({
       candidate,
       adjustmentGuide,
       abortSignal,
+      onStage,
     });
-    if (evaluation.passed && evaluation.blockingIssues.length === 0) {
-      return candidate;
-    }
-
-    if (round === MAX_OPTIMIZATION_ROUNDS) {
+    const decision = resolveTemplateEvaluation({
+      evaluation,
+      evaluationAttempt,
+      maxRounds: MAX_OPTIMIZATION_ROUNDS,
+    });
+    if (decision.action === "accept") {
       return {
-        outcome: "needs_input",
-        databaseUpdated: false,
-        message: "调整结果经过两轮修正后仍无法可靠满足要求，请补充更明确的修改方向。",
-        missingItems: getEvaluationFeedback(evaluation),
+        content: candidate,
+        qualityEvaluation: decision.qualityEvaluation,
       };
     }
 
@@ -571,7 +626,7 @@ async function runAdjustWorkflow({
       "optimize-adjustment",
       () =>
         generateText({
-          ...callOptions(abortSignal, "disabled"),
+          ...callOptions(abortSignal, "enabled"),
           output: Output.object({ schema: adjustmentOptimizationResultSchema }),
           ...optimizationMessages,
         }),
@@ -606,9 +661,12 @@ async function runAdjustWorkflow({
       name: renameRequested ? optimizationResult.patch.name : null,
     };
     candidate = mergePatch(current, patch);
+
+    // 末轮优化后直接交付；最后一次未通过评价针对的是优化前候选，不向外返回。
+    if (decision.action === "optimize_and_accept") return { content: candidate };
   }
 
-  return candidate;
+  throw new Error("局部调整评价循环意外结束。");
 }
 
 /**
@@ -617,10 +675,11 @@ async function runAdjustWorkflow({
  */
 async function runValidationWorkflow(
   current: TemplateAgentContent,
+  revision: number,
   onStage?: RunTemplateAgentInput["onStage"],
   abortSignal?: AbortSignal,
 ): Promise<TemplateAgentResult> {
-  onStage?.("validating", "正在验证模板结构和字段语义…");
+  onStage?.("validating", "正在验证字段完整性和整体语义…");
   // 先运行稳定、可复现的本地校验，再把结果提供给语义模型用于补充而非重复。
   const deterministicIssues = getDeterministicValidationIssues(current);
   const validationMessages = buildTemplateValidationPrompt({
@@ -636,12 +695,16 @@ async function runValidationWorkflow(
   );
 
   // 模型声明失败却未解释原因时补充兜底问题，避免返回“未通过但无详情”的矛盾状态。
-  const issues = [...deterministicIssues, ...output.issues];
+  const issues = [...deterministicIssues, ...output.issues].map((issue) => ({
+    ...issue,
+    reason: localizeTemplateFieldNames(issue.reason),
+    suggestion: localizeTemplateFieldNames(issue.suggestion),
+  }));
   if (!output.valid && output.issues.length === 0) {
     issues.push({
       field: "template",
       reason: "语义验证未通过，但模型没有返回具体问题。",
-      suggestion: "请重新验证；若问题持续出现，请逐项检查字段语义和跨字段一致性。",
+      suggestion: "请重新验证；若问题持续出现，请逐项检查字段内容是否符合各自的整体语义。",
     });
   }
   const valid = issues.length === 0 && output.valid;
@@ -649,9 +712,10 @@ async function runValidationWorkflow(
     outcome: "validated",
     databaseUpdated: false,
     valid,
+    revision,
     issues,
     message: valid
-      ? "验证通过：模板结构完整，字段语义和内容边界符合标准。"
+      ? "验证通过：模板字段完整，整体语义符合要求。"
       : `验证未通过，共发现 ${issues.length} 个需要处理的问题。`,
   };
 }
@@ -678,6 +742,7 @@ export async function runTemplateAgent(
   if (input.operation === "validate") {
     return runValidationWorkflow(
       snapshot.content,
+      snapshot.revision,
       input.onStage,
       input.abortSignal,
     );
@@ -828,14 +893,19 @@ export async function runTemplateAgent(
         onStage: input.onStage,
       });
 
-  // 子流程的业务结果（如资料不足）直接返回，只有候选模板才继续进入保存链路。
+  // 子流程的业务结果（如资料不足）直接返回，只有带评价的候选才继续进入保存链路。
   if ("outcome" in workflowResult) return workflowResult;
+
+  // 只有被评价通过的最终候选才携带评价；跳过评价或末轮优化后直接交付时省略。
+  const qualityEvaluation = workflowResult.qualityEvaluation
+    ? localizeQualityEvaluation(workflowResult.qualityEvaluation)
+    : undefined;
 
   input.onStage?.("checking", "正在执行最终字段校验…");
   // 写库前再次响应用户取消，避免已经终止的请求继续产生持久化副作用。
   input.abortSignal?.throwIfAborted();
   // 最终确定性校验是写库硬门槛，不能只依赖 LLM 自评结果。
-  const validated = validateTemplateContent(workflowResult);
+  const validated = validateTemplateContent(workflowResult.content);
   if (!validated.success) {
     return {
       outcome: "error",
@@ -854,7 +924,10 @@ export async function runTemplateAgent(
     return {
       outcome: "unchanged",
       databaseUpdated: false,
-      message: "当前模板已经符合这项要求，没有需要保存的变更。",
+      qualityEvaluation,
+      message: qualityEvaluation?.passed
+        ? "当前模板已经符合这项要求，没有需要保存的变更。质量评价通过。"
+        : "当前模板已经符合这项要求，没有需要保存的变更。",
     };
   }
 
@@ -880,6 +953,9 @@ export async function runTemplateAgent(
     databaseUpdated: true,
     revision: updated.revision,
     changedFields,
-    message: `已按照您的要求更新模板内容，请在编辑区查看。本次修改涉及：${summarizeChangedFields(changedFields)}。`,
+    qualityEvaluation,
+    message: qualityEvaluation?.passed
+      ? `已按照您的要求更新模板内容，质量评价通过。本次修改涉及：${summarizeChangedFields(changedFields)}。`
+      : `已按照您的要求更新模板内容。本次修改涉及：${summarizeChangedFields(changedFields)}。`,
   };
 }
