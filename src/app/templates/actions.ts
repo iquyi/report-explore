@@ -463,8 +463,8 @@ export async function updateTemplateField(
 
     if (rows.length === 0) return failure("模板不存在或已被删除。");
 
+    // 编辑器已经持有本次保存的受控值；这里只刷新管理列表，避免 revision 变化重建当前编辑页并丢失滚动位置。
     revalidatePath(TEMPLATE_MANAGE_PATH);
-    revalidatePath(`/templates/generate/${idValidation.data}`);
     return {
       success: true,
       data: {

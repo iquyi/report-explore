@@ -1,17 +1,22 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import {
+  createDesignStyleMatchCandidates,
   createReportWriterPrompt,
   createReportRuntimeContext,
   createTemplateMatchCandidates,
+  findDesignStyleById,
+  findExplicitDesignStyle,
   getNextReportPhase,
   MAX_REPORT_WORKFLOW_STEPS,
   REPORT_REVIEW_AND_REPAIR_ENABLED,
+  resolveDesignStyle,
 } from "../orchestration";
 
 test("审查关闭时，确定性流程在初稿完成后直接交付", () => {
   assert.equal(REPORT_REVIEW_AND_REPAIR_ENABLED, false);
-  assert.equal(getNextReportPhase("match", "success"), "research");
+  assert.equal(getNextReportPhase("match", "success"), "match-style");
+  assert.equal(getNextReportPhase("match-style", "success"), "research");
   assert.equal(getNextReportPhase("research", "success"), "write-draft");
   assert.equal(getNextReportPhase("write-draft", "success"), "deliver");
 });
@@ -33,17 +38,87 @@ test("初审失败只修复一次，复审无论结果都进入交付", () => {
 
 test("子能力失败统一进入 fail，终态完成后进入 done", () => {
   assert.equal(getNextReportPhase("match", "error"), "fail");
+  assert.equal(getNextReportPhase("match-style", "error"), "fail");
   assert.equal(getNextReportPhase("research", "error"), "fail");
   assert.equal(getNextReportPhase("write-draft", "error"), "fail");
   assert.equal(getNextReportPhase("review-repair", "error"), "fail");
   assert.equal(getNextReportPhase("fail", "complete"), "done");
 });
 
-test("状态机使用十二步安全上限并拒绝非法转换", () => {
-  assert.equal(MAX_REPORT_WORKFLOW_STEPS, 12);
+test("状态机使用十三步安全上限并拒绝非法转换", () => {
+  assert.equal(MAX_REPORT_WORKFLOW_STEPS, 13);
   assert.throws(
     () => getNextReportPhase("research", "passed"),
     /非法的报告状态转换/,
+  );
+});
+
+const designStyles = [
+  {
+    id: "10000000-0000-4000-8000-000000000001",
+    name: "蓝色科技风格",
+    description: "克制的蓝色科技设计",
+    promptRules: "蓝色规则正文",
+    isDefault: true,
+  },
+  {
+    id: "10000000-0000-4000-8000-000000000002",
+    name: "蓝色科技风格增强版",
+    description: "更适合信息密集报告",
+    promptRules: "增强规则正文",
+    isDefault: false,
+  },
+];
+
+test("风格匹配候选不包含 Prompt Rules 和默认标记", () => {
+  assert.deepEqual(createDesignStyleMatchCandidates(designStyles), [
+    {
+      id: "10000000-0000-4000-8000-000000000001",
+      name: "蓝色科技风格",
+      description: "克制的蓝色科技设计",
+    },
+    {
+      id: "10000000-0000-4000-8000-000000000002",
+      name: "蓝色科技风格增强版",
+      description: "更适合信息密集报告",
+    },
+  ]);
+});
+
+test("明确指定完整风格名称时长名称优先", () => {
+  assert.equal(
+    findExplicitDesignStyle("请使用蓝色科技风格增强版", designStyles)?.id,
+    "10000000-0000-4000-8000-000000000002",
+  );
+  assert.equal(findExplicitDesignStyle("生成普通报告", designStyles), undefined);
+});
+
+test("用户指定风格 ID 时只精确命中当前启用候选", () => {
+  assert.equal(
+    findDesignStyleById(
+      designStyles,
+      "10000000-0000-4000-8000-000000000002",
+    )?.name,
+    "蓝色科技风格增强版",
+  );
+  assert.equal(
+    findDesignStyleById(
+      designStyles,
+      "10000000-0000-4000-8000-000000000099",
+    ),
+    undefined,
+  );
+});
+
+test("无匹配或无效 ID 时回退默认风格", () => {
+  assert.equal(
+    resolveDesignStyle(designStyles, "10000000-0000-4000-8000-000000000002")?.isDefault,
+    false,
+  );
+  assert.equal(resolveDesignStyle(designStyles, null)?.isDefault, true);
+  assert.equal(
+    resolveDesignStyle(designStyles, "10000000-0000-4000-8000-000000000099")?.isDefault,
+    true,
   );
 });
 

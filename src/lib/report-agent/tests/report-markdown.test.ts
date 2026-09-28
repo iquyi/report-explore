@@ -42,19 +42,12 @@ test("安全 HTML 回填后保持代码块外 Markdown 不变", () => {
   );
 });
 
-test("安全处理与审查开关保持一致", () => {
+test("无论质量审查是否启用都执行最终安全处理", () => {
   const disclosureHtml = "<html><body><p>数据来源：内部平台</p></body></html>";
   const markdown = `\`\`\`html\n${disclosureHtml}\n\`\`\``;
 
-  // 开关关闭时不进入来源校验与 HTML 清洗，直接交付 Writer 原始结果。
-  assert.equal(
-    prepareReportMarkdownForDelivery(markdown, disclosureHtml, false),
-    markdown,
-  );
-
-  // 开关开启时继续执行现有安全边界，并拒绝来源披露内容。
   assert.throws(
-    () => prepareReportMarkdownForDelivery(markdown, disclosureHtml, true),
+    () => prepareReportMarkdownForDelivery(markdown, disclosureHtml),
     /不可展示的数据来源信息/,
   );
 });

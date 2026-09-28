@@ -8,6 +8,7 @@ import {
   parseMatchDecision,
   parseResearchLedger,
   parseReviewResult,
+  parseStyleMatchDecision,
   repairResearchProtocolLocally,
   ReportTextProtocolFormatError,
   serializeResearchLedger,
@@ -76,6 +77,43 @@ no_match
 没有匹配项
 <<<END_MATCH>>>`),
     /不得包含模板名称/,
+  );
+});
+
+test("解析设计风格匹配协议并校验风格 ID", () => {
+  assert.deepEqual(
+    parseStyleMatchDecision(`<<<OUTCOME>>>
+matched
+<<<STYLE_ID>>>
+10000000-0000-4000-8000-000000000002
+<<<MESSAGE>>>
+已匹配风格
+<<<END_STYLE_MATCH>>>`),
+    {
+      outcome: "matched",
+      styleId: "10000000-0000-4000-8000-000000000002",
+      message: "已匹配风格",
+    },
+  );
+  assert.throws(
+    () => parseStyleMatchDecision(`<<<OUTCOME>>>
+matched
+<<<STYLE_ID>>>
+not-a-uuid
+<<<MESSAGE>>>
+无效 ID
+<<<END_STYLE_MATCH>>>`),
+    /字段校验失败/,
+  );
+  assert.throws(
+    () => parseStyleMatchDecision(`<<<OUTCOME>>>
+no_match
+<<<STYLE_ID>>>
+10000000-0000-4000-8000-000000000002
+<<<MESSAGE>>>
+没有偏好
+<<<END_STYLE_MATCH>>>`),
+    /不得包含风格 ID/,
   );
 });
 

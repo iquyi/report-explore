@@ -1,11 +1,17 @@
 import { z } from "zod";
 import type { ResearchLedger, ReviewResult } from "./types";
 
-export type ReportTextProtocol = "match" | "research" | "review";
+export type ReportTextProtocol = "match" | "style-match" | "research" | "review";
 
 export type MatchDecision = {
   outcome: "matched" | "no_match" | "unsupported_adjustment";
   templateName: string | null;
+  message: string;
+};
+
+export type StyleMatchDecision = {
+  outcome: "matched" | "no_match";
+  styleId: string | null;
   message: string;
 };
 
@@ -40,6 +46,26 @@ const matchSchema = z.object({
       code: "custom",
       message: "非 matched 结果不得包含模板名称。",
       path: ["templateName"],
+    });
+  }
+});
+
+const styleMatchSchema = z.object({
+  outcome: z.enum(["matched", "no_match"]),
+  styleId: z.string().uuid().nullable(),
+  message: z.string().min(1),
+}).superRefine((value, context) => {
+  if (value.outcome === "matched" && !value.styleId) {
+    context.addIssue({
+      code: "custom",
+      message: "matched 结果必须包含风格 ID。",
+      path: ["styleId"],
+    });
+  } else if (value.outcome !== "matched" && value.styleId) {
+    context.addIssue({
+      code: "custom",
+      message: "非 matched 结果不得包含风格 ID。",
+      path: ["styleId"],
     });
   }
 });
@@ -87,6 +113,7 @@ const reviewSchema = z.object({
 
 const endMarkers: Record<ReportTextProtocol, string> = {
   match: "<<<END_MATCH>>>",
+  "style-match": "<<<END_STYLE_MATCH>>>",
   research: "<<<END_RESEARCH>>>",
   review: "<<<END_REVIEW>>>",
 };
@@ -99,6 +126,15 @@ matched、no_match 或 unsupported_adjustment 三者之一
 <<<MESSAGE>>>
 面向用户的简短说明
 <<<END_MATCH>>>`;
+
+export const STYLE_MATCH_TEXT_PROTOCOL = `仅输出以下纯文本协议，不得输出 JSON、Markdown 代码块或额外说明：
+<<<OUTCOME>>>
+matched 或 no_match 二者之一
+<<<STYLE_ID>>>
+匹配时填写候选风格的完整 ID；no_match 时留空
+<<<MESSAGE>>>
+简短说明匹配依据
+<<<END_STYLE_MATCH>>>`;
 
 export const RESEARCH_TEXT_PROTOCOL = `最终答案仅输出以下纯文本协议，不得输出 JSON、Markdown 代码块或额外说明。字段内容不得包含形如 <<<NAME>>> 的协议标记：
 <<<SUMMARY>>>
@@ -243,6 +279,19 @@ export const parseMatchDecision = (text: string): MatchDecision => {
     templateName: templateName || null,
     message,
   }, "模板匹配协议");
+};
+
+export const parseStyleMatchDecision = (text: string): StyleMatchDecision => {
+  const [outcome, styleId, message] = parseFixedSections(
+    text,
+    ["<<<OUTCOME>>>", "<<<STYLE_ID>>>", "<<<MESSAGE>>>"] as const,
+    endMarkers["style-match"],
+  );
+  return validate(styleMatchSchema, {
+    outcome,
+    styleId: styleId || null,
+    message,
+  }, "设计风格匹配协议");
 };
 
 export const parseResearchLedger = (text: string): ResearchLedger => {

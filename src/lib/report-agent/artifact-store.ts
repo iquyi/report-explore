@@ -1,4 +1,5 @@
 import type {
+  DesignStyle,
   ReportTemplate,
   ResearchLedger,
   ReviewResult,
@@ -6,6 +7,7 @@ import type {
 
 type ArtifactMap = {
   template: { template: ReportTemplate; variableValues: Record<string, string> };
+  style: DesignStyle;
   research: ResearchLedger;
   html: {
     title: string;

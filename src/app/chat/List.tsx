@@ -2,137 +2,105 @@
 
 import { useEffect, useState } from "react";
 import { Icon } from "@iconify/react";
+import { queryAvailableStyles } from "../styles/actions";
+import type { ChatStyleOption } from "../styles/types";
 import styles from "./List.module.scss";
 
-type TemplateItem = {
-  id: string;
-  name: string;
+type ListProps = {
+  selectedStyle: ChatStyleOption | null;
+  disabled: boolean;
+  onSelectStyle: (style: ChatStyleOption) => void;
 };
 
-type TemplateGroup = {
-  id: string;
-  title: string;
-  templates: TemplateItem[];
-};
+const List = ({ selectedStyle, disabled, onSelectStyle }: ListProps) => {
+  const [styleItems, setStyleItems] = useState<ChatStyleOption[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState("");
+  const [reloadKey, setReloadKey] = useState(0);
 
-// 模板列表暂时使用本地 mock 数据，后续接入接口时可直接替换该数据源。
-const templateGroups: TemplateGroup[] = [
-  {
-    id: "group-a",
-    title: "设计风格",
-    templates: Array.from({ length: 6 }, (_, index) => ({
-      id: `template-a-${index + 1}`,
-      name: `A${index + 1} 风格`,
-    })),
-  },
-];
-
-const List = () => {
-  // 保存待确认的模板；有值时展示删除确认弹窗。
-  const [pendingDelete, setPendingDelete] = useState<TemplateItem | null>(null);
-
-  const closeDeleteDialog = () => setPendingDelete(null);
-
-  // 弹窗打开期间监听 Escape，保证不依赖鼠标也能快速关闭。
+  // 页面进入或用户重试时读取数据库最新状态，卸载后忽略迟到的异步结果。
   useEffect(() => {
-    if (!pendingDelete) return;
+    let active = true;
 
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") closeDeleteDialog();
+    const loadStyles = async () => {
+      setLoading(true);
+      setLoadError("");
+      try {
+        const result = await queryAvailableStyles();
+        if (!active) return;
+        if (!result.success) {
+          setLoadError(result.error);
+          return;
+        }
+        setStyleItems(result.data);
+      } catch (error) {
+        console.error("Failed to load available styles.", error);
+        if (active) setLoadError("设计风格加载失败，请稍后重试。");
+      } finally {
+        if (active) setLoading(false);
+      }
     };
 
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [pendingDelete]);
+    void loadStyles();
+    return () => {
+      active = false;
+    };
+  }, [reloadKey]);
 
   return (
-    <section className={styles.list} aria-label="模板列表">
-      {templateGroups.map((group) => (
-        <section
-          className={styles.group}
-          aria-labelledby={`${group.id}-title`}
-          key={group.id}
-        >
-          <h2 className={styles.groupTitle} id={`${group.id}-title`}>
-            {group.title}
-          </h2>
+    <section className={styles.list} aria-labelledby="style-list-title">
+      <h2 className={styles.groupTitle} id="style-list-title">
+        设计风格
+      </h2>
 
-          <div className={styles.grid}>
-            {group.templates.map((template) => (
-              <article className={styles.template} key={template.id}>
-                {/* Cover 素材尚未提供，先保留固定尺寸的中性占位区域。 */}
-                <div className={styles.cover}>
-                  <button
-                    className={styles.deleteButton}
-                    type="button"
-                    aria-label={`删除${template.name}`}
-                    onClick={() => setPendingDelete(template)}
-                  >
-                    <Icon
-                      icon="tabler:trash"
-                      width={16}
-                      height={16}
-                      aria-hidden="true"
-                    />
-                  </button>
-                </div>
+      {loading && (
+        <p className={styles.feedback} role="status">
+          <Icon icon="tabler:loader-2" width={17} aria-hidden="true" />
+          正在加载设计风格…
+        </p>
+      )}
 
-                <h3 className={styles.templateName}>{template.name}</h3>
-              </article>
-            ))}
-          </div>
-        </section>
-      ))}
+      {!loading && loadError && (
+        <div className={styles.feedback} role="alert">
+          <span>{loadError}</span>
+          <button type="button" onClick={() => setReloadKey((value) => value + 1)}>
+            重新加载
+          </button>
+        </div>
+      )}
 
-      {pendingDelete && (
-        <div
-          className={styles.dialogBackdrop}
-          role="presentation"
-          onMouseDown={(event) => {
-            if (event.target === event.currentTarget) closeDeleteDialog();
-          }}
-        >
-          <section
-            className={styles.dialog}
-            role="alertdialog"
-            aria-modal="true"
-            aria-labelledby="delete-dialog-title"
-            aria-describedby="delete-dialog-description"
-          >
-            <button
-              className={styles.dialogClose}
-              type="button"
-              aria-label="关闭删除确认弹窗"
-              onClick={closeDeleteDialog}
-              autoFocus
-            >
-              <Icon
-                icon="tabler:x"
-                width={18}
-                height={18}
-                aria-hidden="true"
-              />
-            </button>
+      {!loading && !loadError && styleItems.length === 0 && (
+        <p className={styles.feedback}>暂无可用设计风格</p>
+      )}
 
-            <h2 id="delete-dialog-title">确认删除模板？</h2>
-            <p id="delete-dialog-description">
-              是否确认删除“{pendingDelete.name}”？
-            </p>
-
-            {/* Mock 阶段的确认操作只关闭弹窗，不修改列表数据。 */}
-            <div className={styles.dialogActions}>
-              <button type="button" onClick={closeDeleteDialog}>
-                取消
-              </button>
+      {!loading && !loadError && styleItems.length > 0 && (
+        <div className={styles.grid}>
+          {styleItems.map((style) => {
+            const selected = selectedStyle?.id === style.id;
+            return (
               <button
-                className={styles.confirmButton}
+                className={`${styles.styleCard} ${selected ? styles.styleCardSelected : ""}`}
                 type="button"
-                onClick={closeDeleteDialog}
+                disabled={disabled}
+                aria-pressed={selected}
+                key={style.id}
+                onClick={() => onSelectStyle(style)}
               >
-                确认删除
+                <span className={styles.cover}>
+                  <Icon
+                    icon={selected ? "tabler:check" : "tabler:palette"}
+                    width={24}
+                    aria-hidden="true"
+                  />
+                  <span>{style.description}</span>
+                </span>
+                <span className={styles.templateName}>
+                  {style.name}
+                  {style.isDefault && <span className={styles.defaultBadge}>默认</span>}
+                </span>
               </button>
-            </div>
-          </section>
+            );
+          })}
         </div>
       )}
     </section>

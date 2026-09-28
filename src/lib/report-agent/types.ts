@@ -12,6 +12,15 @@ export type ReportTemplate = {
   verificationRules: string;
 };
 
+/** 设计风格只影响视觉呈现，不能承担报告结构或事实约束。 */
+export type DesignStyle = {
+  id: string;
+  name: string;
+  description: string;
+  promptRules: string;
+  isDefault: boolean;
+};
+
 /** 服务端生成并贯穿单次报告任务的可信运行时上下文。 */
 export type ReportRuntimeContext = {
   currentDate: string;

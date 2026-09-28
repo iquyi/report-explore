@@ -2,7 +2,7 @@ import { NoObjectGeneratedError } from "ai";
 import { TEMPLATE_FIELD_LABELS } from "./field-labels";
 
 /** 0 表示完全跳过模型评价与优化；正数表示最多执行相同次数的“评价—优化”。 */
-export const MAX_OPTIMIZATION_ROUNDS = 2;
+export const MAX_OPTIMIZATION_ROUNDS = 0;
 export const MAX_EVALUATION_OUTPUT_RETRIES = 1;
 
 /** 模型评价阶段返回的原始结构；每一项都会原样参与下一轮优化反馈。 */

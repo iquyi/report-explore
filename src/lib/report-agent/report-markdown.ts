@@ -103,17 +103,11 @@ export const replaceReportHtml = (markdown: string, html: string) => {
   return `${parsed.before}\`\`\`html\n${html.trim()}\n\`\`\`${parsed.after}`;
 };
 
-/**
- * 安全处理与质量审查共用同一开关：关闭时保留 Writer 的原始 Markdown，
- * 开启时才校验代码块外说明、清洗 HTML 并回填安全内容。
- */
+/** 最终交付始终执行安全处理；质量审查与自动修复是否启用不影响这条硬边界。 */
 export const prepareReportMarkdownForDelivery = (
   markdown: string,
   html: string,
-  safetyProcessingEnabled: boolean,
 ) => {
-  if (!safetyProcessingEnabled) return markdown;
-
   const parsed = parseReportMarkdown(markdown);
   assertNoSourceDisclosure(`${parsed.before}\n${parsed.after}`);
   return replaceReportHtml(markdown, sanitizeReportHtml(html));

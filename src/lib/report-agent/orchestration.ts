@@ -1,19 +1,21 @@
 import type {
+  DesignStyle,
   ReportRuntimeContext,
   ReportTemplate,
   ResearchLedger,
 } from "./types";
 
-export const MAX_REPORT_WORKFLOW_STEPS = 12;
+export const MAX_REPORT_WORKFLOW_STEPS = 13;
 
 /**
- * 临时关闭 LLM 质量审查、自动修复与最终安全处理；恢复时只需改为 true 并重新发布。
- * 开关关闭时会直接交付 Writer 生成的、已通过 Markdown 格式校验的原始报告。
+ * 临时关闭 LLM 质量审查与自动修复；恢复时只需改为 true 并重新发布。
+ * 最终 HTML 安全处理独立于该开关，任何情况下都会在交付阶段执行。
  */
 export const REPORT_REVIEW_AND_REPAIR_ENABLED = false;
 
 export type ReportWorkflowPhase =
   | "match"
+  | "match-style"
   | "clarify"
   | "research"
   | "write-draft"
@@ -44,8 +46,10 @@ export function getNextReportPhase(
   if (outcome === "error") return "fail";
 
   if (phase === "match") {
-    if (outcome === "success") return "research";
+    if (outcome === "success") return "match-style";
     if (outcome === "needs-input") return "clarify";
+  } else if (phase === "match-style" && outcome === "success") {
+    return "research";
   } else if (phase === "research" && outcome === "success") {
     return "write-draft";
   } else if (phase === "write-draft" && outcome === "success") {
@@ -90,6 +94,43 @@ export const createReportRuntimeContext = (
 /** 严格裁剪匹配输入，防止模板变量和正文规则进入匹配 Agent。 */
 export const createTemplateMatchCandidates = (templates: ReportTemplate[]) =>
   templates.map(({ name, description }) => ({ name, description }));
+
+/** Prompt 正文只能在风格确定后交给 Writer，绝不能进入匹配模型。 */
+export const createDesignStyleMatchCandidates = (styles: DesignStyle[]) =>
+  styles.map(({ id, name, description }) => ({ id, name, description }));
+
+/** 用户提交的风格 ID 只能精确命中当前启用候选，不能隐式回退到默认风格。 */
+export const findDesignStyleById = (
+  styles: DesignStyle[],
+  styleId: string,
+) => styles.find((style) => style.id === styleId);
+
+/**
+ * 用户明确写出启用风格的完整名称时绕过模型；长名称优先，避免“A 风格”
+ * 抢先匹配“A 风格增强版”。中文和英文统一按不区分大小写处理。
+ */
+export const findExplicitDesignStyle = (
+  request: string,
+  styles: DesignStyle[],
+) => {
+  const normalizedRequest = request.toLocaleLowerCase("zh-CN");
+  return [...styles]
+    .sort((left, right) => right.name.length - left.name.length)
+    .find((style) =>
+      normalizedRequest.includes(style.name.toLocaleLowerCase("zh-CN")),
+    );
+};
+
+/** no_match、无效 ID 与其他非成功结果统一收敛到默认风格。 */
+export const resolveDesignStyle = (
+  styles: DesignStyle[],
+  matchedStyleId: string | null,
+) => {
+  const matched = matchedStyleId
+    ? styles.find((style) => style.id === matchedStyleId)
+    : undefined;
+  return matched ?? styles.find((style) => style.isDefault);
+};
 
 type ReportWriterPromptInput = {
   request: string;

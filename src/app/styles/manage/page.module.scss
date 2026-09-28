@@ -1,0 +1,88 @@
+.page {
+  min-height: 100vh;
+  padding: 40px 32px;
+  color: #1f1f1f;
+  background: #f5f6f8;
+}
+
+.container {
+  width: min(1280px, 100%);
+  margin: 0 auto;
+  padding: 28px;
+  background: #fff;
+  border: 1px solid #ebecef;
+  border-radius: 12px;
+  box-shadow: 0 4px 18px rgb(0 0 0 / 4%);
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  gap: 24px;
+
+  h1 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 32px;
+  }
+
+  p {
+    margin: 6px 0 0;
+    color: #6b7280;
+    font-size: 14px;
+    line-height: 22px;
+  }
+}
+
+.loadError {
+  margin-bottom: 20px;
+}
+
+.table {
+  :global(.ant-table-container) {
+    border: 1px solid #f0f0f0;
+    border-radius: 8px;
+  }
+
+  :global(.ant-table-cell) {
+    vertical-align: middle;
+  }
+}
+
+.descriptionCell {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.drawerFooter {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.promptRulesInput {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+@media (width <= 768px) {
+  .page {
+    padding: 20px 12px;
+  }
+
+  .container {
+    padding: 20px 16px;
+  }
+
+  .header {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 16px;
+  }
+}

@@ -6,6 +6,7 @@ import { z } from "zod";
 import { createLxEnterpriseTools } from "../../lx-enterprise-tools";
 import {
   createResearchAgent,
+  generateDesignStyleMatch,
   generateHtmlReport,
   generateQualityReview,
   generateTemplateMatch,
@@ -14,12 +15,29 @@ import {
   parseMatchDecision,
   parseResearchLedger,
   parseReviewResult,
+  parseStyleMatchDecision,
 } from "../report-text-protocol";
 
 /** 为单次生成能力提供最小模型响应，避免测试访问真实模型。 */
 const mockTextResult = (text: string) => ({
   content: [{ type: "text" as const, text }],
   finishReason: { unified: "stop" as const, raw: "stop" },
+  warnings: [],
+  usage: {
+    inputTokens: { total: 1, noCache: 1, cacheRead: 0, cacheWrite: 0 },
+    outputTokens: { total: 1, text: 1, reasoning: 0 },
+  },
+});
+
+/** 生成一轮真实可执行的联网工具调用，用于验证研究 Agent 不再按步数截断。 */
+const mockWebSearchToolCallResult = (index: number) => ({
+  content: [{
+    type: "tool-call" as const,
+    toolCallId: `search-${index}`,
+    toolName: "tavilySearch",
+    input: JSON.stringify({ query: `测试查询 ${index}` }),
+  }],
+  finishReason: { unified: "tool-calls" as const, raw: "tool-calls" },
   warnings: [],
   usage: {
     inputTokens: { total: 1, noCache: 1, cacheRead: 0, cacheWrite: 0 },
@@ -61,6 +79,29 @@ test("只有 Research 使用 ToolLoopAgent 并同时拥有灵犀与联网工具"
   ]);
 });
 
+test("Research 连续执行超过 SDK 默认步数后仍可自然结束", async () => {
+  const finalLedger = `<<<SUMMARY>>>
+完成多轮研究
+<<<END_RESEARCH>>>`;
+  const model = new MockLanguageModelV4({
+    doGenerate: [
+      ...Array.from({ length: 21 }, (_item, index) =>
+        mockWebSearchToolCallResult(index + 1)),
+      mockTextResult(finalLedger),
+    ],
+  });
+  const researcher = createResearchAgent({
+    languageModel: model,
+    researchTools: createLxEnterpriseTools({ token: "test-token" }),
+    webSearchTool: createTestWebSearchTool(),
+  });
+
+  const result = await researcher.generate({ prompt: "执行完整研究" });
+
+  assert.equal(result.text, finalLedger);
+  assert.equal(model.doGenerateCalls.length, 22);
+});
+
 test("演示资料模式仍注册灵犀与联网工具并遵循补齐和冲突规则", async () => {
   const model = new MockLanguageModelV4({
     doGenerate: mockTextResult(`<<<SUMMARY>>>
@@ -100,7 +141,7 @@ mock_report
   assert.match(researchInstructions, /禁止使用模型背景知识补造事实/);
   assert.match(researchInstructions, /所有来源信息只能放在 sourceType 与 sourceLabel 中/);
   assert.match(researchInstructions, /禁止继承或复述其目录层级/);
-  assert.match(researchInstructions, /最多执行 8 个不同的联网查询/);
+  assert.doesNotMatch(researchInstructions, /最多执行|limitReached|调用次数/);
   assert.match(researchInstructions, /总数不得超过 80 条/);
 });
 
@@ -120,6 +161,30 @@ matched
   assert.equal(parseMatchDecision(result.text).templateName, "企业画像模板");
   assert.equal(model.doGenerateCalls.length, 1);
   assert.equal(model.doGenerateCalls[0].tools, undefined);
+  assert.equal(model.doGenerateCalls[0].responseFormat, undefined);
+  assertThinkingEnabled(model.doGenerateCalls[0].providerOptions);
+});
+
+test("设计风格匹配仅返回候选风格 ID", async () => {
+  const model = new MockLanguageModelV4({
+    doGenerate: mockTextResult(`<<<OUTCOME>>>
+matched
+<<<STYLE_ID>>>
+10000000-0000-4000-8000-000000000002
+<<<MESSAGE>>>
+适合信息密集的科技报告
+<<<END_STYLE_MATCH>>>`),
+  });
+
+  const result = await generateDesignStyleMatch(
+    { prompt: "匹配设计风格" },
+    model,
+  );
+
+  assert.equal(
+    parseStyleMatchDecision(result.text).styleId,
+    "10000000-0000-4000-8000-000000000002",
+  );
   assert.equal(model.doGenerateCalls[0].responseFormat, undefined);
   assertThinkingEnabled(model.doGenerateCalls[0].providerOptions);
 });
@@ -147,6 +212,10 @@ test("HTML Writer 明确要求模型输出唯一 Markdown HTML 代码块", async
   assert.match(writerInstructions, /禁止推断、复刻或恢复原始 mock 成品/);
   assert.match(writerInstructions, /禁止输出任何外部链接、URL、引用/);
   assert.match(writerInstructions, /来源隐藏规则优先于模板规则/);
+  assert.match(writerInstructions, /echarts@6\.1\.0/);
+  assert.match(writerInstructions, /renderer: "canvas"/);
+  assert.match(writerInstructions, /加载失败降级/);
+  assert.match(writerInstructions, /ECharts 技术边界均具有更高优先级/);
   assert.match(writerInstructions, /一个且仅一个以 ```html 开始/);
   assert.match(writerInstructions, /禁止输出裸 HTML/);
 });
@@ -175,7 +244,11 @@ PASS
 <<<END_REVIEW>>>`),
   });
 
-  const result = await generateQualityReview({ prompt: "审查报告" }, model);
+  const result = await generateQualityReview(
+    "测试设计规范",
+    { prompt: "审查报告" },
+    model,
+  );
 
   assert.equal(parseReviewResult(result.text).passed, true);
   assert.equal(model.doGenerateCalls.length, 1);
@@ -188,4 +261,6 @@ PASS
     .join("\n");
   assert.match(reviewerInstructions, /来源隐藏规则优先于模板规则/);
   assert.match(reviewerInstructions, /渠道或工具名称/);
+  assert.match(reviewerInstructions, /固定 ECharts CDN 脚本和合规初始化代码/);
+  assert.match(reviewerInstructions, /测试设计规范/);
 });

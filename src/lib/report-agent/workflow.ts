@@ -1,7 +1,6 @@
 import "server-only";
 
 import { ReportArtifactStore } from "./artifact-store";
-import { loadDesignGuide } from "./design-guide";
 import { extractReportTitle } from "./html-safety";
 import {
   createResearchFactBodyLogEntries,
@@ -18,6 +17,7 @@ import {
   parseMatchDecision,
   parseResearchLedger,
   parseReviewResult,
+  parseStyleMatchDecision,
   repairResearchProtocolLocally,
   ReportTextProtocolFormatError,
   type ReportTextProtocol,
@@ -31,15 +31,22 @@ import {
   createReportPresentationResearch,
   createReportRuntimeContext,
   createReportWriterPrompt,
+  createDesignStyleMatchCandidates,
   createTemplateMatchCandidates,
+  findDesignStyleById,
+  findExplicitDesignStyle,
   getNextReportPhase,
   MAX_REPORT_WORKFLOW_STEPS,
-  REPORT_REVIEW_AND_REPAIR_ENABLED,
+  resolveDesignStyle,
   type ReportWorkflowPhase,
 } from "./orchestration";
-import { queryPublishedReportTemplates } from "./repository";
+import {
+  queryPublishedDesignStyles,
+  queryPublishedReportTemplates,
+} from "./repository";
 import {
   createResearchAgent,
+  generateDesignStyleMatch,
   generateHtmlReport,
   generateQualityReview,
   generateTemplateMatch,
@@ -51,6 +58,7 @@ import type { ReportWorkflowResult } from "./types";
 type WorkflowState = {
   phase: ReportWorkflowPhase;
   templateArtifactId?: string;
+  styleArtifactId?: string;
   researchArtifactId?: string;
   reportArtifactId?: string;
   firstReviewArtifactId?: string;
@@ -62,6 +70,7 @@ type WorkflowState = {
 export type RunReportWorkflowInput = {
   userMessage: string;
   history?: Array<{ role: "user" | "assistant"; content: string }>;
+  styleId?: string;
   abortSignal?: AbortSignal;
   onStage?: (stage: string, label: string) => void;
 };
@@ -186,8 +195,10 @@ const guard = async <T>(
 export async function runReportWorkflow(
   input: RunReportWorkflowInput,
 ): Promise<ReportWorkflowResult> {
-  const designGuide = await loadDesignGuide();
-  const templates = await queryPublishedReportTemplates();
+  const [templates, designStyles] = await Promise.all([
+    queryPublishedReportTemplates(),
+    queryPublishedDesignStyles(),
+  ]);
   const runtimeContext = createReportRuntimeContext();
   const store = new ReportArtifactStore();
   const state: WorkflowState = { phase: "match" };
@@ -198,13 +209,14 @@ export async function runReportWorkflow(
     workflowId,
     historyCount: input.history?.length ?? 0,
     templateCount: templates.length,
+    designStyleCount: designStyles.length,
   });
 
   let totalStepCount = 0;
 
   /**
    * 报告的阶段顺序完全由服务端状态决定，不再让模型重复选择下一项调度工具。
-   * 12 步上限用于防止未来修改阶段转换时意外形成死循环。
+   * 13 步上限用于防止未来修改阶段转换时意外形成死循环。
    */
   while (
     state.phase !== "done" &&
@@ -339,6 +351,180 @@ export async function runReportWorkflow(
         state.templateArtifactId = store.put("template", {
           template,
           variableValues: {},
+        });
+        state.phase = getNextReportPhase(currentPhase, "success");
+        break;
+      }
+
+      case "match-style": {
+        input.onStage?.(
+          "matching-style",
+          input.styleId ? "正在应用指定设计风格…" : "正在匹配设计风格…",
+        );
+        const requestedStyle = input.styleId
+          ? findDesignStyleById(designStyles, input.styleId)
+          : undefined;
+
+        // 指定风格可能在卡片加载后被停用或删除，此时必须明确失败，不能悄悄换风格。
+        if (input.styleId && !requestedStyle) {
+          state.technicalError = "所选设计风格已停用或不存在，请重新选择。";
+          state.phase = getNextReportPhase(currentPhase, "error");
+          logReportEvent("warn", "design_style.requested_unavailable", {
+            workflowId,
+            styleId: input.styleId,
+          });
+          break;
+        }
+
+        // 已携带 ID 时不再执行任何其他风格推断，确保用户选择拥有最高优先级。
+        const explicitStyle = input.styleId
+          ? undefined
+          : findExplicitDesignStyle(input.userMessage, designStyles);
+        let selectedStyle = requestedStyle ?? explicitStyle;
+        let selectionSource:
+          | "user-specified-id"
+          | "explicit-name"
+          | "single-candidate"
+          | "model"
+          | "default-no-match"
+          | "default-invalid-id"
+          | "default-error" = requestedStyle
+            ? "user-specified-id"
+            : explicitStyle
+              ? "explicit-name"
+              : "single-candidate";
+
+        if (!selectedStyle && designStyles.length === 1) {
+          selectedStyle = designStyles[0];
+        } else if (!selectedStyle) {
+          const capability = "report-design-style-matcher";
+          const startedAt = Date.now();
+          logReportEvent("info", "capability.started", {
+            workflowId,
+            capability,
+            phase: currentPhase,
+          });
+          try {
+            const prompt = JSON.stringify({
+              request: input.userMessage,
+              history: input.history ?? [],
+              runtimeContext,
+              styles: createDesignStyleMatchCandidates(designStyles),
+            });
+            const generated = await generateTextProtocolWithRetry(
+              async (formatRetry) => {
+                const attemptStartedAt = Date.now();
+                logReportEvent("info", "protocol.generation_started", {
+                  workflowId,
+                  phase: currentPhase,
+                  capability,
+                  protocol: "style-match",
+                  attemptNumber: formatRetry ? 2 : 1,
+                  formatRetry,
+                });
+                try {
+                  const result = await generateDesignStyleMatch({
+                    abortSignal: input.abortSignal,
+                    formatRetry,
+                    prompt,
+                  });
+                  logReportEvent("info", "protocol.generation_completed", {
+                    workflowId,
+                    phase: currentPhase,
+                    capability,
+                    protocol: "style-match",
+                    attemptNumber: formatRetry ? 2 : 1,
+                    formatRetry,
+                    durationMs: Date.now() - attemptStartedAt,
+                    ...describeGeneration(result),
+                  });
+                  return result;
+                } catch (error) {
+                  logReportEvent("error", "protocol.generation_failed", {
+                    workflowId,
+                    phase: currentPhase,
+                    capability,
+                    protocol: "style-match",
+                    attemptNumber: formatRetry ? 2 : 1,
+                    formatRetry,
+                    durationMs: Date.now() - attemptStartedAt,
+                    ...describeReportError(error),
+                  });
+                  throw error;
+                }
+              },
+              parseStyleMatchDecision,
+              {
+                protocol: "style-match",
+                onValidationSucceeded: (event) => logProtocolValidation(
+                  "info",
+                  "protocol.validation_succeeded",
+                  {
+                    workflowId,
+                    phase: currentPhase,
+                    capability,
+                    protocol: "style-match",
+                    ...event,
+                  },
+                ),
+                onValidationFailed: (event) => logProtocolValidation(
+                  "warn",
+                  "protocol.validation_failed",
+                  {
+                    workflowId,
+                    phase: currentPhase,
+                    capability,
+                    protocol: "style-match",
+                    ...event,
+                  },
+                ),
+              },
+            );
+            const requestedStyleId = generated.parsed.outcome === "matched"
+              ? generated.parsed.styleId
+              : null;
+            selectedStyle = resolveDesignStyle(designStyles, requestedStyleId);
+            selectionSource = generated.parsed.outcome === "no_match"
+              ? "default-no-match"
+              : selectedStyle?.id === requestedStyleId
+                ? "model"
+                : "default-invalid-id";
+            logReportEvent("info", "capability.completed", {
+              workflowId,
+              capability,
+              phase: currentPhase,
+              durationMs: Date.now() - startedAt,
+              selectionSource,
+              formatAttemptCount: generated.attemptCount,
+              ...describeGeneration(generated.generation),
+            });
+          } catch (error) {
+            if (isAbortError(error)) throw error;
+            selectedStyle = resolveDesignStyle(designStyles, null);
+            selectionSource = "default-error";
+            logReportEvent("warn", "capability.failed_with_fallback", {
+              workflowId,
+              capability,
+              phase: currentPhase,
+              durationMs: Date.now() - startedAt,
+              selectionSource,
+              ...describeReportError(error),
+            });
+          }
+        }
+
+        if (!selectedStyle) {
+          state.technicalError = "设计风格配置无效，请联系管理员检查默认风格。";
+          state.phase = getNextReportPhase(currentPhase, "error");
+          break;
+        }
+        state.styleArtifactId = store.put("style", selectedStyle);
+        logReportEvent("info", "design_style.selected", {
+          workflowId,
+          styleId: selectedStyle.id,
+          styleName: selectedStyle.name,
+          selectionSource,
+          isDefault: selectedStyle.isDefault,
         });
         state.phase = getNextReportPhase(currentPhase, "success");
         break;
@@ -606,6 +792,7 @@ export async function runReportWorkflow(
           isRepair ? "正在执行唯一一次报告修复…" : "正在编写 HTML 报告…",
         );
         const template = store.get(state.templateArtifactId!, "template");
+        const designStyle = store.get(state.styleArtifactId!, "style");
         const research = store.get(state.researchArtifactId!, "research");
         const previous = isRepair
           ? store.get(state.reportArtifactId!, "html")
@@ -629,7 +816,7 @@ export async function runReportWorkflow(
                   phase: currentPhase,
                 });
               }
-              return generateHtmlReport(designGuide, {
+              return generateHtmlReport(designStyle.promptRules, {
                 abortSignal: input.abortSignal,
                 formatRetry,
                 prompt: createReportWriterPrompt({
@@ -667,6 +854,7 @@ export async function runReportWorkflow(
         const isSecondReview = currentPhase === "review-repair";
         input.onStage?.("reviewing", isSecondReview ? "正在复审修复稿…" : "正在审查报告质量…");
         const template = store.get(state.templateArtifactId!, "template");
+        const designStyle = store.get(state.styleArtifactId!, "style");
         const research = store.get(state.researchArtifactId!, "research");
         const report = store.get(state.reportArtifactId!, "html");
         // Reviewer 只检查提取后的 HTML，避免 Markdown 围栏或块外说明干扰内容质量判断。
@@ -701,11 +889,14 @@ export async function runReportWorkflow(
                   formatRetry,
                 });
                 try {
-                  const result = await generateQualityReview({
-                    abortSignal: input.abortSignal,
-                    formatRetry,
-                    prompt,
-                  });
+                  const result = await generateQualityReview(
+                    designStyle.promptRules,
+                    {
+                      abortSignal: input.abortSignal,
+                      formatRetry,
+                      prompt,
+                    },
+                  );
                   logReportEvent("info", "protocol.generation_completed", {
                     workflowId,
                     phase: currentPhase,
@@ -802,15 +993,13 @@ export async function runReportWorkflow(
       }
 
       case "deliver": {
-        if (REPORT_REVIEW_AND_REPAIR_ENABLED) {
-          input.onStage?.("sanitizing", "正在执行最终安全处理…");
-        }
+        // 安全处理与可选的 LLM 审查解耦，任何报告在进入浏览器前都必须经过清洗。
+        input.onStage?.("sanitizing", "正在执行最终安全处理…");
         try {
           const report = store.get(state.reportArtifactId!, "html");
           const deliveryMarkdown = prepareReportMarkdownForDelivery(
             report.markdown,
             report.html,
-            REPORT_REVIEW_AND_REPAIR_ENABLED,
           );
           state.result = {
             outcome: "report",
@@ -855,7 +1044,7 @@ export async function runReportWorkflow(
     });
   }
 
-  // 状态机理论上最多执行七步；触及上限说明阶段转换出现了实现缺陷。
+  // 状态机理论上最多执行八步；触及上限说明阶段转换出现了实现缺陷。
   if (!state.result) {
     logReportEvent("error", "workflow.non_terminal_stop", {
       workflowId,

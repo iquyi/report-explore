@@ -286,6 +286,59 @@
   }
 }
 
+// TAG 与文本域同处输入容器；选中风格时增加顶部留白，确保正文始终排在 TAG 后面。
+.promptAreaWithTag textarea {
+  padding-top: 48px;
+}
+
+.styleTag {
+  position: absolute;
+  top: 13px;
+  left: 16px;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  max-width: calc(100% - 84px);
+  height: 26px;
+  padding-left: 10px;
+  overflow: hidden;
+  font-size: 12px;
+  line-height: 26px;
+  color: #343434;
+  background: #f0f0ee;
+  border: 1px solid #dededb;
+  border-radius: 7px;
+
+  > span {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  button {
+    display: grid;
+    flex: 0 0 auto;
+    width: 26px;
+    height: 24px;
+    padding: 0;
+    color: #777;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    place-items: center;
+
+    &:hover {
+      color: #222;
+    }
+
+    &:focus-visible {
+      outline: 2px solid #777;
+      outline-offset: -3px;
+      border-radius: 5px;
+    }
+  }
+}
+
 .sendButton {
   position: absolute;
   right: 9px;

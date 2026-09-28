@@ -1,7 +1,7 @@
 import "server-only";
 
 import { getDatabase } from "@/lib/database";
-import type { ReportTemplate } from "./types";
+import type { DesignStyle, ReportTemplate } from "./types";
 
 type TemplateRow = {
   id: string;
@@ -13,6 +13,14 @@ type TemplateRow = {
   constraint_rules: string | null;
   exception_boundary_rules: string | null;
   verification_rules: string | null;
+};
+
+type StyleRow = {
+  id: string;
+  name: string;
+  description: string;
+  prompt_rules: string;
+  is_default: boolean;
 };
 
 const normalizeVariables = (value: unknown) =>
@@ -52,3 +60,29 @@ export async function queryPublishedReportTemplates(): Promise<ReportTemplate[]>
   }));
 }
 
+/**
+ * 只加载启用风格并验证唯一默认项。管理页虽然保护默认记录，运行时仍独立校验，
+ * 防止人工 SQL 修改造成无兜底风格的隐式降级。
+ */
+export async function queryPublishedDesignStyles(): Promise<DesignStyle[]> {
+  const sql = getDatabase();
+  const rows = (await sql`
+    SELECT id, name, description, prompt_rules, is_default
+    FROM styles
+    WHERE status = 1
+    ORDER BY is_default DESC, updated_at DESC, id DESC
+  `) as StyleRow[];
+
+  const defaultCount = rows.filter((row) => row.is_default).length;
+  if (rows.length === 0 || defaultCount !== 1) {
+    throw new Error("设计风格配置无效：必须存在且只能存在一个已启用的默认风格。");
+  }
+
+  return rows.map((row) => ({
+    id: row.id,
+    name: row.name,
+    description: row.description,
+    promptRules: row.prompt_rules,
+    isDefault: row.is_default,
+  }));
+}

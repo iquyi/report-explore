@@ -1,11 +1,27 @@
 import sanitizeHtml from "sanitize-html";
 
+/** 报告唯一允许加载的外部脚本，固定版本避免 CDN 内容随最新版漂移。 */
+export const ECHARTS_CDN_URL =
+  "https://cdn.jsdelivr.net/npm/echarts@6.1.0/dist/echarts.min.js";
+
+/** 报告设计规范唯一允许加载的远程背景图，使用完整 URL 精确限制资源范围。 */
+export const REPORT_BACKGROUND_IMAGE_URLS = [
+  "https://pic.s3.link-x.cn/2026/661b32cbe90ccec4.png",
+  "https://pic.s3.link-x.cn/2026/72b3493d669c526c.png",
+  "https://pic.s3.link-x.cn/2026/8c8239457020ad20.png",
+  "https://pic.s3.link-x.cn/2026/ab70cd83e8da47d9.png",
+  "https://pic.s3.link-x.cn/2026/1b1304e8c16c5df5.png",
+] as const;
+
+const REPORT_BACKGROUND_IMAGE_ORIGIN = "https://pic.s3.link-x.cn";
+const REPORT_BACKGROUND_IMAGE_URL_SET = new Set<string>(REPORT_BACKGROUND_IMAGE_URLS);
+
 const CSP = [
   "default-src 'none'",
-  "script-src 'none'",
+  `script-src 'unsafe-inline' ${ECHARTS_CDN_URL}`,
   "worker-src 'none'",
   "style-src 'unsafe-inline'",
-  "img-src 'none'",
+  `img-src ${REPORT_BACKGROUND_IMAGE_ORIGIN}`,
   "font-src 'none'",
   "media-src 'none'",
   "object-src 'none'",
@@ -27,12 +43,12 @@ export function assertNoSourceDisclosure(input: string) {
 }
 
 /**
- * 在 sanitize-html 的通用语义标签上补充完整文档、内嵌样式、Canvas 和
- * ECharts 服务端渲染常见的 SVG 标签。危险或会加载外部资源的标签不在白名单中。
+ * 在 sanitize-html 的通用语义标签上补充完整文档、内嵌样式、ECharts
+ * 初始化脚本、Canvas 和 SVG。外部脚本仍由固定 CDN 白名单单独约束。
  */
 const ALLOWED_TAGS = [
   ...sanitizeHtml.defaults.allowedTags,
-  "html", "head", "meta", "title", "style", "body", "canvas", "details",
+  "html", "head", "meta", "title", "style", "script", "body", "canvas", "details",
   "summary", "svg", "g", "defs", "symbol", "use", "path", "rect", "circle",
   "ellipse", "line", "polyline", "polygon", "text", "tspan", "textPath",
   "clipPath", "mask", "linearGradient", "radialGradient", "stop", "pattern",
@@ -41,16 +57,21 @@ const ALLOWED_TAGS = [
   "feMerge", "feMergeNode", "marker", "desc",
 ];
 
+/** 非白名单外链脚本会先带上内部标记，再由 exclusiveFilter 连同正文整体删除。 */
+const REJECTED_SCRIPT_ATTRIBUTE = "data-report-rejected-script";
+
 /**
- * 保留 SVG 渐变、裁剪和滤镜所需的本地片段引用，删除其他 CSS 资源加载与
- * 旧式可执行表达式。CSP 仍会作为浏览器侧的第二道外部访问防线。
+ * 保留 SVG 渐变、裁剪和滤镜所需的本地片段引用，以及设计规范固定背景图；
+ * 删除其他 CSS 资源加载与旧式可执行表达式。CSP 仍作为浏览器侧第二道防线。
  */
 const sanitizeCss = (css: string) =>
   css
     .replace(/@import[\s\S]*?;/gi, "")
     .replace(/url\s*\(([^)]*)\)/gi, (_match, rawValue: string) => {
       const value = rawValue.trim().replace(/^(['"])(.*)\1$/, "$2").trim();
-      return /^#[\w:.-]+$/.test(value) ? `url(${value})` : "none";
+      if (/^#[\w:.-]+$/.test(value)) return `url(${value})`;
+      if (REPORT_BACKGROUND_IMAGE_URL_SET.has(value)) return `url("${value}")`;
+      return "none";
     })
     .replace(/expression\s*\([^)]*\)/gi, "")
     .replace(/-moz-binding\s*:[^;}]+[;}]/gi, "");
@@ -167,6 +188,7 @@ export function sanitizeReportHtml(input: string) {
       li: ["value"],
       details: ["open"],
       canvas: ["width", "height"],
+      script: ["src"],
       th: ["scope", "colspan", "rowspan", "headers", "abbr"],
       td: ["colspan", "rowspan", "headers"],
       col: ["span"],
@@ -183,6 +205,16 @@ export function sanitizeReportHtml(input: string) {
         tagName,
         attribs: sanitizeAttributes(attributes),
       }),
+      // 仅允许固定 ECharts 文件；无 src 的脚本作为报告内图表初始化代码保留。
+      script: (tagName, attributes) => {
+        const attribs: Record<string, string> = {};
+        if (attributes.src === ECHARTS_CDN_URL) {
+          attribs.src = ECHARTS_CDN_URL;
+        } else if (attributes.src) {
+          attribs[REJECTED_SCRIPT_ATTRIBUTE] = "true";
+        }
+        return { tagName, attribs };
+      },
       a: (tagName, attributes) => {
         const safe = sanitizeAttributes(attributes);
         return {
@@ -191,11 +223,16 @@ export function sanitizeReportHtml(input: string) {
         };
       },
     },
+    // 返回 true 会删除整个 script 节点及其内容，防止非法 src 被移除后退化成内联脚本。
+    exclusiveFilter: (frame) =>
+      frame.tag === "script" &&
+      frame.attribs[REJECTED_SCRIPT_ATTRIBUTE] === "true",
   });
 
   const complete = ensureDocument(cleaned);
   const visibleText = complete
     .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, "")
+    .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, "")
     .replace(/<[^>]+>/g, "")
     .replace(/&nbsp;|\s/gi, "");
   if (!visibleText || !/<body\b/i.test(complete)) {

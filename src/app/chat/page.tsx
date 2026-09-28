@@ -10,11 +10,13 @@ import remarkGfm from "remark-gfm";
 import { DEMO_REPORT_PROMPTS } from "@/lib/report-demo";
 import { tryParseReportMarkdown } from "@/lib/report-agent/report-markdown";
 import type { ReportAgentUIMessage } from "@/lib/report-agent/types";
+import type { ChatStyleOption } from "../styles/types";
 import List from "./List";
 import styles from "./page.module.scss";
 
 const navigationItems = [
   { label: "模板管理", path: "/templates/manage" },
+  { label: "设计风格管理", path: "/styles/manage" },
   { label: "数据维度管理", path: "" },
   { label: "更多", path: "" },
 ];
@@ -106,7 +108,8 @@ function ReportFrame({ html, title }: { html: string; title: string }) {
           </a>
         </div>
       </div>
-      <iframe className={styles.reportFrame} title={title} sandbox="" referrerPolicy="no-referrer" srcDoc={deferredHtml} />
+      {/* 仅开放脚本以运行 ECharts；不开放同源、表单、弹窗和顶层导航能力。 */}
+      <iframe className={styles.reportFrame} title={title} sandbox="allow-scripts" referrerPolicy="no-referrer" srcDoc={deferredHtml} />
     </article>
   );
 }
@@ -134,6 +137,7 @@ function ReportMessage({ markdown, title, pending }: { markdown: string; title: 
 export default function Chat() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [prompt, setPrompt] = useState("");
+  const [selectedStyle, setSelectedStyle] = useState<ChatStyleOption | null>(null);
   const [stage, setStage] = useState("");
   const [awaitingClarification, setAwaitingClarification] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -142,9 +146,12 @@ export default function Chat() {
   const transport = useMemo(
     () => new DefaultChatTransport({
       api: "/api/chat",
-      prepareSendMessagesRequest: ({ messages }) => ({
+      prepareSendMessagesRequest: ({ messages, body }) => ({
         // 普通新需求只发送最后一条用户消息；只有生成前澄清才带最近三条上下文。
-        body: { messages: awaitingClarification ? messages.slice(-3) : messages.slice(-1) },
+        body: {
+          ...(body ?? {}),
+          messages: awaitingClarification ? messages.slice(-3) : messages.slice(-1),
+        },
       }),
     }),
     [awaitingClarification],
@@ -181,10 +188,16 @@ export default function Chat() {
   const sendPrompt = async (value: string) => {
     const text = value.trim();
     if (!text || running || submittingRef.current) return;
+    // 先捕获本次请求的风格，再按交互约定立即清空输入框和 TAG。
+    const submittedStyleId = selectedStyle?.id;
     submittingRef.current = true;
     setPrompt("");
+    setSelectedStyle(null);
     try {
-      await sendMessage({ text });
+      await sendMessage(
+        { text },
+        submittedStyleId ? { body: { styleId: submittedStyleId } } : undefined,
+      );
     } finally {
       // status 更新前的同步双击也会被 ref 拦截，请求结束后再允许下一次发送。
       submittingRef.current = false;
@@ -198,6 +211,7 @@ export default function Chat() {
     setAwaitingClarification(false);
     setStage("");
     setPrompt("");
+    setSelectedStyle(null);
     submittingRef.current = false;
     setMessages([]);
   };
@@ -260,7 +274,19 @@ export default function Chat() {
               </div>
             )}
             <form className={styles.composerCard} onSubmit={(event) => { event.preventDefault(); void submit(); }}>
-              <div className={styles.promptArea}>
+              <div className={`${styles.promptArea} ${selectedStyle ? styles.promptAreaWithTag : ""}`}>
+                {selectedStyle && (
+                  <span className={styles.styleTag}>
+                    <span>{selectedStyle.name}</span>
+                    <button
+                      type="button"
+                      aria-label={`移除设计风格：${selectedStyle.name}`}
+                      onClick={() => setSelectedStyle(null)}
+                    >
+                      <Icon icon="tabler:x" width={14} aria-hidden="true" />
+                    </button>
+                  </span>
+                )}
                 <textarea
                   value={prompt}
                   aria-label="报告需求"
@@ -289,7 +315,8 @@ export default function Chat() {
                       type="button"
                       disabled={running}
                       key={item}
-                      onClick={() => void sendPrompt(item)}
+                      // 演示卡片只负责填充需求，交由用户检查并手动发送。
+                      onClick={() => setPrompt(item)}
                     >
                       <Icon icon="tabler:sparkles" width={17} aria-hidden="true" />
                       <span>{item}</span>
@@ -299,7 +326,13 @@ export default function Chat() {
               </section>
             )}
           </section>
-          {messages.length === 0 && <List />}
+          {messages.length === 0 && (
+            <List
+              selectedStyle={selectedStyle}
+              disabled={running}
+              onSelectStyle={setSelectedStyle}
+            />
+          )}
         </div>
       </section>
     </main>

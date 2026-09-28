@@ -1,13 +1,9 @@
 import type { Tool } from "ai";
 
-export const MAX_REPORT_WEB_SEARCHES = 8;
-
 export type ResearchToolStats = {
   cacheHitCount: number;
   webSearchExecutionCount: number;
-  webSearchLimitHitCount: number;
   advancedCompanySearchExecutionCount: number;
-  advancedCompanySearchLimitHitCount: number;
 };
 
 export type ResearchToolController = {
@@ -48,35 +44,16 @@ const stableWebSearchKey = (input: unknown) => {
   return `tavilySearch:${normalizedQuery}`;
 };
 
-const createWebSearchLimitResult = (input: unknown) => ({
-  limitReached: true,
-  query: typeof input === "object" && input !== null && typeof (input as { query?: unknown }).query === "string"
-    ? (input as { query: string }).query
-    : "",
-  results: [],
-  images: [],
-  responseTime: 0,
-  requestId: "report-agent-web-search-limit",
-  message: "已达到本次报告的联网搜索上限，请停止搜索并基于已有资料整理事实账本。",
-});
-
-const createAdvancedSearchLimitResult = () => ({
-  limitReached: true,
-  message: "本次报告已执行过企业精准搜索，请复用已有结果并继续研究。",
-});
-
 /**
  * 为一次报告工作流创建独立的工具控制器：并发重复调用共享 Promise，失败后允许重试。
- * Tavily 最多执行八个不同查询，企业精准搜索最多执行一次，其他工具只做精确参数缓存。
+ * 所有工具均不限制调用次数；Tavily 按查询文本缓存，其他工具按完整参数缓存。
  */
 export function createResearchToolController(): ResearchToolController {
   const cache = new Map<string, Promise<unknown>>();
   const stats: ResearchToolStats = {
     cacheHitCount: 0,
     webSearchExecutionCount: 0,
-    webSearchLimitHitCount: 0,
     advancedCompanySearchExecutionCount: 0,
-    advancedCompanySearchLimitHitCount: 0,
   };
 
   const wrapTools = <TTools extends Record<string, Tool>>(tools: TTools): TTools =>
@@ -98,23 +75,7 @@ export function createResearchToolController(): ResearchToolController {
             return cached;
           }
 
-          // 上限判断必须发生在真实调用 Promise 创建前，才能约束同一步并发工具调用。
-          if (toolName === "tavilySearch" && stats.webSearchExecutionCount >= MAX_REPORT_WEB_SEARCHES) {
-            stats.webSearchLimitHitCount += 1;
-            const limited = Promise.resolve(createWebSearchLimitResult(input));
-            cache.set(key, limited);
-            return limited;
-          }
-          if (
-            toolName === "advancedCompanySearch" &&
-            stats.advancedCompanySearchExecutionCount >= 1
-          ) {
-            stats.advancedCompanySearchLimitHitCount += 1;
-            const limited = Promise.resolve(createAdvancedSearchLimitResult());
-            cache.set(key, limited);
-            return limited;
-          }
-
+          // 统计真实后端执行次数；缓存命中的等价调用不会重复计数。
           if (toolName === "tavilySearch") stats.webSearchExecutionCount += 1;
           if (toolName === "advancedCompanySearch") {
             stats.advancedCompanySearchExecutionCount += 1;
@@ -122,7 +83,7 @@ export function createResearchToolController(): ResearchToolController {
 
           const execution = Promise.resolve(execute(input, options));
           cache.set(key, execution);
-          // 失败结果不永久缓存，让模型在剩余预算内重试同一请求。
+          // 失败结果不永久缓存，让模型后续可以重试同一请求。
           void execution.catch(() => cache.delete(key));
           return execution;
         },

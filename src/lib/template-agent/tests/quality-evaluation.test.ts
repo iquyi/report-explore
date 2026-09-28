@@ -21,8 +21,9 @@ const createNoObjectGeneratedError = () => new NoObjectGeneratedError({
   finishReason: "stop",
 });
 
-test("模板生成与调整默认最多执行两轮评价与优化", () => {
-  assert.equal(MAX_OPTIMIZATION_ROUNDS, 2);
+test("模板生成与调整默认跳过模型评价与优化", () => {
+  assert.equal(MAX_OPTIMIZATION_ROUNDS, 0);
+  assert.deepEqual(getTemplateEvaluationAttempts(MAX_OPTIMIZATION_ROUNDS), []);
   assert.equal(MAX_EVALUATION_OUTPUT_RETRIES, 1);
 });
 
@@ -42,7 +43,8 @@ test("评价通过时立即交付当前候选", () => {
       fixInstructions: [],
     },
     evaluationAttempt: 1,
-    maxRounds: MAX_OPTIMIZATION_ROUNDS,
+    // 默认轮数为 0；这里使用显式正数单独验证未来恢复评价后的决策逻辑。
+    maxRounds: 2,
   });
 
   assert.equal(decision.action, "accept");

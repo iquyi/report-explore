@@ -14,6 +14,7 @@ export const runtime = "nodejs";
 export const maxDuration = 300;
 
 const requestSchema = z.object({
+  styleId: z.string().uuid().optional(),
   messages: z
     .array(
       z.looseObject({
@@ -93,6 +94,7 @@ export async function POST(request: Request) {
         const result = await runReportWorkflow({
           userMessage: conversation[currentUserIndex].content,
           history: conversation.slice(0, currentUserIndex),
+          styleId: parsed.data.styleId,
           abortSignal: request.signal,
           onStage(stage, label) {
             writer.write({ type: "data-status", data: { stage, label }, transient: true });

@@ -41,8 +41,32 @@ export default function MarkdownEditor({
     if (!autoResize || mode !== "edit" || !textarea) return;
 
     const resize = () => {
+      // 高度测量会让 textarea 短暂回缩；先保存独立编辑区的位置，避免浏览器滚动锚定移动视口。
+      const scrollContainer = textarea.closest<HTMLElement>(
+        `.${styles.editorBody}`,
+      );
+      const previousScrollTop = scrollContainer?.scrollTop;
+      const previousHeight = textarea.getBoundingClientRect().height;
+
+      // 重置后读取完整内容高度，同时保留边框占用的两个像素。
       textarea.style.height = "auto";
-      textarea.style.height = `${textarea.scrollHeight + 2}px`;
+      const nextHeight = textarea.scrollHeight + 2;
+
+      // 内容高度未变化时恢复原高度，避免向布局提交无意义的尺寸变化。
+      textarea.style.height = `${
+        Math.abs(nextHeight - previousHeight) > 0.5
+          ? nextHeight
+          : previousHeight
+      }px`;
+
+      // scrollHeight 读取已经同步完成布局，此时恢复即可抵消测量和最终尺寸变化产生的锚定偏移。
+      if (
+        scrollContainer &&
+        previousScrollTop !== undefined &&
+        scrollContainer.scrollTop !== previousScrollTop
+      ) {
+        scrollContainer.scrollTop = previousScrollTop;
+      }
     };
     resize();
 

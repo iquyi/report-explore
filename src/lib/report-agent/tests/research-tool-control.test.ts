@@ -2,10 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { tool } from "ai";
 import { z } from "zod";
-import {
-  createResearchToolController,
-  MAX_REPORT_WEB_SEARCHES,
-} from "../research-tool-control";
+import { createResearchToolController } from "../research-tool-control";
 
 const executionOptions = {
   toolCallId: "test-call",
@@ -13,7 +10,7 @@ const executionOptions = {
   context: undefined,
 };
 
-test("并发等价联网查询共享请求且第九个不同查询不访问后端", async () => {
+test("并发等价联网查询共享请求且不同查询不受次数限制", async () => {
   let executionCount = 0;
   const controller = createResearchToolController();
   const tools = controller.wrapTools({
@@ -33,27 +30,20 @@ test("并发等价联网查询共享请求且第九个不同查询不访问后�
   assert.deepEqual(duplicate, first);
   assert.equal(executionCount, 1);
 
-  for (let index = 1; index < MAX_REPORT_WEB_SEARCHES; index += 1) {
+  // 超过历史八次上限，确认每个不同查询都会继续访问后端。
+  for (let index = 1; index <= 9; index += 1) {
     await tools.tavilySearch.execute({ query: `不同查询 ${index}` }, executionOptions);
   }
-  const limited = await tools.tavilySearch.execute(
-    { query: "超过上限的查询" },
-    executionOptions,
-  ) as unknown as { limitReached: boolean; results: unknown[] };
 
-  assert.equal(executionCount, MAX_REPORT_WEB_SEARCHES);
-  assert.equal(limited.limitReached, true);
-  assert.deepEqual(limited.results, []);
+  assert.equal(executionCount, 10);
   assert.deepEqual(controller.getStats(), {
     cacheHitCount: 1,
-    webSearchExecutionCount: MAX_REPORT_WEB_SEARCHES,
-    webSearchLimitHitCount: 1,
+    webSearchExecutionCount: 10,
     advancedCompanySearchExecutionCount: 0,
-    advancedCompanySearchLimitHitCount: 0,
   });
 });
 
-test("企业精准搜索最多执行一次且其他工具按规范化参数缓存", async () => {
+test("企业精准搜索不受次数限制且所有工具按规范化参数缓存", async () => {
   let advancedExecutionCount = 0;
   let detailExecutionCount = 0;
   const controller = createResearchToolController();
@@ -76,10 +66,10 @@ test("企业精准搜索最多执行一次且其他工具按规范化参数缓�
 
   await tools.advancedCompanySearch.execute({ keyWord: "  测试企业 " }, executionOptions);
   await tools.advancedCompanySearch.execute({ keyWord: "测试企业" }, executionOptions);
-  const limited = await tools.advancedCompanySearch.execute(
+  const secondCompany = await tools.advancedCompanySearch.execute(
     { keyWord: "另一企业" },
     executionOptions,
-  ) as unknown as { limitReached: boolean };
+  );
   await tools.getCompanyRegistrationInformation.execute(
     { companyId: " company-1 " },
     executionOptions,
@@ -89,14 +79,12 @@ test("企业精准搜索最多执行一次且其他工具按规范化参数缓�
     executionOptions,
   );
 
-  assert.equal(advancedExecutionCount, 1);
+  assert.equal(advancedExecutionCount, 2);
   assert.equal(detailExecutionCount, 1);
-  assert.equal(limited.limitReached, true);
+  assert.deepEqual(secondCompany, { keyWord: "另一企业" });
   assert.deepEqual(controller.getStats(), {
     cacheHitCount: 2,
     webSearchExecutionCount: 0,
-    webSearchLimitHitCount: 0,
-    advancedCompanySearchExecutionCount: 1,
-    advancedCompanySearchLimitHitCount: 1,
+    advancedCompanySearchExecutionCount: 2,
   });
 });

@@ -3,10 +3,6 @@
   margin: 108px auto 0;
 }
 
-.group+.group {
-  margin-top: 24px;
-}
-
 .groupTitle {
   margin: 0 0 16px;
   font-size: 14px;
@@ -21,223 +17,142 @@
   gap: 16px;
 }
 
-.template {
+.styleCard {
   width: 233px;
+  padding: 0;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+
+  &:hover .cover {
+    border-color: #bcbcbc;
+    box-shadow: 0 6px 16px rgb(0 0 0 / 6%);
+  }
 
   &:hover .templateName {
     color: #303030;
   }
+
+  &:focus-visible {
+    outline: 2px solid #555;
+    outline-offset: 4px;
+    border-radius: 10px;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: .6;
+  }
+}
+
+.styleCardSelected .cover {
+  color: #fff;
+  background: #303030;
+  border-color: #303030;
+  box-shadow: 0 6px 16px rgb(0 0 0 / 12%);
 }
 
 .cover {
-  position: relative;
+  display: flex;
   width: 233px;
   height: 136px;
+  padding: 20px;
   overflow: hidden;
+  color: #606060;
   background: #f3f3f2;
   border: 1px solid #e4e4e2;
   border-radius: 10px;
+  gap: 12px;
+  transition: border-color 160ms ease, box-shadow 160ms ease, background 160ms ease;
 
-  &::after {
-    position: absolute;
-    inset: 0;
-    content: "";
-    pointer-events: none;
-    background: linear-gradient(180deg, rgb(26 26 26 / 10%), rgb(26 26 26 / 54%));
-    opacity: 0;
-    transition: opacity 160ms ease;
+  svg {
+    flex: 0 0 auto;
+    margin-top: 1px;
   }
 
-  &:hover,
-  &:focus-within {
-
-    &::after,
-    .deleteButton,
-    .cardActions {
-      opacity: 1;
-    }
-
-    .deleteButton,
-    .cardActions {
-      pointer-events: auto;
-    }
-  }
-}
-
-.deleteButton,
-.cardActions {
-  position: absolute;
-  z-index: 1;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 160ms ease;
-}
-
-.deleteButton {
-  top: 8px;
-  right: 8px;
-  display: grid;
-  width: 28px;
-  height: 28px;
-  padding: 0;
-  color: #fff;
-  cursor: pointer;
-  background: rgb(30 30 30 / 68%);
-  border: 0;
-  border-radius: 7px;
-  place-items: center;
-
-  &:hover {
-    background: #d7473f;
-  }
-}
-
-.cardActions {
-  right: 10px;
-  bottom: 10px;
-  left: 10px;
-  display: flex;
-  justify-content: space-between;
-  gap: 6px;
-
-  button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 0;
-    height: 28px;
-    padding: 0 8px;
-    font: inherit;
-    font-size: 12px;
-    line-height: 16px;
-    color: #fff;
-    white-space: nowrap;
-    cursor: pointer;
-    background: rgb(30 30 30 / 68%);
-    border: 0;
-    border-radius: 7px;
-    gap: 4px;
-
-    &:hover {
-      background: rgb(30 30 30 / 88%);
-    }
-  }
-}
-
-.deleteButton,
-.cardActions button {
-  &:focus-visible {
-    outline: 2px solid #fff;
-    outline-offset: 2px;
+  span {
+    display: -webkit-box;
+    overflow: hidden;
+    font-size: 13px;
+    line-height: 20px;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
   }
 }
 
 .templateName {
-  margin: 8px 0 0;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  margin-top: 8px;
   overflow: hidden;
   font-size: 14px;
   font-weight: 400;
   line-height: 20px;
   color: #0009;
-  text-align: left;
   white-space: nowrap;
   text-overflow: ellipsis;
+  gap: 6px;
 }
 
-.dialogBackdrop {
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  display: grid;
-  padding: 24px;
-  background: rgb(0 0 0 / 38%);
-  place-items: center;
+.defaultBadge {
+  flex: 0 0 auto;
+  padding: 0 6px;
+  font-size: 11px;
+  line-height: 18px;
+  color: #555;
+  background: #ededeb;
+  border-radius: 5px;
 }
 
-.dialog {
-  position: relative;
-  width: min(360px, 100%);
-  padding: 24px;
-  background: #fff;
-  border: 1px solid #e8e8e8;
-  border-radius: 14px;
-  box-shadow: 0 18px 48px rgb(0 0 0 / 18%);
-
-  h2 {
-    margin: 0;
-    padding-right: 28px;
-    font-size: 18px;
-    font-weight: 600;
-    line-height: 26px;
-    color: #222;
-  }
-
-  p {
-    margin: 10px 0 0;
-    font-size: 14px;
-    line-height: 22px;
-    color: #686868;
-  }
-}
-
-.dialogClose {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  display: grid;
-  width: 28px;
-  height: 28px;
-  padding: 0;
-  color: #666;
-  cursor: pointer;
-  background: transparent;
-  border: 0;
-  border-radius: 7px;
-  place-items: center;
-
-  &:hover {
-    color: #222;
-    background: #f1f1f1;
-  }
-}
-
-.dialogActions {
+.feedback {
   display: flex;
-  justify-content: flex-end;
-  margin-top: 24px;
-  gap: 10px;
+  align-items: center;
+  min-height: 52px;
+  margin: 0;
+  padding: 12px 14px;
+  font-size: 13px;
+  color: #666;
+  background: #f3f3f2;
+  border: 1px solid #e4e4e2;
+  border-radius: 10px;
+  gap: 8px;
+
+  svg {
+    animation: spin 1s linear infinite;
+  }
 
   button {
-    height: 34px;
-    padding: 0 14px;
+    margin-left: auto;
+    padding: 5px 10px;
     font: inherit;
-    font-size: 14px;
     color: #333;
     cursor: pointer;
     background: #fff;
-    border: 1px solid #dcdcdc;
-    border-radius: 8px;
-
-    &:hover {
-      background: #f5f5f5;
-    }
-  }
-
-  .confirmButton {
-    color: #fff;
-    background: #d7473f;
-    border-color: #d7473f;
-
-    &:hover {
-      background: #bd3630;
-    }
+    border: 1px solid #d5d5d5;
+    border-radius: 7px;
   }
 }
 
-.dialogClose,
-.dialogActions button {
-  &:focus-visible {
-    outline: 2px solid #707070;
-    outline-offset: 2px;
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 860px) {
+  .list {
+    width: 100%;
+  }
+
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  }
+
+  .styleCard,
+  .cover {
+    width: 100%;
   }
 }
